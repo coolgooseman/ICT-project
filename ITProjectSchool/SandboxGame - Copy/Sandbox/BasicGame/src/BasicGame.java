@@ -123,17 +123,17 @@ public class BasicGame implements GameLoop {
 
     public void nietGamePagina() {
 
-        SaxionApp.drawImage("bord mens erger je niet.png", 0, 0, 750, 750);
+        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
     }
 
     public void welGamePagina() {
 
-        SaxionApp.drawImage("bord mens erger je niet.png", 0, 0, 750, 750);
+        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
     }
 
     public void drankGamePagina() {
 
-        SaxionApp.drawImage("bord mens erger je wel.png", 0, 0, 750, 750);
+        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
     }
 
     public void regelPagina() {
