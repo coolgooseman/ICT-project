@@ -22,7 +22,7 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void loop() {
-        SaxionApp.clear();
+        //SaxionApp.clear();
         switch (currentScreen) {
             case "gameMenu" -> gameMenu();
             case "startPagina" -> startPagina();
@@ -103,12 +103,12 @@ public class BasicGame implements GameLoop {
     public void dobbelsteen(){
         int randomNummer = SaxionApp.getRandomValueBetween(1,7);
         switch (randomNummer) {
-            case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 345, 60, 60);
-            case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 345, 60, 60);
-            case 3 -> SaxionApp.drawImage("Sandbox/stip3.png", 350, 345, 60, 60);
-            case 4 -> SaxionApp.drawImage("Sandbox/stip4.png", 350, 345, 60, 60);
-            case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 345, 60, 60);
-            case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 345, 60, 60);
+            case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 348, 55, 55);
+            case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 348, 55, 55);
+            case 3 -> SaxionApp.drawImage("Sandbox/stip3.png", 350, 348, 55, 55);
+            case 4 -> SaxionApp.drawImage("Sandbox/stip4.png", 350, 348, 55, 55);
+            case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 348, 55, 55);
+            case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 348, 55, 55);
         }
     }
 
