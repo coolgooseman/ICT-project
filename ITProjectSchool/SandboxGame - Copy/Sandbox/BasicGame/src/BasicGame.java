@@ -26,7 +26,9 @@ public class BasicGame implements GameLoop {
         switch (currentScreen) {
             case "gameMenu" -> gameMenu();
             case "startPagina" -> startPagina();
-            case "gamePagina" -> gamePagina();
+            case "mensNiet" -> nietGamePagina();
+            case "mensWel" -> welGamePagina();
+            case "verzuipNiet" -> drankGamePagina();
             case "regelPagina" -> regelPagina();
         }
         
@@ -38,63 +40,63 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-        if(mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()){
-            if(optie1 || optie2 || optie3)
-            {
-                dobbelsteen();
-            }
+        switch (currentScreen) {
+            case "startPagina":
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    //int x = mouseEvent.getX();
+                    //int y = mouseEvent.getY();
+                    currentScreen = "gameMenu";
+                }
+                break;
+            case "gameMenu":
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    int x = mouseEvent.getX();
+                    int y = mouseEvent.getY();
+                    if (y < 198 && y > 94) {
+                        if (x > 0 && x < 485) {
+                            currentScreen = "mensNiet";
+                            optie1 = true;
+                        }
+                    }
+                }
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    int x = mouseEvent.getX();
+                    int y = mouseEvent.getY();
+                    if (y < 338 && y > 235) {
+                        if (x > 0 && x < 485) {
+                            currentScreen = "mensWel";
+                            optie2 = true;
+                        }
+                    }
+                }
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    int x = mouseEvent.getX();
+                    int y = mouseEvent.getY();
+                    if (y < 480 && y > 375) {
+                        if (x > 0 && x < 485) {
+                            currentScreen = "verzuipNiet";
+                            optie3 = true;
+                        }
+                    }
+                }
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    int x = mouseEvent.getX();
+                    int y = mouseEvent.getY();
+                    if (y < 620 && y > 517) {
+                        if (x > 0 && x < 485) {
+                            currentScreen = "regelPagina";
+                        }
+                    }
+                }
+                break;
+            case "mensNiet":
+            case "mensWel":
+            case "verzuipNiet":
+                if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                }
+                break;
         }
-
-        if (currentScreen.equals("startPagina")) {
-            if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                //int x = mouseEvent.getX();
-                //int y = mouseEvent.getY();
-                currentScreen = "gameMenu";
-            }
-        } else if (currentScreen.equals("gameMenu")) {
-            if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                int x = mouseEvent.getX();
-                int y = mouseEvent.getY();
-                if (y < 198 && y > 94) {
-                    if (x > 0 && x < 485) {
-                        currentScreen = "gamePagina";
-                        optie1 = true;
-                    }
-                }
-            }
-            if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                int x = mouseEvent.getX();
-                int y = mouseEvent.getY();
-                if (y < 338 && y > 235) {
-                    if (x > 0 && x < 485) {
-                        currentScreen = "gamePagina";
-                        optie2 = true;
-                    }
-                }
-            }
-            if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                int x = mouseEvent.getX();
-                int y = mouseEvent.getY();
-                if (y < 480 && y > 375) {
-                    if (x > 0 && x < 485) {
-                        currentScreen = "gamePagina";
-                        optie3 = true;
-                    }
-                }
-            }
-            if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                int x = mouseEvent.getX();
-                int y = mouseEvent.getY();
-                if (y < 620 && y > 517) {
-                    if (x > 0 && x < 485) {
-                        currentScreen = "regelPagina";
-                    }
-                }
-            }
-
-        }
-
-
 
     }
 
@@ -119,9 +121,19 @@ public class BasicGame implements GameLoop {
 
     }
 
-    public void gamePagina() {
+    public void nietGamePagina() {
 
-        SaxionApp.drawImage("Sandbox/bord.png", 0, 0, 750, 750);
+        SaxionApp.drawImage("bord mens erger je niet.png", 0, 0, 750, 750);
+    }
+
+    public void welGamePagina() {
+
+        SaxionApp.drawImage("bord mens erger je niet.png", 0, 0, 750, 750);
+    }
+
+    public void drankGamePagina() {
+
+        SaxionApp.drawImage("bord mens erger je wel.png", 0, 0, 750, 750);
     }
 
     public void regelPagina() {
