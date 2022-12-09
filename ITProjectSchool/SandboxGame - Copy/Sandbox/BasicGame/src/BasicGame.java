@@ -29,7 +29,7 @@ public class BasicGame implements GameLoop {
             case "gamePagina" -> gamePagina();
             case "regelPagina" -> regelPagina();
         }
-        
+
     }
 
     @Override
@@ -38,9 +38,8 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
-        if(mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()){
-            if(optie1 || optie2 || optie3)
-            {
+        if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
+            if (optie1 || optie2 || optie3) {
                 dobbelsteen();
             }
         }
@@ -95,11 +94,10 @@ public class BasicGame implements GameLoop {
         }
 
 
-
     }
 
-    public void dobbelsteen(){
-        int randomNummer = SaxionApp.getRandomValueBetween(1,7);
+    public void dobbelsteen() {
+        int randomNummer = SaxionApp.getRandomValueBetween(1, 7);
         switch (randomNummer) {
             case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 345, 60, 60);
             case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 345, 60, 60);
