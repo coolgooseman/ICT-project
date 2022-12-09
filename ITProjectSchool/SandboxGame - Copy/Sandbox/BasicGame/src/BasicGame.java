@@ -140,5 +140,8 @@ public class BasicGame implements GameLoop {
         //SaxionApp.drawimage("foto.png",0,0,750,750);
         //wachten op foto collin denk ik
     }
+    public void playerMovement(){
+
+    }
 }
 
