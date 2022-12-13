@@ -29,10 +29,8 @@ public class BasicGame implements GameLoop {
     public void loop() {
         //SaxionApp.clear();
         switch (currentScreen) {
-            case "gameMenu" -> gameMenu();
             case "startPagina" -> startPagina();
             case "gameMenu" -> gameMenu();
-
             case "mensNiet" -> nietGamePagina();
             case "mensWel" -> welGamePagina();
             case "verzuipNiet" -> drankGamePagina();
@@ -41,8 +39,6 @@ public class BasicGame implements GameLoop {
             case "2player" -> twoPlayer();
             case "3player" -> threePlayer();
             case "4player" -> fourPlayer();
-
-
         }
 
     }
@@ -103,7 +99,6 @@ public class BasicGame implements GameLoop {
                 }
                 break;
             case "mensNiet":
-            case "mensWel":
             case "verzuipNiet":
             case "mensWel":
                 currentScreen = "playerMenu";
@@ -203,10 +198,6 @@ public class BasicGame implements GameLoop {
             case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 348, 55, 55);
             case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 348, 55, 55);
         }
-    }
-
-    public void gameMenu() {
-        SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
     }
 
     public void startPagina() {
