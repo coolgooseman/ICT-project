@@ -3,6 +3,8 @@ import nl.saxion.app.interaction.GameLoop;
 import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
+import java.util.ArrayList;
+
 
 public class BasicGame implements GameLoop {
     boolean optie1 = false;
@@ -24,12 +26,19 @@ public class BasicGame implements GameLoop {
     public void loop() {
         //SaxionApp.clear();
         switch (currentScreen) {
-            case "gameMenu" -> gameMenu();
             case "startPagina" -> startPagina();
+            case "gameMenu" -> gameMenu();
+
             case "mensNiet" -> nietGamePagina();
             case "mensWel" -> welGamePagina();
             case "verzuipNiet" -> drankGamePagina();
             case "regelPagina" -> regelPagina();
+            case "playerMenu" -> playerMenu();
+            case "2player" -> twoPlayer();
+            case "3player" -> threePlayer();
+            case "4player" -> fourPlayer();
+
+
         }
         
     }
@@ -64,7 +73,7 @@ public class BasicGame implements GameLoop {
                     int y = mouseEvent.getY();
                     if (y < 338 && y > 235) {
                         if (x > 0 && x < 485) {
-                            currentScreen = "mensWel";
+                            currentScreen = "verzuipNiet";
                             optie2 = true;
                         }
                     }
@@ -74,7 +83,7 @@ public class BasicGame implements GameLoop {
                     int y = mouseEvent.getY();
                     if (y < 480 && y > 375) {
                         if (x > 0 && x < 485) {
-                            currentScreen = "verzuipNiet";
+                            currentScreen = "mensWel";
                             optie3 = true;
                         }
                     }
@@ -90,14 +99,93 @@ public class BasicGame implements GameLoop {
                 }
                 break;
             case "mensNiet":
-            case "mensWel":
             case "verzuipNiet":
-                if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
-                    dobbelsteen();
-                }
+            case "mensWel":
+                currentScreen = "playerMenu";
+//                if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
+//                    dobbelsteen();
+//                }
                 break;
+            case "playerMenu":
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    int x = mouseEvent.getX();
+                    int y = mouseEvent.getY();
+                    if (y < 198 && y > 94) {
+                        if (x > 0 && x < 485) {
+                            currentScreen = "2player";
+                        }
+                    }
+                }
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    int x = mouseEvent.getX();
+                    int y = mouseEvent.getY();
+                    if (y < 338 && y > 235) {
+                        if (x > 0 && x < 485) {
+                            currentScreen = "3player";
+                        }
+                    }
+                }
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    int x = mouseEvent.getX();
+                    int y = mouseEvent.getY();
+                    if (y < 480 && y > 375) {
+                        if (x > 0 && x < 485) {
+                            currentScreen = "4player";
+                        }
+                    }
+                }
         }
 
+    }
+
+    public void playerMenu(){
+        /*
+        SaxionApp.drawImage("keuze menu.png",0,0,750,750);
+        //SaxionApp.drawRectangle(200,200, 20,20);
+        int aantalSpelers = 0;
+        switch (aantalSpelers){
+            case 2: //SaxionApp.drawImage('...',0,0,750,750); break;
+            case 3: //SaxionApp.drawImage('...',0,0,750,750); break;
+            case 4: //SaxionApp.drawImage('...',0,0,750,750); break;
+        }
+
+        ArrayList<Players> players = new ArrayList<>();
+
+         */
+    }
+
+    public void twoPlayer(){
+        //SaxionApp.drawImage("...",0,0,750,750);
+        if(optie1){
+            currentScreen = "mensNiet";
+        } else if (optie2) {
+            currentScreen = "verzuipNiet";
+        } else if (optie3){
+            currentScreen = "mensWel";
+        }
+
+    }
+
+    public void threePlayer(){
+        //SaxionApp.drawImage("...",0,0,750,750);
+        if(optie1){
+            currentScreen = "mensNiet";
+        } else if (optie2) {
+            currentScreen = "verzuipNiet";
+        } else if (optie3){
+            currentScreen = "mensWel";
+        }
+    }
+
+    public void fourPlayer(){
+        //SaxionApp.drawImage("...",0,0,750,750);
+        if(optie1){
+            currentScreen = "mensNiet";
+        } else if (optie2) {
+            currentScreen = "verzuipNiet";
+        } else if (optie3){
+            currentScreen = "mensWel";
+        }
     }
 
     public void dobbelsteen(){
@@ -112,35 +200,38 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void gameMenu() {
-        SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
-    }
-
     public void startPagina() {
         SaxionApp.drawImage("Sandbox/start pagina.png", 0, 0, 750, 750);
 
     }
 
-    public void nietGamePagina() {
+    public void gameMenu() {
+        SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
+    }
 
+    public void nietGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+        playerMenu();
     }
 
     public void welGamePagina() {
-
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+        playerMenu();
     }
 
     public void drankGamePagina() {
-
         SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
+        playerMenu();
     }
 
     public void regelPagina() {
         //SaxionApp.drawimage("foto.png",0,0,750,750);
         //wachten op foto collin denk ik
     }
+
     public void playerMovement(){
+
+
 
     }
 }
