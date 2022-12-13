@@ -194,9 +194,6 @@ public class BasicGame implements GameLoop {
             case "mensNiet":
             case "verzuipNiet":
             case "mensWel":
-                if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
-                    dobbelsteen();
-                }
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
                     int x = mouseEvent.getX();
                     int y = mouseEvent.getY();
@@ -205,6 +202,9 @@ public class BasicGame implements GameLoop {
                             currentScreen = "gameMenu";
                         }
                     }
+                }
+                if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
                 }
                 break;
         }
@@ -263,13 +263,13 @@ public class BasicGame implements GameLoop {
     }
 
     public void drankGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
+        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
 
         readPlayersIn();
     }
 
     public void welGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
 
         readPlayersIn();
     }
