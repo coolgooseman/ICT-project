@@ -7,4 +7,6 @@ public class Player {
     int h;
     int w;
     int id;
+
+    int positionplayer;
 }
