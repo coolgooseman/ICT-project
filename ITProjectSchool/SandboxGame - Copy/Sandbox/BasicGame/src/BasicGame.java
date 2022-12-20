@@ -6,6 +6,7 @@ import nl.saxion.app.interaction.MouseEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class BasicGame implements GameLoop {
@@ -15,9 +16,14 @@ public class BasicGame implements GameLoop {
     String currentScreen = "startPagina";
     int counter = -1;
     int aantalSpelers = 0;
+    int randomNummer = 0;
+    int moveX= 0;
+    int moveY =0;
 
-    //BoardPositions[] positie = new BoardPositions[56];
+    BoardPositions[] positie = new BoardPositions[56];
     ArrayList<Player> players = new ArrayList<>();
+
+    Player player = new Player();
 
     public static void main(String[] args) {
         SaxionApp.startGameLoop(new BasicGame(), 750, 750, 40);
@@ -25,6 +31,8 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void init() {
+        playerMovement();
+        readPlayersIn();
 
     }
 
@@ -153,7 +161,7 @@ public class BasicGame implements GameLoop {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
                     int x = mouseEvent.getX();
                     int y = mouseEvent.getY();
-                    if (y < 424  && y > 320) {
+                    if (y < 424 && y > 320) {
                         if (x > 0 && x < 528) {
                             currentScreen = "verzuipNietRegels";
                         }
@@ -211,39 +219,39 @@ public class BasicGame implements GameLoop {
 
     }
 
-    public void playerMenu(){
-        SaxionApp.drawImage("Sandbox/player menu.png",0,0,750,750);
+    public void playerMenu() {
+        SaxionApp.drawImage("Sandbox/player menu.png", 0, 0, 750, 750);
     }
 
-    public void twoPlayer(){
+    public void twoPlayer() {
         aantalSpelers = 2;
-        if(mensNiet){
+        if (mensNiet) {
             currentScreen = "mensNiet";
         } else if (verzuipNiet) {
             currentScreen = "verzuipNiet";
-        } else if (mensWel){
+        } else if (mensWel) {
             currentScreen = "mensWel";
         }
     }
 
-    public void threePlayer(){
+    public void threePlayer() {
         aantalSpelers = 3;
-        if(mensNiet){
+        if (mensNiet) {
             currentScreen = "mensNiet";
         } else if (verzuipNiet) {
             currentScreen = "verzuipNiet";
-        } else if (mensWel){
+        } else if (mensWel) {
             currentScreen = "mensWel";
         }
     }
 
-    public void fourPlayer(){
+    public void fourPlayer() {
         aantalSpelers = 4;
-        if(mensNiet){
+        if (mensNiet) {
             currentScreen = "mensNiet";
         } else if (verzuipNiet) {
             currentScreen = "verzuipNiet";
-        } else if (mensWel){
+        } else if (mensWel) {
             currentScreen = "mensWel";
         }
     }
@@ -259,42 +267,45 @@ public class BasicGame implements GameLoop {
     public void nietGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
 
-        readPlayersIn();
+
+        actualPlayermovement();
     }
 
     public void drankGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
 
-        readPlayersIn();
+
+        actualPlayermovement();
     }
 
     public void welGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
 
-        readPlayersIn();
+
+        actualPlayermovement();
     }
 
     public void regelPagina() {
-        SaxionApp.drawImage("Sandbox/regels keuze menu.png",0,0,750,750);
+        SaxionApp.drawImage("Sandbox/regels keuze menu.png", 0, 0, 750, 750);
     }
 
-    public void mensNietRegels(){
-        SaxionApp.drawImage("Sandbox/regels.png",0,0,750,750);
-        SaxionApp.drawText("mens erger je niet",200,200,30);
+    public void mensNietRegels() {
+        SaxionApp.drawImage("Sandbox/regels.png", 0, 0, 750, 750);
+        SaxionApp.drawText("mens erger je niet", 200, 200, 30);
     }
 
-    public void verzuipNietRegels(){
-        SaxionApp.drawImage("Sandbox/regels.png",0,0,750,750);
-        SaxionApp.drawText("mens verzuip je niet",200,200,30);
+    public void verzuipNietRegels() {
+        SaxionApp.drawImage("Sandbox/regels.png", 0, 0, 750, 750);
+        SaxionApp.drawText("mens verzuip je niet", 200, 200, 30);
     }
 
-    public void mensWelRegels(){
-        SaxionApp.drawImage("Sandbox/regels.png",0,0,750,750);
-        SaxionApp.drawText("mens erger je wel",200,200,30);
+    public void mensWelRegels() {
+        SaxionApp.drawImage("Sandbox/regels.png", 0, 0, 750, 750);
+        SaxionApp.drawText("mens erger je wel", 200, 200, 30);
     }
 
     public void dobbelsteen() {
-        int randomNummer = SaxionApp.getRandomValueBetween(1, 7);
+        randomNummer = SaxionApp.getRandomValueBetween(1, 7);
         switch (randomNummer) {
             case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 348, 55, 55);
             case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 348, 55, 55);
@@ -305,13 +316,13 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void readPlayersIn(){
+    public void readPlayersIn() {
 
         CsvReader reader = new CsvReader("Sandbox/pionPositie.csv");
         reader.skipRow();
         reader.setSeparator(';');
 
-        while(reader.loadRow()){
+        while (reader.loadRow()) {
             //color, x, y, h, w, id
             Player p = new Player();
             p.kleur = reader.getString(0);
@@ -405,107 +416,128 @@ public class BasicGame implements GameLoop {
             pos.x = 315;
             pos.y = p;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //left
-        for (int p = 260; p > 70; p = p - 60){
+        for (int p = 260; p > 70; p = p - 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = p;
             pos.y = 410;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //up
-        for (int p = 376; p > 300; p = p - 60){
+        for (int p = 376; p > 300; p = p - 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = 70;
             pos.y = p;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //right
-        for (int p = 143; p < 340; p = p + 60){
+        for (int p = 143; p < 340; p = p + 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = p;
             pos.y = 300;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //up
-        for (int p = 250; p > 50; p = p - 60){
+        for (int p = 250; p > 50; p = p - 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = 300;
             pos.y = p;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //right
-        for (int p = 380; p < 500; p = p + 60){
+        for (int p = 380; p < 500; p = p + 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = p;
             pos.y = 65;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //down
-        for (int p = 140; p < 300; p = p + 60){
+        for (int p = 140; p < 300; p = p + 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = 435;
             pos.y = p;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //right
-        for (int p = 425; p < 700; p = p + 60){
+        for (int p = 425; p < 700; p = p + 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = p;
             pos.y = 310;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //down
-        for (int p = 360; p < 470; p = p + 60){
+        for (int p = 360; p < 470; p = p + 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = 670;
             pos.y = p;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //left
-        for (int p = 600; p > 400; p = p - 60){
+        for (int p = 600; p > 400; p = p - 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = p;
             pos.y = 430;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //down
-        for (int p = 480; p < 660; p = p + 60){
+        for (int p = 480; p < 660; p = p + 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = 425;
             pos.y = p;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
         //left
-        for (int p = 440; p > 340; p = p - 60){
+        for (int p = 440; p > 340; p = p - 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = p;
             pos.y = 670;
             pos.position = counter;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20,20);
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
+    }
+
+    public void actualPlayermovement() {
+        BoardPositions pos = new BoardPositions();
+        player.positionplayer = randomNummer + player.positionplayer;
+        pos.x = positie[player.positionplayer].x;
+        pos.y = positie[player.positionplayer].y;
+        SaxionApp.drawText("test", pos.x, pos.y,20);
+
     }
 }
 
