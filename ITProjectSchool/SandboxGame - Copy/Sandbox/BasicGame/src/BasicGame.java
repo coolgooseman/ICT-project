@@ -16,7 +16,14 @@ public class BasicGame implements GameLoop {
     int counter = -1;
     int aantalSpelers = 0;
 
-    //BoardPositions[] positie = new BoardPositions[56];
+    int randomNummer = 0;
+
+    boolean playerOne = false;
+    boolean playerTwo = false;
+    boolean playerThree = false;
+    boolean playerFour = false;
+
+    BoardPositions[] positie = new BoardPositions[56];
     ArrayList<Player> players = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -200,11 +207,86 @@ public class BasicGame implements GameLoop {
                     if (y < 750 && y > 715) {
                         if (x > 0 && x < 750) {
                             currentScreen = "gameMenu";
+                            mensWel = false;
+                            mensNiet = false;
+                            verzuipNiet = false;
                         }
                     }
                 }
                 if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
-                    dobbelsteen();
+                    switch (aantalSpelers) {
+                        case 2 -> {
+                            if (playerOne) {
+                                dobbelsteen();
+                                playerOne = false;
+                                System.out.println(randomNummer);
+                                System.out.println("player 2 is");
+                                playerTwo = true;
+
+                            }
+                            if (playerTwo) {
+                                dobbelsteen();
+                                playerTwo = false;
+                                System.out.println(randomNummer);
+                                System.out.println("player one is");
+                                playerOne = true;
+                            }
+                        }
+                        case 3 -> {
+                            if (playerOne) {
+                                dobbelsteen();
+                                playerOne = false;
+                                System.out.println(randomNummer);
+                                System.out.println("player two is");
+                                playerTwo = true;
+                            }
+                            if (playerTwo) {
+                                dobbelsteen();
+                                playerTwo = false;
+                                System.out.println(randomNummer);
+                                System.out.println("player 3 is");
+                                playerThree = true;
+                            }
+                            if (playerThree) {
+                                dobbelsteen();
+                                playerThree = false;
+                                System.out.println(randomNummer);
+                                System.out.println("speler 1 is");
+                                playerOne = true;
+                            }
+                        }
+                        case 4 -> {
+                            if (playerOne) {
+                                dobbelsteen();
+                                playerOne = false;
+                                System.out.println(randomNummer);
+                                System.out.println("player two is");
+                                playerTwo = true;
+                            }
+                            if (playerTwo) {
+                                dobbelsteen();
+                                playerTwo = false;
+                                System.out.println(randomNummer);
+                                System.out.println("player 3 is");
+                                playerThree = true;
+                            }
+                            if (playerThree) {
+                                dobbelsteen();
+                                playerThree = false;
+                                System.out.println(randomNummer);
+                                System.out.println("speler 4 is");
+                                playerFour = true;
+                            }
+                            if(playerFour){
+                                dobbelsteen();
+                                playerFour = false;
+                                System.out.println(randomNummer);
+                                System.out.println("beurt speler 1");
+                                playerOne = true;
+                            }
+                        }
+
+                    }
                 }
                 break;
         }
@@ -258,20 +340,26 @@ public class BasicGame implements GameLoop {
 
     public void nietGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-
         readPlayersIn();
+        playerOne = true;
+
+
     }
 
     public void drankGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
 
         readPlayersIn();
+        playerOne = true;
+
+
     }
 
     public void welGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
 
         readPlayersIn();
+        playerOne = true;
     }
 
     public void regelPagina() {
@@ -280,7 +368,9 @@ public class BasicGame implements GameLoop {
 
     public void mensNietRegels(){
         SaxionApp.drawImage("Sandbox/regels.png",0,0,750,750);
-        SaxionApp.drawText("mens erger je niet",200,200,30);
+        SaxionApp.setTextDrawingColor(Color.black);
+        SaxionApp.drawText("Bij dit spel heeft iedere speler vier pionnen die een ronde over het bord ",15,135,16);
+        SaxionApp.drawText("moeten maken om veilig op een van de eindcirkels te geraken. ",15,155,16);
     }
 
     public void verzuipNietRegels(){
@@ -294,15 +384,21 @@ public class BasicGame implements GameLoop {
     }
 
     public void dobbelsteen() {
-        int randomNummer = SaxionApp.getRandomValueBetween(1, 7);
-        switch (randomNummer) {
-            case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 348, 55, 55);
-            case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 348, 55, 55);
-            case 3 -> SaxionApp.drawImage("Sandbox/stip3.png", 350, 348, 55, 55);
-            case 4 -> SaxionApp.drawImage("Sandbox/stip4.png", 350, 348, 55, 55);
-            case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 348, 55, 55);
-            case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 348, 55, 55);
-        }
+        randomNummer = SaxionApp.getRandomValueBetween(1, 7);
+
+            switch (randomNummer) {
+                case 0 -> {
+                    SaxionApp.setFill(Color.white);
+                    SaxionApp.drawRectangle(350, 348, 55, 55);
+                }
+                case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 348, 55, 55);
+                case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 348, 55, 55);
+                case 3 -> SaxionApp.drawImage("Sandbox/stip3.png", 350, 348, 55, 55);
+                case 4 -> SaxionApp.drawImage("Sandbox/stip4.png", 350, 348, 55, 55);
+                case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 348, 55, 55);
+                case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 348, 55, 55);
+            }
+
     }
 
     public void readPlayersIn(){
