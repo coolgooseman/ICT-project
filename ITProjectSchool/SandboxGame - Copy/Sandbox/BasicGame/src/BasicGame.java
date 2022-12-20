@@ -16,8 +16,8 @@ public class BasicGame implements GameLoop {
     int counter = -1;
     int aantalSpelers = 0;
     int randomNummer = 0;
-    int moveX= 0;
-    int moveY =0;
+    int moveX = 0;
+    int moveY = 0;
 
     boolean playerOne = false;
     boolean playerTwo = false;
@@ -28,6 +28,11 @@ public class BasicGame implements GameLoop {
     ArrayList<Player> players = new ArrayList<>();
 
     Player player = new Player();
+    Player player1 = new Player();
+
+    Player player2 = new Player();
+    Player player3 = new Player();
+    Player player4 = new Player();
 
     public static void main(String[] args) {
         SaxionApp.startGameLoop(new BasicGame(), 750, 750, 40);
@@ -35,13 +40,18 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void init() {
+        //init id's
+        player1.id = 1;
+        player2.id = 2;
+        player3.id = 3;
+        player4.id = 4;
         playerMovement();
         readPlayersIn();
     }
 
     @Override
     public void loop() {
-        SaxionApp.clear();
+
         switch (currentScreen) {
             case "startPagina" -> startPagina();
             case "gameMenu" -> gameMenu();
@@ -223,6 +233,7 @@ public class BasicGame implements GameLoop {
                             if (playerOne) {
                                 dobbelsteen();
                                 playerOne = false;
+                                actualPlayermovement(player1);
                                 System.out.println(randomNummer);
                                 System.out.println("player 2 is");
                                 playerTwo = true;
@@ -231,6 +242,7 @@ public class BasicGame implements GameLoop {
                             if (playerTwo) {
                                 dobbelsteen();
                                 playerTwo = false;
+                                actualPlayermovement(player2);
                                 System.out.println(randomNummer);
                                 System.out.println("player one is");
                                 playerOne = true;
@@ -240,6 +252,7 @@ public class BasicGame implements GameLoop {
                             if (playerOne) {
                                 dobbelsteen();
                                 playerOne = false;
+                                actualPlayermovement(player1);
                                 System.out.println(randomNummer);
                                 System.out.println("player two is");
                                 playerTwo = true;
@@ -247,6 +260,7 @@ public class BasicGame implements GameLoop {
                             if (playerTwo) {
                                 dobbelsteen();
                                 playerTwo = false;
+                                actualPlayermovement(player2);
                                 System.out.println(randomNummer);
                                 System.out.println("player 3 is");
                                 playerThree = true;
@@ -254,6 +268,7 @@ public class BasicGame implements GameLoop {
                             if (playerThree) {
                                 dobbelsteen();
                                 playerThree = false;
+                                actualPlayermovement(player3);
                                 System.out.println(randomNummer);
                                 System.out.println("speler 1 is");
                                 playerOne = true;
@@ -263,6 +278,7 @@ public class BasicGame implements GameLoop {
                             if (playerOne) {
                                 dobbelsteen();
                                 playerOne = false;
+                                actualPlayermovement(player1);
                                 System.out.println(randomNummer);
                                 System.out.println("player two is");
                                 playerTwo = true;
@@ -270,6 +286,7 @@ public class BasicGame implements GameLoop {
                             if (playerTwo) {
                                 dobbelsteen();
                                 playerTwo = false;
+                                actualPlayermovement(player2);
                                 System.out.println(randomNummer);
                                 System.out.println("player 3 is");
                                 playerThree = true;
@@ -277,6 +294,7 @@ public class BasicGame implements GameLoop {
                             if (playerThree) {
                                 dobbelsteen();
                                 playerThree = false;
+                                actualPlayermovement(player3);
                                 System.out.println(randomNummer);
                                 System.out.println("speler 4 is");
                                 playerFour = true;
@@ -284,6 +302,7 @@ public class BasicGame implements GameLoop {
                             if(playerFour){
                                 dobbelsteen();
                                 playerFour = false;
+                                actualPlayermovement(player4);
                                 System.out.println(randomNummer);
                                 System.out.println("beurt speler 1");
                                 playerOne = true;
@@ -344,29 +363,24 @@ public class BasicGame implements GameLoop {
 
     public void nietGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-        readPlayersIn();
         playerOne = true;
-        actualPlayermovement();
+
     }
 
     public void drankGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-
-        readPlayersIn();
         playerOne = true;
 
 
 
-        actualPlayermovement();
+
     }
 
     public void welGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
-
-        readPlayersIn();
         playerOne = true;
 
-        actualPlayermovement();
+
     }
 
     public void regelPagina() {
@@ -615,13 +629,12 @@ public class BasicGame implements GameLoop {
             }
         }
 
-        public void actualPlayermovement() {
+        public void actualPlayermovement(Player player) {
             BoardPositions pos = new BoardPositions();
             player.positionplayer = randomNummer + player.positionplayer;
             pos.x = positie[player.positionplayer].x;
             pos.y = positie[player.positionplayer].y;
-            SaxionApp.drawText("test", pos.x, pos.y, 20);
-
+            SaxionApp.drawBorderedText(String.valueOf(player.id), pos.x, pos.y, 20);
         }
     }
 
