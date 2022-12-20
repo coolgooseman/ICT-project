@@ -374,39 +374,21 @@ public class BasicGame implements GameLoop {
     }
 
     public void mensNietRegels () {
-        SaxionApp.drawImage("Sandbox/regels.png", 0, 0, 750, 750);
-        SaxionApp.setTextDrawingColor(Color.black);
-        SaxionApp.drawText("Bij dit spel heeft iedere speler vier pionnen die een ronde over het bord ", 15, 135, 16);
-        SaxionApp.drawText("moeten maken om veilig op een van de eindcirkels te geraken. ", 15, 155, 16);
+        SaxionApp.drawImage("Sandbox/Regels mens erger je niet.png", 0, 0, 750, 750);
     }
 
 
         public void verzuipNietRegels () {
-            SaxionApp.drawImage("Sandbox/regels.png", 0, 0, 750, 750);
-            SaxionApp.drawText("mens verzuip je niet", 200, 200, 30);
+            SaxionApp.drawImage("Sandbox/mens verzuip je niet regels.png", 0, 0, 750, 750);
+            //SaxionApp.drawText("mens verzuip je niet", 200, 200, 30);
         }
 
         public void mensWelRegels () {
-            SaxionApp.drawImage("Sandbox/regels.png", 0, 0, 750, 750);
-            SaxionApp.drawText("mens erger je wel", 200, 200, 30);
+            SaxionApp.drawImage("Sandbox/regels Mens erger je Wel.png", 0, 0, 750, 750);
+            //SaxionApp.drawText("mens erger je wel", 200, 200, 30);
         }
 
         public void dobbelsteen () {
-            randomNummer = SaxionApp.getRandomValueBetween(1, 7);
-
-            switch (randomNummer) {
-                case 0 -> {
-                    SaxionApp.setFill(Color.white);
-                    SaxionApp.drawRectangle(350, 348, 55, 55);
-                }
-                case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 348, 55, 55);
-                case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 348, 55, 55);
-                case 3 -> SaxionApp.drawImage("Sandbox/stip3.png", 350, 348, 55, 55);
-                case 4 -> SaxionApp.drawImage("Sandbox/stip4.png", 350, 348, 55, 55);
-                case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 348, 55, 55);
-                case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 348, 55, 55);
-            }
-
             randomNummer = SaxionApp.getRandomValueBetween(1, 7);
             switch (randomNummer) {
                 case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 348, 55, 55);
