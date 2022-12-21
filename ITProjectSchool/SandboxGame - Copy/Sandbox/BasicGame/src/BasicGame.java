@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 
 public class BasicGame implements GameLoop {
+
+    boolean alreadyDrawn = false;
     boolean mensNiet = false;
     boolean verzuipNiet = false;
     boolean mensWel = false;
@@ -51,7 +53,6 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void loop() {
-
         switch (currentScreen) {
             case "startPagina" -> startPagina();
             case "gameMenu" -> gameMenu();
@@ -232,8 +233,8 @@ public class BasicGame implements GameLoop {
                         case 2 -> {
                             if (playerOne) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerOne = false;
-                                actualPlayermovement(player1);
                                 System.out.println(randomNummer);
                                 System.out.println("player 2 is");
                                 playerTwo = true;
@@ -241,8 +242,8 @@ public class BasicGame implements GameLoop {
                             }
                             if (playerTwo) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerTwo = false;
-                                actualPlayermovement(player2);
                                 System.out.println(randomNummer);
                                 System.out.println("player one is");
                                 playerOne = true;
@@ -251,24 +252,24 @@ public class BasicGame implements GameLoop {
                         case 3 -> {
                             if (playerOne) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerOne = false;
-                                actualPlayermovement(player1);
                                 System.out.println(randomNummer);
                                 System.out.println("player two is");
                                 playerTwo = true;
                             }
                             if (playerTwo) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerTwo = false;
-                                actualPlayermovement(player2);
                                 System.out.println(randomNummer);
                                 System.out.println("player 3 is");
                                 playerThree = true;
                             }
                             if (playerThree) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerThree = false;
-                                actualPlayermovement(player3);
                                 System.out.println(randomNummer);
                                 System.out.println("speler 1 is");
                                 playerOne = true;
@@ -277,32 +278,32 @@ public class BasicGame implements GameLoop {
                         case 4 -> {
                             if (playerOne) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerOne = false;
-                                actualPlayermovement(player1);
                                 System.out.println(randomNummer);
                                 System.out.println("player two is");
                                 playerTwo = true;
                             }
                             if (playerTwo) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerTwo = false;
-                                actualPlayermovement(player2);
                                 System.out.println(randomNummer);
                                 System.out.println("player 3 is");
                                 playerThree = true;
                             }
                             if (playerThree) {
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerThree = false;
-                                actualPlayermovement(player3);
                                 System.out.println(randomNummer);
                                 System.out.println("speler 4 is");
                                 playerFour = true;
                             }
                             if(playerFour){
                                 dobbelsteen();
+                                actualPlayermovement();
                                 playerFour = false;
-                                actualPlayermovement(player4);
                                 System.out.println(randomNummer);
                                 System.out.println("beurt speler 1");
                                 playerOne = true;
@@ -362,8 +363,12 @@ public class BasicGame implements GameLoop {
     }
 
     public void nietGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
         playerOne = true;
+        if (!alreadyDrawn){
+            SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+            alreadyDrawn = true;
+        }
+
 
     }
 
@@ -629,12 +634,30 @@ public class BasicGame implements GameLoop {
             }
         }
 
-        public void actualPlayermovement(Player player) {
+        public void actualPlayermovement() {
             BoardPositions pos = new BoardPositions();
-            player.positionplayer = randomNummer + player.positionplayer;
-            pos.x = positie[player.positionplayer].x;
-            pos.y = positie[player.positionplayer].y;
-            SaxionApp.drawBorderedText(String.valueOf(player.id), pos.x, pos.y, 20);
+            if (playerOne) {
+                player1.positionplayer = randomNummer + player1.positionplayer;
+                pos.x = positie[player1.positionplayer].x;
+                pos.y = positie[player1.positionplayer].y;
+                SaxionApp.drawBorderedText(String.valueOf(player1.id), pos.x, pos.y, 20);
+
+            } else if (playerTwo) {
+                player2.positionplayer = randomNummer + player2.positionplayer;
+                pos.x = positie[player2.positionplayer].x;
+                pos.y = positie[player2.positionplayer].y;
+                SaxionApp.drawBorderedText(String.valueOf(player2.id), pos.x, pos.y, 20);
+            } else if (playerThree) {
+                player3.positionplayer = randomNummer + player3.positionplayer;
+                pos.x = positie[player3.positionplayer].x;
+                pos.y = positie[player3.positionplayer].y;
+                SaxionApp.drawBorderedText(String.valueOf(player3.id), pos.x, pos.y, 20);
+            } else if (playerFour) {
+                player4.positionplayer = randomNummer + player4.positionplayer;
+                pos.x = positie[player4.positionplayer].x;
+                pos.y = positie[player4.positionplayer].y;
+                SaxionApp.drawBorderedText(String.valueOf(player4.id), pos.x, pos.y, 20);
+            }
         }
     }
 
