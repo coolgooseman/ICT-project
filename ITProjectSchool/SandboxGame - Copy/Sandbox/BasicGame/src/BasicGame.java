@@ -18,10 +18,10 @@ public class BasicGame implements GameLoop {
     int counter = -1;
     int aantalSpelers = 0;
     int randomNummer = 0;
-    int moveX = 0;
-    int moveY = 0;
+    //int moveX = 0;
+    //int moveY = 0;
 
-    boolean playerOne = false;
+    boolean playerOne = true;
     boolean playerTwo = false;
     boolean playerThree = false;
     boolean playerFour = false;
@@ -31,7 +31,6 @@ public class BasicGame implements GameLoop {
 
     Player player = new Player();
     Player player1 = new Player();
-
     Player player2 = new Player();
     Player player3 = new Player();
     Player player4 = new Player();
@@ -48,7 +47,7 @@ public class BasicGame implements GameLoop {
         player3.id = 3;
         player4.id = 4;
         playerMovement();
-        readPlayersIn();
+
     }
 
     @Override
@@ -228,173 +227,245 @@ public class BasicGame implements GameLoop {
                         }
                     }
                 }
-                if (mouseEvent.isMouseUp() && mouseEvent.isLeftMouseButton()) {
-                    switch (aantalSpelers) {
-                        case 2 -> {
-                            if (playerOne) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerOne = false;
-                                System.out.println(randomNummer);
-                                System.out.println("player 2 is");
-                                playerTwo = true;
+                //^^ terug naar menu in spel//
 
-                            }
-                            if (playerTwo) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerTwo = false;
-                                System.out.println(randomNummer);
-                                System.out.println("player one is");
-                                playerOne = true;
-                            }
+                if(aantalSpelers==2) {
+                    if(playerOne){
+                        if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerOne = false;
+                            playerTwo = true;
                         }
-                        case 3 -> {
-                            if (playerOne) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerOne = false;
-                                System.out.println(randomNummer);
-                                System.out.println("player two is");
-                                playerTwo = true;
-                            }
-                            if (playerTwo) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerTwo = false;
-                                System.out.println(randomNummer);
-                                System.out.println("player 3 is");
-                                playerThree = true;
-                            }
-                            if (playerThree) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerThree = false;
-                                System.out.println(randomNummer);
-                                System.out.println("speler 1 is");
-                                playerOne = true;
-                            }
+                    }
+                    else if(playerTwo){
+                        if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerTwo = false;
+                            playerOne = true;
                         }
-                        case 4 -> {
-                            if (playerOne) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerOne = false;
-                                System.out.println(randomNummer);
-                                System.out.println("player two is");
-                                playerTwo = true;
-                            }
-                            if (playerTwo) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerTwo = false;
-                                System.out.println(randomNummer);
-                                System.out.println("player 3 is");
-                                playerThree = true;
-                            }
-                            if (playerThree) {
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerThree = false;
-                                System.out.println(randomNummer);
-                                System.out.println("speler 4 is");
-                                playerFour = true;
-                            }
-                            if(playerFour){
-                                dobbelsteen();
-                                actualPlayermovement();
-                                playerFour = false;
-                                System.out.println(randomNummer);
-                                System.out.println("beurt speler 1");
-                                playerOne = true;
-                            }
-                        }
-
                     }
                 }
-                break;
+                if(aantalSpelers == 3) {
+                    if (playerOne) {
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerOne = false;
+                            playerTwo = true;
+                        }
+                    } else if (playerTwo) {
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerTwo = false;
+                            playerThree = true;
+                        }
+                    } else if (playerThree) {
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerTwo = false;
+                            playerOne = true;
+                        }
+                    }
+                }
+                if(aantalSpelers == 4){
+                    if (playerOne) {
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerOne = false;
+                            playerTwo = true;
+                        }
+                    } else if (playerTwo) {
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerTwo = false;
+                            playerThree = true;
+                        }
+                    } else if (playerThree) {
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerThree = false;
+                            playerFour = true;
+                        }
+                    } else if (playerFour){
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println("--------");
+                            System.out.println(randomNummer);
+                            actualPlayermovement();
+                            playerFour = false;
+                            playerOne = true;
+                        }
+                    }
+                }
+//                if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+//                    playerOne = true;
+//                    dobbelsteen();
+//                    System.out.println(randomNummer);
+//                    actualPlayermovement();
+//                    playerOne = false;
+//                    playerTwo = true;
+//                }
+
+                /*
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    System.out.println("p1:");
+                    System.out.println("2:" + playerTwo);
+                    dobbelsteen();
+                    System.out.println(randomNummer);
+                    actualPlayermovement();
+                    playerOne = false;
+
+                }
+                playerTwo = true;
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    System.out.println("p2:");
+                    System.out.println("1:" + playerOne);
+                    dobbelsteen();
+                    System.out.println(randomNummer);
+                    actualPlayermovement();
+                    playerOne = true;
+                    playerTwo = false;
+                }
+
+
+                 */
+                /*
+                if (aantalSpelers == 2) {
+                    System.out.println("----------");
+                    if (currentPlayer.equals("p1")) {
+                        System.out.println(currentPlayer);
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                        }
+                        System.out.println(randomNummer);
+                        currentPlayer = "p2";
+                    }
+                    if (currentPlayer.equals("p2")) {
+                        System.out.println(currentPlayer);
+                        dobbelsteen();
+                        System.out.println(randomNummer);
+                        currentPlayer = "p1";
+                    }
+                }
+
+                 */
+                        /*
+                        playerOne = true;
+                        System.out.println("1: ");
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println(randomNummer);
+                        }
+                        actualPlayermovement();
+                        playerOne = false;
+
+                        playerTwo = true;
+                        System.out.println("p2: ");
+                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                            dobbelsteen();
+                            System.out.println(randomNummer);
+                        }
+                        actualPlayermovement();
+                        playerTwo = false;
+                         */
+        }
+    }
+
+        public void playerMenu () {
+            SaxionApp.drawImage("Sandbox/player menu.png", 0, 0, 750, 750);
         }
 
-    }
-
-    public void playerMenu() {
-        SaxionApp.drawImage("Sandbox/player menu.png", 0, 0, 750, 750);
-    }
-
-    public void twoPlayer() {
-        aantalSpelers = 2;
-        if (mensNiet) {
-            currentScreen = "mensNiet";
-        } else if (verzuipNiet) {
-            currentScreen = "verzuipNiet";
-        } else if (mensWel) {
-            currentScreen = "mensWel";
+        public void twoPlayer () {
+            aantalSpelers = 2;
+            if (mensNiet) {
+                currentScreen = "mensNiet";
+            } else if (verzuipNiet) {
+                currentScreen = "verzuipNiet";
+            } else if (mensWel) {
+                currentScreen = "mensWel";
+            }
         }
-    }
 
-    public void threePlayer() {
-        aantalSpelers = 3;
-        if (mensNiet) {
-            currentScreen = "mensNiet";
-        } else if (verzuipNiet) {
-            currentScreen = "verzuipNiet";
-        } else if (mensWel) {
-            currentScreen = "mensWel";
+        public void threePlayer () {
+            aantalSpelers = 3;
+            if (mensNiet) {
+                currentScreen = "mensNiet";
+            } else if (verzuipNiet) {
+                currentScreen = "verzuipNiet";
+            } else if (mensWel) {
+                currentScreen = "mensWel";
+            }
         }
-    }
 
-    public void fourPlayer() {
-        aantalSpelers = 4;
-        if (mensNiet) {
-            currentScreen = "mensNiet";
-        } else if (verzuipNiet) {
-            currentScreen = "verzuipNiet";
-        } else if (mensWel) {
-            currentScreen = "mensWel";
+        public void fourPlayer () {
+            aantalSpelers = 4;
+            if (mensNiet) {
+                currentScreen = "mensNiet";
+            } else if (verzuipNiet) {
+                currentScreen = "verzuipNiet";
+            } else if (mensWel) {
+                currentScreen = "mensWel";
+            }
         }
-    }
 
-    public void startPagina() {
-        SaxionApp.drawImage("Sandbox/start pagina.png", 0, 0, 750, 750);
-    }
+        public void startPagina () {
+            SaxionApp.drawImage("Sandbox/start pagina.png", 0, 0, 750, 750);
+        }
 
-    public void gameMenu() {
-        SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
-    }
+        public void gameMenu () {
+            SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
+        }
 
-    public void nietGamePagina() {
-        playerOne = true;
-        if (!alreadyDrawn){
+        public void nietGamePagina () {
+            readPlayersIn();
+            if (!alreadyDrawn) {
+                SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+                alreadyDrawn = true;
+            }
+        }
+
+        public void drankGamePagina () {
+            readPlayersIn();
             SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-            alreadyDrawn = true;
+            //playerOne = true;
         }
 
+        public void welGamePagina () {
+            readPlayersIn();
+            SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
+            //playerOne = true;
+        }
 
-    }
+        public void regelPagina () {
+            SaxionApp.drawImage("Sandbox/regels keuze menu.png", 0, 0, 750, 750);
+        }
 
-    public void drankGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-        playerOne = true;
-
-
-
-
-    }
-
-    public void welGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
-        playerOne = true;
-
-
-    }
-
-    public void regelPagina() {
-        SaxionApp.drawImage("Sandbox/regels keuze menu.png", 0, 0, 750, 750);
-    }
-
-    public void mensNietRegels () {
-        SaxionApp.drawImage("Sandbox/Regels mens erger je niet.png", 0, 0, 750, 750);
-    }
+        public void mensNietRegels () {
+            SaxionApp.drawImage("Sandbox/Regels mens erger je niet.png", 0, 0, 750, 750);
+        }
 
 
         public void verzuipNietRegels () {
@@ -410,6 +481,7 @@ public class BasicGame implements GameLoop {
         public void dobbelsteen () {
             randomNummer = SaxionApp.getRandomValueBetween(1, 7);
             switch (randomNummer) {
+                case 0 -> {SaxionApp.setFill(Color.white); SaxionApp.drawRectangle(350,348,55,55);}
                 case 1 -> SaxionApp.drawImage("Sandbox/stip1.png", 350, 348, 55, 55);
                 case 2 -> SaxionApp.drawImage("Sandbox/stip2.png", 350, 348, 55, 55);
                 case 3 -> SaxionApp.drawImage("Sandbox/stip3.png", 350, 348, 55, 55);
@@ -634,14 +706,13 @@ public class BasicGame implements GameLoop {
             }
         }
 
-        public void actualPlayermovement() {
+        public void actualPlayermovement () {
             BoardPositions pos = new BoardPositions();
             if (playerOne) {
                 player1.positionplayer = randomNummer + player1.positionplayer;
                 pos.x = positie[player1.positionplayer].x;
                 pos.y = positie[player1.positionplayer].y;
                 SaxionApp.drawBorderedText(String.valueOf(player1.id), pos.x, pos.y, 20);
-
             } else if (playerTwo) {
                 player2.positionplayer = randomNummer + player2.positionplayer;
                 pos.x = positie[player2.positionplayer].x;
@@ -660,5 +731,6 @@ public class BasicGame implements GameLoop {
             }
         }
     }
+
 
 
