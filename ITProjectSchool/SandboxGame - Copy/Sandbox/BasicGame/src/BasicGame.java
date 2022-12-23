@@ -47,7 +47,7 @@ public class BasicGame implements GameLoop {
         player2.id = 2;
         player3.id = 3;
         player4.id = 4;
-        playerMovement();
+        playerPositions();
         readPlayersIn();
     }
 
@@ -513,7 +513,7 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void playerMovement() {
+    public void playerPositions() {
         //up
         for (int p = 670; p > 410; p = p - 60) {
             BoardPositions pos = new BoardPositions();
