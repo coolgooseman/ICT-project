@@ -26,6 +26,7 @@ public class BasicGame implements GameLoop {
     boolean playerThree = false;
     boolean playerFour = false;
 
+    BoardPositions[] innerPosities = new BoardPositions[16];
     BoardPositions[] positie = new BoardPositions[62];
     ArrayList<Player> players = new ArrayList<>();
 
@@ -394,6 +395,7 @@ public class BasicGame implements GameLoop {
         SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
         drawPlayer();
 
+
     }
 
     public void regelPagina() {
@@ -644,6 +646,27 @@ public class BasicGame implements GameLoop {
             positie[counter] = pos;
             SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
+        int counterGeel = -1;
+        //define innerposities
+        //yellow
+        for (int p = 70; p < 290; p = p + 60) {
+            BoardPositions pos = new BoardPositions();
+            pos.x = p;
+            pos.y = 375;
+            counterGeel++;
+            innerPosities[counterGeel] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+        }
+        //rood
+        for (int p = 425; p < 660; p = p - 60) {
+            BoardPositions pos = new BoardPositions();
+            counter++;
+            pos.x = p;
+            pos.y = 375;
+            pos.position = counter;
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+        }
     }
 
     public void actualPlayermovement() {
@@ -654,12 +677,10 @@ public class BasicGame implements GameLoop {
         //movement
         if (playerOne) {
             if (player1.binnenKomen) {
-                if (player1.positionplayer  == 10){
-
-                } else if (player1.positionplayer == 11) {
-
-                } else if (player1.positionplayer == 12) {
-
+                int temppos = player1.positionplayer;
+                player1.positionplayer = randomNummer + player1.positionplayer;
+                if (player1.positionplayer >= 14) {
+                    player1.positionplayer = temppos;
                 }
             } else {
                 player1.positionplayer = randomNummer + player1.positionplayer;
@@ -694,8 +715,34 @@ public class BasicGame implements GameLoop {
     public void drawPlayer() {
 
         if (aantalSpelers == 2) {
-            SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
-            SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
+            if (player1.binnenKomen) {
+                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
+                if (player1.positionplayer == 10) {
+                    SaxionApp.drawBorderedText("1", innerPosities[0].x, innerPosities[0].y, 20);
+                } else if (player1.positionplayer == 11) {
+                    SaxionApp.drawBorderedText("1", innerPosities[1].x, innerPosities[1].y, 20);
+                } else if (player1.positionplayer == 12) {
+                    SaxionApp.drawBorderedText("1", innerPosities[2].x, innerPosities[2].y, 20);
+                } else if (player1.positionplayer == 13) {
+                    SaxionApp.drawBorderedText("1", innerPosities[3].x, innerPosities[3].y, 20);
+                }
+            } else {
+                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
+            }
+            if (player2.binnenKomen) {
+                if (player2.positionplayer == 10) {
+                    SaxionApp.drawBorderedText("1", innerPosities[0].x, innerPosities[0].y, 20);
+                } else if (player2.positionplayer == 11) {
+                    SaxionApp.drawBorderedText("1", innerPosities[1].x, innerPosities[1].y, 20);
+                } else if (player2.positionplayer == 12) {
+                    SaxionApp.drawBorderedText("1", innerPosities[2].x, innerPosities[2].y, 20);
+                } else if (player2.positionplayer == 13) {
+                    SaxionApp.drawBorderedText("1", innerPosities[3].x, innerPosities[3].y, 20);
+                }
+            } else {
+                SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
+            }
+
         } else if (aantalSpelers == 3) {
             SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
             SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
