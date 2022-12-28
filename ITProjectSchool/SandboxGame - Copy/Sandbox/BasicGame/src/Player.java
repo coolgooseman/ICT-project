@@ -8,5 +8,8 @@ public class Player {
     int w;
     int id;
 
+    boolean binnenKomen = false;
+
+    boolean isEchtBinnen = false;
     int positionplayer;
 }

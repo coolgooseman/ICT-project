@@ -26,7 +26,7 @@ public class BasicGame implements GameLoop {
     boolean playerThree = false;
     boolean playerFour = false;
 
-    BoardPositions[] positie = new BoardPositions[56];
+    BoardPositions[] positie = new BoardPositions[62];
     ArrayList<Player> players = new ArrayList<>();
 
     Player player = new Player();
@@ -47,13 +47,19 @@ public class BasicGame implements GameLoop {
         player2.id = 2;
         player3.id = 3;
         player4.id = 4;
+
         playerPositions();
 
+        readPlayersIn();
+
+        player1.positionplayer = 10;
+        player2.positionplayer = 30;
+        player3.positionplayer = 20;
     }
 
     @Override
     public void loop() {
-        SaxionApp.clear();
+
         switch (currentScreen) {
             case "startPagina" -> startPagina();
             case "gameMenu" -> gameMenu();
@@ -235,16 +241,17 @@ public class BasicGame implements GameLoop {
                     if (playerOne) {
                         if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
                             dobbelsteen();
-                            System.out.println("--------");
+                            System.out.println("--------1");
                             System.out.println(randomNummer);
                             actualPlayermovement();
+                            System.out.println(player2.positionplayer);
                             playerOne = false;
                             playerTwo = true;
                         }
                     } else if (playerTwo) {
                         if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
                             dobbelsteen();
-                            System.out.println("--------");
+                            System.out.println("--------2");
                             System.out.println(randomNummer);
                             actualPlayermovement();
                             playerTwo = false;
@@ -640,27 +647,47 @@ public class BasicGame implements GameLoop {
     }
 
     public void actualPlayermovement() {
-        BoardPositions pos = new BoardPositions();
+        //check of speler binnen kan komen
+        if (player1.positionplayer >= 4 && player1.positionplayer <= 9) {
+            player1.binnenKomen = true;
+        }
+        //movement
         if (playerOne) {
-            player1.positionplayer = randomNummer + player1.positionplayer;
-            pos.x = positie[player1.positionplayer].x;
-            pos.y = positie[player1.positionplayer].y;
+            if (player1.binnenKomen) {
+                if (player1.positionplayer  == 10){
 
+                } else if (player1.positionplayer == 11) {
+
+                } else if (player1.positionplayer == 12) {
+
+                }
+            } else {
+                player1.positionplayer = randomNummer + player1.positionplayer;
+            }
 
         } else if (playerTwo) {
             player2.positionplayer = randomNummer + player2.positionplayer;
-            pos.x = positie[player2.positionplayer].x;
-            pos.y = positie[player2.positionplayer].y;
 
         } else if (playerThree) {
             player3.positionplayer = randomNummer + player3.positionplayer;
-            pos.x = positie[player3.positionplayer].x;
-            pos.y = positie[player3.positionplayer].y;
+
 
         } else if (playerFour) {
             player4.positionplayer = randomNummer + player4.positionplayer;
-            pos.x = positie[player4.positionplayer].x;
-            pos.y = positie[player4.positionplayer].y;
+
+        }
+        //onderkant bord reset positie
+        if (player1.positionplayer >= 40) {
+            player1.positionplayer = player1.positionplayer - 40;
+        }
+        if (player2.positionplayer >= 40) {
+            player2.positionplayer = player2.positionplayer - 40;
+        }
+        if (player3.positionplayer >= 40) {
+            player3.positionplayer = player3.positionplayer - 40;
+        }
+        if (player4.positionplayer >= 40) {
+            player4.positionplayer = player4.positionplayer - 40;
         }
     }
 
@@ -678,8 +705,9 @@ public class BasicGame implements GameLoop {
             SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
             SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
             SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
-            }
         }
     }
+}
+
 
 
