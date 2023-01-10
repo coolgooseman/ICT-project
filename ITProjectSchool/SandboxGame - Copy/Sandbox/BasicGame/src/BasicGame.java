@@ -646,27 +646,6 @@ public class BasicGame implements GameLoop {
             positie[counter] = pos;
             SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
-        int counterGeel = -1;
-        //define innerposities
-        //yellow
-        for (int p = 70; p < 290; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            pos.x = p;
-            pos.y = 375;
-            counterGeel++;
-            innerPosities[counterGeel] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //rood
-        for (int p = 425; p < 660; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = p;
-            pos.y = 375;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
     }
 
     public void actualPlayermovement() {
