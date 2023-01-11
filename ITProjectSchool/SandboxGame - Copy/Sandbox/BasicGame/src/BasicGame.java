@@ -245,7 +245,6 @@ public class BasicGame implements GameLoop {
                             System.out.println("--------1");
                             System.out.println(randomNummer);
                             actualPlayermovement();
-                            System.out.println(player2.positionplayer);
                             System.out.println(player1.counterPos);
                             playerOne = false;
                             playerTwo = true;
@@ -256,6 +255,7 @@ public class BasicGame implements GameLoop {
                             System.out.println("--------2");
                             System.out.println(randomNummer);
                             actualPlayermovement();
+                            System.out.println(player2.counterPos);
                             playerTwo = false;
                             playerOne = true;
                         }
@@ -647,8 +647,18 @@ public class BasicGame implements GameLoop {
             positie[counter] = pos;
             SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
-        //innerposities fr this time
+        //innerposities fr this time geel
         for (int p = 70; p < 300; p = p + 60) {
+            BoardPositions pos = new BoardPositions();
+            counter++;
+            pos.x = p;
+            pos.y = 370;
+            pos.position = counter;
+            positie[counter] = pos;
+            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+        }
+        //innerpositie rood
+        for (int p = 670; p > 430; p = p - 60) {
             BoardPositions pos = new BoardPositions();
             counter++;
             pos.x = p;
@@ -664,122 +674,144 @@ public class BasicGame implements GameLoop {
         //movement
         //na 39 moet speler naar binnen
         //40 41 42 43 zijn de binnenste posities
-        //44 45 46 47 in counterPos
+        //44 45 46 47 is te hoog en dan doet die niks, kan evt code in niet nodig i think -jorn
         if (playerOne) {
-            player1.positionplayer = randomNummer + player1.positionplayer;
-            player1.counterPos = player1.counterPos + randomNummer;
             if (!player1.isEchtBinnen) {
+                player1.positionplayer = randomNummer + player1.positionplayer;
+                player1.counterPos = player1.counterPos + randomNummer;
                 if (player1.counterPos > 39) {
-                    if (player1.counterPos == 44) {
-
-                    } else if (player1.counterPos == 45) {
-
+                    if (player1.counterPos == 45) {
+                        //do nothing
                     } else if (player1.counterPos == 46) {
-
+                        //do nothing
                     } else if (player1.counterPos == 47) {
-
+                        //do nothing
+                    } else if (player1.counterPos == 48) {
+                        //do nothing
                     } else {
                         player1.positionplayer = player1.counterPos;
+                        player1.positionplayerBinnen = player1.counterPos;
+                        player1.binnenKomen = true;
 
-                        {
-                            player1.positionplayerBinnen = player1.counterPos;
-                            player1.binnenKomen = true;
-                        }
                     }
                 }
             }
-            } else if (playerTwo) {
-                player2.positionplayer = randomNummer + player2.positionplayer;
+        } else if (playerTwo) {
+            player2.positionplayer = randomNummer + player2.positionplayer;
+            player2.counterPos = player2.counterPos + randomNummer;
+            if (!player2.isEchtBinnen) {
+                if (player2.counterPos > 39) {
+                    if (player2.counterPos == 45) {
+                        //do nothing
+                    } else if (player2.counterPos == 46) {
+                        //do nothing
+                    } else if (player2.counterPos == 47) {
+                        //do nothing
+                    } else if (player2.counterPos == 48) {
+                        //do nothing
+                    } else {
+                        player2.positionplayer = player2.counterPos;
+                        player2.positionplayerBinnen = player2.counterPos;
+                        player2.binnenKomen = true;
 
-            } else if (playerThree) {
-                player3.positionplayer = randomNummer + player3.positionplayer;
-
-
-            } else if (playerFour) {
-                player4.positionplayer = randomNummer + player4.positionplayer;
-            }
-            //onderkant bord reset positie
-            if (player1.positionplayer >= 40) {
-                player1.positionplayer = player1.positionplayer - 40;
-            }
-            if (player2.positionplayer >= 40) {
-                player2.positionplayer = player2.positionplayer - 40;
-            }
-            if (player3.positionplayer >= 40) {
-                player3.positionplayer = player3.positionplayer - 40;
-            }
-            if (player4.positionplayer >= 40) {
-                player4.positionplayer = player4.positionplayer - 40;
-            }
-
-    }
-
-
-        public void drawPlayer () {
-            if (aantalSpelers == 2) {
-                if (player1.binnenKomen) {
-                    SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayerBinnen].x, positie[player1.positionplayerBinnen].y, 20);
-                    player.binnenKomen = false;
-                    player1.isEchtBinnen = true;
-                } else {
-                    SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
-                    SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
+                    }
                 }
-            } else if (aantalSpelers == 3) {
-                SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
-                SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
-                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
-            } else if (aantalSpelers == 4) {
-                SaxionApp.drawBorderedText(String.valueOf(player4.id), positie[player4.positionplayer].x, positie[player4.positionplayer].y, 20);
-                SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
-                SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
-                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
             }
+
+        } else if (playerThree) {
+            player3.positionplayer = randomNummer + player3.positionplayer;
+
+
+        } else if (playerFour) {
+            player4.positionplayer = randomNummer + player4.positionplayer;
         }
-        public void drawKanskaart () {
-            ArrayList<String> kanskaarten = new ArrayList<>();
-            kanskaarten.add("Je hebt geluk! Je mag 5 stappen vooruit!");
-            kanskaarten.add("Je mag het aantal gegooide ogen vooruit!");
-            kanskaarten.add("Wie of wie? Je mag een andere speler 3 stappen achteruit zetten!");
+        //onderkant bord reset positie
+        if (player1.positionplayer >= 40) {
+            player1.positionplayer = player1.positionplayer - 40;
+        }
+        if (player2.positionplayer >= 40) {
+            player2.positionplayer = player2.positionplayer - 40;
+        }
+        if (player3.positionplayer >= 40) {
+            player3.positionplayer = player3.positionplayer - 40;
+        }
+        if (player4.positionplayer >= 40) {
+            player4.positionplayer = player4.positionplayer - 40;
+        }
 
-            int kansKeuze = SaxionApp.getRandomValueBetween(0, 3);
+    }
 
 
-            if (player1.positionplayer == 4 || player1.positionplayer == 18 || player1.positionplayer == 24 || player1.positionplayer == 38) {
-                //if (player1.positionplayer == 10) {
-                SaxionApp.clear();
-                SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
-                SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
-                SaxionApp.setTextDrawingColor(Color.black);
-                SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
-
-            } else if (player2.positionplayer == 4 || player2.positionplayer == 18 || player2.positionplayer == 24 || player2.positionplayer == 38) {
-                SaxionApp.clear();
-                SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
-                SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
-                SaxionApp.setTextDrawingColor(Color.black);
-                SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
-
-            } else if (player3.positionplayer == 4 || player3.positionplayer == 18 || player3.positionplayer == 24 || player3.positionplayer == 38) {
-                SaxionApp.clear();
-                SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
-                SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
-                SaxionApp.setTextDrawingColor(Color.black);
-                SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
-
-            } else if (player4.positionplayer == 4 || player4.positionplayer == 18 || player4.positionplayer == 24 || player4.positionplayer == 38) {
-                SaxionApp.clear();
-                SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
-                SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
-                SaxionApp.setTextDrawingColor(Color.black);
-                SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
+    public void drawPlayer() {
+        if (aantalSpelers == 2) {
+            if (player1.binnenKomen) {
+                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayerBinnen].x, positie[player1.positionplayerBinnen].y, 20);
+                player1.binnenKomen = false;
+                player1.isEchtBinnen = true;
+            } else if (player2.binnenKomen) {
+                SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayerBinnen].x, positie[player2.positionplayerBinnen].y, 20);
+                player2.binnenKomen = false;
+                player2.isEchtBinnen = true;
+            } else {
+                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
+                SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
             }
-
-            //Achtergrond kleur (Zelfde kleur als bord)
-            Color achtergrond = new Color(254, 246, 159);
-            SaxionApp.setBackgroundColor(achtergrond);
+        } else if (aantalSpelers == 3) {
+            SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
+            SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
+            SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
+        } else if (aantalSpelers == 4) {
+            SaxionApp.drawBorderedText(String.valueOf(player4.id), positie[player4.positionplayer].x, positie[player4.positionplayer].y, 20);
+            SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
+            SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
+            SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
         }
     }
+
+    public void drawKanskaart() {
+        ArrayList<String> kanskaarten = new ArrayList<>();
+        kanskaarten.add("Je hebt geluk! Je mag 5 stappen vooruit!");
+        kanskaarten.add("Je mag het aantal gegooide ogen vooruit!");
+        kanskaarten.add("Wie of wie? Je mag een andere speler 3 stappen achteruit zetten!");
+
+        int kansKeuze = SaxionApp.getRandomValueBetween(0, 3);
+
+
+        if (player1.positionplayer == 4 || player1.positionplayer == 18 || player1.positionplayer == 24 || player1.positionplayer == 38) {
+            //if (player1.positionplayer == 10) {
+            SaxionApp.clear();
+            SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
+            SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
+
+        } else if (player2.positionplayer == 4 || player2.positionplayer == 18 || player2.positionplayer == 24 || player2.positionplayer == 38) {
+            SaxionApp.clear();
+            SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
+            SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
+
+        } else if (player3.positionplayer == 4 || player3.positionplayer == 18 || player3.positionplayer == 24 || player3.positionplayer == 38) {
+            SaxionApp.clear();
+            SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
+            SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
+
+        } else if (player4.positionplayer == 4 || player4.positionplayer == 18 || player4.positionplayer == 24 || player4.positionplayer == 38) {
+            SaxionApp.clear();
+            SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
+            SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
+        }
+
+        //Achtergrond kleur (Zelfde kleur als bord)
+        Color achtergrond = new Color(254, 246, 159);
+        SaxionApp.setBackgroundColor(achtergrond);
+    }
+}
 
 
 
