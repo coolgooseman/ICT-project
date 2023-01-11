@@ -664,37 +664,40 @@ public class BasicGame implements GameLoop {
         //movement
         //na 39 moet speler naar binnen
         //40 41 42 43 zijn de binnenste posities
+        //44 45 46 47 in counterPos
         if (playerOne) {
             player1.positionplayer = randomNummer + player1.positionplayer;
             player1.counterPos = player1.counterPos + randomNummer;
-            if (player1.counterPos > 39) {
-                if (player1.counterPos == 44) {
-                    //do nothing
-                } else if (player1.counterPos == 45) {
-                    //do nothing
-                } else if (player1.counterPos == 46) {
-                    //do nothing
-                } else if (player1.counterPos == 47) {
-                    //do nothing
-                } else {
-                    player1.positionplayer = player1.counterPos;
-                }
+            if (!player1.isEchtBinnen) {
+                if (player1.counterPos > 39) {
+                    if (player1.counterPos == 44) {
 
-                {
-                    player1.positionplayerBinnen = player1.counterPos;
-                    player1.binnenKomen = true;
+                    } else if (player1.counterPos == 45) {
+
+                    } else if (player1.counterPos == 46) {
+
+                    } else if (player1.counterPos == 47) {
+
+                    } else {
+                        player1.positionplayer = player1.counterPos;
+
+                        {
+                            player1.positionplayerBinnen = player1.counterPos;
+                            player1.binnenKomen = true;
+                        }
+                    }
                 }
             }
-        } else if (playerTwo) {
-            player2.positionplayer = randomNummer + player2.positionplayer;
+            } else if (playerTwo) {
+                player2.positionplayer = randomNummer + player2.positionplayer;
 
-        } else if (playerThree) {
-            player3.positionplayer = randomNummer + player3.positionplayer;
+            } else if (playerThree) {
+                player3.positionplayer = randomNummer + player3.positionplayer;
 
 
-        } else if (playerFour) {
-            player4.positionplayer = randomNummer + player4.positionplayer;
-        }
+            } else if (playerFour) {
+                player4.positionplayer = randomNummer + player4.positionplayer;
+            }
             //onderkant bord reset positie
             if (player1.positionplayer >= 40) {
                 player1.positionplayer = player1.positionplayer - 40;
@@ -708,7 +711,8 @@ public class BasicGame implements GameLoop {
             if (player4.positionplayer >= 40) {
                 player4.positionplayer = player4.positionplayer - 40;
             }
-        }
+
+    }
 
 
         public void drawPlayer () {
@@ -732,7 +736,7 @@ public class BasicGame implements GameLoop {
                 SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
             }
         }
-        public void drawKanskaart(){
+        public void drawKanskaart () {
             ArrayList<String> kanskaarten = new ArrayList<>();
             kanskaarten.add("Je hebt geluk! Je mag 5 stappen vooruit!");
             kanskaarten.add("Je mag het aantal gegooide ogen vooruit!");
@@ -741,7 +745,7 @@ public class BasicGame implements GameLoop {
             int kansKeuze = SaxionApp.getRandomValueBetween(0, 3);
 
 
-            if (player1.positionplayer == 4 || player1.positionplayer == 18 || player1.positionplayer == 24 || player1.positionplayer == 38){
+            if (player1.positionplayer == 4 || player1.positionplayer == 18 || player1.positionplayer == 24 || player1.positionplayer == 38) {
                 //if (player1.positionplayer == 10) {
                 SaxionApp.clear();
                 SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
@@ -772,10 +776,11 @@ public class BasicGame implements GameLoop {
             }
 
             //Achtergrond kleur (Zelfde kleur als bord)
-            Color achtergrond = new Color(254,246,159);
+            Color achtergrond = new Color(254, 246, 159);
             SaxionApp.setBackgroundColor(achtergrond);
         }
     }
+
 
 
 
