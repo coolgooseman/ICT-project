@@ -668,7 +668,7 @@ public class BasicGame implements GameLoop {
             player1.positionplayer = randomNummer + player1.positionplayer;
             player1.counterPos = player1.counterPos + randomNummer;
             if (player1.counterPos > 39) {
-                if (player1.counterPos == 44){
+                if (player1.counterPos == 44) {
                     //do nothing
                 } else if (player1.counterPos == 45) {
                     //do nothing
@@ -709,6 +709,7 @@ public class BasicGame implements GameLoop {
                 player4.positionplayer = player4.positionplayer - 40;
             }
         }
+    }
 
         public void drawPlayer () {
             if (aantalSpelers == 2) {
@@ -776,7 +777,7 @@ public class BasicGame implements GameLoop {
         }
     }
 
-}
+
 
 
 
