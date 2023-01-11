@@ -694,7 +694,7 @@ public class BasicGame implements GameLoop {
 
         } else if (playerFour) {
             player4.positionplayer = randomNummer + player4.positionplayer;
-
+        }
             //onderkant bord reset positie
             if (player1.positionplayer >= 40) {
                 player1.positionplayer = player1.positionplayer - 40;
@@ -709,7 +709,7 @@ public class BasicGame implements GameLoop {
                 player4.positionplayer = player4.positionplayer - 40;
             }
         }
-    }
+
 
         public void drawPlayer () {
             if (aantalSpelers == 2) {
