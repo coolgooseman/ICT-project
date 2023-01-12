@@ -26,7 +26,9 @@ public class BasicGame implements GameLoop {
     boolean playerThree = false;
     boolean playerFour = false;
 
+    int innerCounterPos = 0;
     BoardPositions[] positie = new BoardPositions[62];
+    BoardPositions[] innerPositie = new BoardPositions[20];
     ArrayList<Player> players = new ArrayList<>();
 
     Player player = new Player();
@@ -647,25 +649,27 @@ public class BasicGame implements GameLoop {
             positie[counter] = pos;
             SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
         }
-        //innerposities fr this time geel
-        for (int p = 70; p < 300; p = p + 60) {
+        //innerposities fr this time geel 0 1 2 3
+        //dit is nu een beetje hardcoded, maar ik heb geen idee hoe ik dit anders kan doen
+        //als een speler naar binnen komt dan gaat die naar de eerste spot.
+        for (int p = 140; p < 380; p = p + 60) {
             BoardPositions pos = new BoardPositions();
-            counter++;
             pos.x = p;
             pos.y = 370;
             pos.position = counter;
-            positie[counter] = pos;
+            innerPositie[innerCounterPos] = pos;
             SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            innerCounterPos++;
         }
-        //innerpositie rood
-        for (int p = 670; p > 430; p = p - 60) {
+        //innerpositie rood 4 5 6 7
+        for (int p = 610; p > 430; p = p - 60) {
             BoardPositions pos = new BoardPositions();
-            counter++;
             pos.x = p;
             pos.y = 370;
             pos.position = counter;
-            positie[counter] = pos;
+            innerPositie[innerCounterPos] = pos;
             SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            innerCounterPos++;
         }
 
     }
@@ -673,8 +677,8 @@ public class BasicGame implements GameLoop {
     public void actualPlayermovement() {
         //movement
         //na 39 moet speler naar binnen
-        //40 41 42 43 zijn de binnenste posities
         //44 45 46 47 is te hoog en dan doet die niks, kan evt code in niet nodig i think -jorn
+        //code nog niet aangepast voor meerdan 2 spelers
         if (playerOne) {
             if (!player1.isEchtBinnen) {
                 player1.positionplayer = randomNummer + player1.positionplayer;
@@ -689,10 +693,8 @@ public class BasicGame implements GameLoop {
                     } else if (player1.counterPos == 48) {
                         //do nothing
                     } else {
-                        player1.positionplayer = player1.counterPos;
-                        player1.positionplayerBinnen = player1.counterPos;
                         player1.binnenKomen = true;
-
+                        player1.positionplayerBinnen = 0;
                     }
                 }
             }
@@ -710,9 +712,8 @@ public class BasicGame implements GameLoop {
                     } else if (player2.counterPos == 48) {
                         //do nothing
                     } else {
-                        player2.positionplayer = player2.counterPos;
-                        player2.positionplayerBinnen = player2.counterPos;
                         player2.binnenKomen = true;
+                        player2.positionplayerBinnen = 4;
 
                     }
                 }
@@ -743,17 +744,18 @@ public class BasicGame implements GameLoop {
 
 
     public void drawPlayer() {
+        //shit werkt erg cracked maar het werkt nu soort van, kijken of het zo kan met meerder spelers
         if (aantalSpelers == 2) {
             if (player1.binnenKomen) {
-                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayerBinnen].x, positie[player1.positionplayerBinnen].y, 20);
-                player1.binnenKomen = false;
+                SaxionApp.drawBorderedText(String.valueOf(player1.id), innerPositie[player1.positionplayerBinnen].x, innerPositie[player1.positionplayerBinnen].y, 20);
                 player1.isEchtBinnen = true;
-            } else if (player2.binnenKomen) {
-                SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayerBinnen].x, positie[player2.positionplayerBinnen].y, 20);
-                player2.binnenKomen = false;
+            }if (player2.binnenKomen) {
+                SaxionApp.drawBorderedText(String.valueOf(player2.id), innerPositie[player2.positionplayerBinnen].x, innerPositie[player2.positionplayerBinnen].y, 20);
                 player2.isEchtBinnen = true;
-            } else {
+            } if (!player1.binnenKomen){
                 SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
+            }
+            if (!player2.binnenKomen){
                 SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
             }
         } else if (aantalSpelers == 3) {
