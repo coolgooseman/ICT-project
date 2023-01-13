@@ -397,6 +397,7 @@ public class BasicGame implements GameLoop {
         readPlayersIn();
         SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
         drawPlayer();
+        drawKanskaart();
 
 
     }
@@ -779,13 +780,14 @@ public class BasicGame implements GameLoop {
         int kansKeuze = SaxionApp.getRandomValueBetween(0, 3);
 
 
-        if (player1.positionplayer == 4 || player1.positionplayer == 18 || player1.positionplayer == 24 || player1.positionplayer == 38) {
-            //if (player1.positionplayer == 10) {
+        //if (player1.positionplayer == 4 || player1.positionplayer == 18 || player1.positionplayer == 24 || player1.positionplayer == 38) {
+            if (player1.positionplayer == 10) {
             SaxionApp.clear();
             SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
             SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
             SaxionApp.setTextDrawingColor(Color.black);
             SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
+
 
         } else if (player2.positionplayer == 4 || player2.positionplayer == 18 || player2.positionplayer == 24 || player2.positionplayer == 38) {
             SaxionApp.clear();
@@ -793,6 +795,7 @@ public class BasicGame implements GameLoop {
             SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
             SaxionApp.setTextDrawingColor(Color.black);
             SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
+
 
         } else if (player3.positionplayer == 4 || player3.positionplayer == 18 || player3.positionplayer == 24 || player3.positionplayer == 38) {
             SaxionApp.clear();
@@ -808,6 +811,7 @@ public class BasicGame implements GameLoop {
             SaxionApp.setTextDrawingColor(Color.black);
             SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
         }
+
 
         //Achtergrond kleur (Zelfde kleur als bord)
         Color achtergrond = new Color(254, 246, 159);
