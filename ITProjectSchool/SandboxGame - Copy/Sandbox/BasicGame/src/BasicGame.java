@@ -5,43 +5,30 @@ import nl.saxion.app.interaction.KeyboardEvent;
 import nl.saxion.app.interaction.MouseEvent;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 
 public class BasicGame implements GameLoop {
 
-    boolean alreadyDrawn = false;
+    String currentScreen = "startPagina";
+
+    int aantalSpelers = 0;
+    int randomNummer = 0;
+
     boolean mensNiet = false;
     boolean verzuipNiet = false;
     boolean mensWel = false;
-    String currentScreen = "startPagina";
-    int counter = -1;
-    int aantalSpelers = 0;
-    int randomNummer = 0;
-    int moveX = 0;
-    int moveY = 0;
-
     boolean playerOne = true;
     boolean playerTwo = false;
     boolean playerThree = false;
     boolean playerFour = false;
 
-    int innerCounterPos = 0;
-    BoardPositions[] positie = new BoardPositions[62];
-    BoardPositions[] innerPositie = new BoardPositions[20];
-    ArrayList<Player> players = new ArrayList<>();
+    Position[] posities = new Position[72];
+    Pion[] pionen = new Pion[16];
 
-    Player player = new Player();
-    Player player1 = new Player();
-
-    Player player2 = new Player();
-    Player player3 = new Player();
-    Player player4 = new Player();
-
-    ArrayList<String> kanskaarten = new ArrayList<>();
+    //ArrayList<String> kanskaarten = new ArrayList<>();
 
 
-    int kansKeuze = SaxionApp.getRandomValueBetween(0, 3);
+    //int kansKeuze = SaxionApp.getRandomValueBetween(0, 3);
 
 
     public static void main(String[] args) {
@@ -50,30 +37,15 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void init() {
-        //init id's
-        player1.id = 1;
-        player2.id = 2;
-        player3.id = 3;
-        player4.id = 4;
-
-        playerPositions();
-
-        readPlayersIn();
-
-        player1.positionplayer = 10;
-        player2.positionplayer = 30;
-        player3.positionplayer = 20;
-
-        kanskaarten.add("Je hebt geluk! Je mag 5 stappen vooruit!");
-        kanskaarten.add("Je mag het aantal gegooide ogen vooruit!");
-        kanskaarten.add("Wie of wie? Je mag een andere speler 3 stappen achteruit zetten!");
+        Positions();
+        createPion();
     }
 
     @Override
     public void loop() {
-
+        SaxionApp.clear();
         switch (currentScreen) {
-            case "kanskaart" -> kansKaartDraw();
+            //case "kanskaart" -> kansKaartDraw();
             case "startPagina" -> startPagina();
             case "gameMenu" -> gameMenu();
             case "mensNiet" -> nietGamePagina();
@@ -98,264 +70,370 @@ public class BasicGame implements GameLoop {
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
         switch (currentScreen) {
-            case "kanskaart":
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    currentScreen = "mensWel";
+            case "startPagina" -> startScreenMouseEvent(mouseEvent);
+            case "gameMenu" -> gameMenuMouseEvent(mouseEvent);
+            case "playerMenu" -> playerMenuMouseEvent(mouseEvent);
+            case "regelPagina" -> regelPaginaMouseEvent(mouseEvent);
+            case "mensNietRegels" -> mensNietRegelsMouseEvent(mouseEvent);
+            case "verzuipNietRegels" -> verzuipNietRegelsMouseEvent(mouseEvent);
+            case "mensWelRegels" -> mensWelRegelsMouseEvent(mouseEvent);
+            case "mensNiet" -> mensNietGameMouseEvent(mouseEvent);
+            case "verzuipNiet" -> verzuipNietGameMouseEvent(mouseEvent);
+            case "mensWel" -> mensWelGameMouseEvent(mouseEvent);
+        }
+    }
+
+    public void startScreenMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            currentScreen = "gameMenu";
+        }
+    }
+
+    public void gameMenuMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 198 && y > 94) {
+                if (x > 0 && x < 485) {
+                    currentScreen = "playerMenu";
+                    mensNiet = true;
+                }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 338 && y > 235) {
+                if (x > 0 && x < 485) {
+                    currentScreen = "playerMenu";
+                    verzuipNiet = true;
+                }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 480 && y > 375) {
+                if (x > 0 && x < 485) {
+                    currentScreen = "playerMenu";
                     mensWel = true;
                 }
-            case "startPagina":
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 620 && y > 517) {
+                if (x > 0 && x < 485) {
+                    currentScreen = "regelPagina";
+                }
+            }
+        }
+    }
+
+    public void playerMenuMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 198 && y > 94) {
+                if (x > 0 && x < 485) {
+                    currentScreen = "2player";
+                }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 338 && y > 235) {
+                if (x > 0 && x < 485) {
+                    currentScreen = "3player";
+                }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 480 && y > 375) {
+                if (x > 0 && x < 485) {
+                    currentScreen = "4player";
+                }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 620 && y > 517) {
+                if (x > 0 && x < 485) {
                     currentScreen = "gameMenu";
                 }
-                break;
-            case "gameMenu":
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 198 && y > 94) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "playerMenu";
-                            mensNiet = true;
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 338 && y > 235) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "playerMenu";
-                            verzuipNiet = true;
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 480 && y > 375) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "playerMenu";
-                            mensWel = true;
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 620 && y > 517) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "regelPagina";
-                        }
-                    }
-                }
-                break;
-            case "playerMenu":
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 198 && y > 94) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "2player";
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 338 && y > 235) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "3player";
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 480 && y > 375) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "4player";
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 620 && y > 517) {
-                        if (x > 0 && x < 485) {
-                            currentScreen = "gameMenu";
-                        }
-                    }
-                }
-                break;
-            case "regelPagina":
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 283 && y > 179) {
-                        if (x > 0 && x < 528) {
-                            currentScreen = "mensNietRegels";
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 424 && y > 320) {
-                        if (x > 0 && x < 528) {
-                            currentScreen = "verzuipNietRegels";
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 565 && y > 461) {
-                        if (x > 0 && x < 528) {
-                            currentScreen = "mensWelRegels";
-                        }
-                    }
-                }
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 750 && y > 654) {
-                        if (x > 0 && x < 534) {
-                            currentScreen = "gameMenu";
-                        }
-                    }
-                }
-                break;
-            case "mensNietRegels":
-            case "verzuipNietRegels":
-            case "mensWelRegels":
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 750 && y > 654) {
-                        if (x > 0 && x < 534) {
-                            currentScreen = "regelPagina";
-                        }
-                    }
-                }
-                break;
-            case "mensNiet":
-            case "verzuipNiet":
-            case "mensWel":
-                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                    int x = mouseEvent.getX();
-                    int y = mouseEvent.getY();
-                    if (y < 750 && y > 715) {
-                        if (x > 0 && x < 750) {
-                            currentScreen = "gameMenu";
-                            mensWel = false;
-                            mensNiet = false;
-                            verzuipNiet = false;
-                        }
-                    }
-                }
-                //^^ terug naar menu in spel//
+            }
+        }
+    }
 
-                if (aantalSpelers == 2) {
-                    if (playerOne) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------1");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            drawKanskaart();
-                            System.out.println(player1.counterPos);
-                            System.out.println(currentScreen);
-
-
-                            playerOne = false;
-                            playerTwo = true;
-                        }
-                    } else if (playerTwo) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------2");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            System.out.println(player2.counterPos);
-                            drawKanskaart();
-                            System.out.println(currentScreen);
-                            playerTwo = false;
-                            playerOne = true;
-                        }
-                    }
-
+    public void regelPaginaMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 283 && y > 179) {
+                if (x > 0 && x < 528) {
+                    currentScreen = "mensNietRegels";
                 }
-                if (aantalSpelers == 3) {
-                    if (playerOne) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            playerOne = false;
-                            playerTwo = true;
-                        }
-                    } else if (playerTwo) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            playerTwo = false;
-                            playerThree = true;
-                        }
-                    } else if (playerThree) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            playerTwo = false;
-                            playerOne = true;
-                        }
-                    }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 424 && y > 320) {
+                if (x > 0 && x < 528) {
+                    currentScreen = "verzuipNietRegels";
                 }
-                if (aantalSpelers == 4) {
-                    if (playerOne) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            playerOne = false;
-                            playerTwo = true;
-                        }
-                    } else if (playerTwo) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            playerTwo = false;
-                            playerThree = true;
-                        }
-                    } else if (playerThree) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            playerThree = false;
-                            playerFour = true;
-                        }
-                    } else if (playerFour) {
-                        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
-                            dobbelsteen();
-                            System.out.println("--------");
-                            System.out.println(randomNummer);
-                            actualPlayermovement();
-                            playerFour = false;
-                            playerOne = true;
-                        }
-                    }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 565 && y > 461) {
+                if (x > 0 && x < 528) {
+                    currentScreen = "mensWelRegels";
                 }
+            }
+        }
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 750 && y > 654) {
+                if (x > 0 && x < 534) {
+                    currentScreen = "gameMenu";
+                }
+            }
+        }
+    }
+
+    public void mensNietRegelsMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 750 && y > 654) {
+                if (x > 0 && x < 534) {
+                    currentScreen = "regelPagina";
+                }
+            }
         }
 
+    }
+
+    public void verzuipNietRegelsMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 750 && y > 654) {
+                if (x > 0 && x < 534) {
+                    currentScreen = "regelPagina";
+                }
+            }
+        }
+    }
+
+    public void mensWelRegelsMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 750 && y > 654) {
+                if (x > 0 && x < 534) {
+                    currentScreen = "regelPagina";
+                }
+            }
+        }
+
+    }
+
+    public void mensNietGameMouseEvent(MouseEvent mouseEvent) {
+        //terug naar menu in spel
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 750 && y > 715) {
+                if (x > 0 && x < 750) {
+                    currentScreen = "gameMenu";
+                    mensWel = false;
+                    mensNiet = false;
+                    verzuipNiet = false;
+                }
+            }
+        }
+
+        playersTurnMouseEvent(mouseEvent);
+    }
+
+    public void verzuipNietGameMouseEvent(MouseEvent mouseEvent) {
+        //terug naar menu in spel
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 750 && y > 715) {
+                if (x > 0 && x < 750) {
+                    currentScreen = "gameMenu";
+                    mensWel = false;
+                    mensNiet = false;
+                    verzuipNiet = false;
+                }
+            }
+        }
+
+        playersTurnMouseEvent(mouseEvent);
+    }
+
+    public void mensWelGameMouseEvent(MouseEvent mouseEvent) {
+        //terug naar menu in spel
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 750 && y > 715) {
+                if (x > 0 && x < 750) {
+                    currentScreen = "gameMenu";
+                    mensWel = false;
+                    mensNiet = false;
+                    verzuipNiet = false;
+                }
+            }
+        }
+
+        playersTurnMouseEvent(mouseEvent);
+    }
+
+    public void playersTurnMouseEvent(MouseEvent mouseEvent) {
+        if (aantalSpelers == 2) {
+            if (playerOne) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------1");
+                    System.out.println("gedobbled: " + randomNummer);
+                    for(Pion p : pionen){
+                        if(randomNummer == 6){
+                            if(p.pionID == 11){
+                                if(p.pionPositie < 26) {
+                                    p.pionPositie = 26;
+                                    System.out.println("positie: " + p.pionPositie);
+                                    drawPion();
+                                    if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()){
+                                        dobbelsteen();
+                                        System.out.println("gedobbled: " + randomNummer);
+                                        movePlayer(p.pionID, p.pionPositie);
+                                        System.out.println("positie: " + p.pionPositie);
+                                    }
+                                }
+                            }
+                        } else {
+                            if (p.pionID == 11 && p.pionPositie >= 26) {
+                                dobbelsteen();
+                                System.out.println("gedobbled: " + randomNummer);
+                                movePlayer(p.pionID, p.pionPositie);
+                                System.out.println("positie: " + p.pionPositie);
+                            }
+                        }
+
+                    }
+                    playerOne = false;
+                    playerTwo = true;
+
+                }
+            } else if (playerTwo) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------2");
+                    System.out.println("gedobbled: " + randomNummer);
+                    for(Pion p : pionen){
+                        if(randomNummer == 6){
+                            if(p.pionID == 22){
+                                if(p.pionPositie < 46) {
+                                    p.pionPositie = 46;
+                                    System.out.println("positie: " + p.pionPositie);
+                                    drawPion();
+                                    if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()){
+                                        dobbelsteen();
+                                        System.out.println("gedobbled: " + randomNummer);
+                                        movePlayer(p.pionID, p.pionPositie);
+                                        System.out.println("positie: " + p.pionPositie);
+                                    }
+                                }
+                            }
+                        } else {
+                            if (p.pionID == 22 && p.pionPositie >= 46) {
+                                dobbelsteen();
+                                System.out.println("gedobbled: " + randomNummer);
+                                movePlayer(p.pionID, p.pionPositie);
+                                System.out.println("positie: " + p.pionPositie);
+                            }
+                        }
+                    }
+                    playerTwo = false;
+                    playerOne = true;
+
+                }
+            }
+        }
+        if (aantalSpelers == 3) {
+            if (playerOne) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------");
+                    System.out.println(randomNummer);
+                    playerOne = false;
+                    playerTwo = true;
+                }
+            } else if (playerTwo) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------");
+                    System.out.println(randomNummer);
+                    playerTwo = false;
+                    playerThree = true;
+                }
+            } else if (playerThree) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------");
+                    System.out.println(randomNummer);
+                    playerTwo = false;
+                    playerOne = true;
+                }
+            }
+        }
+        if (aantalSpelers == 4) {
+            if (playerOne) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------");
+                    System.out.println(randomNummer);
+                    playerOne = false;
+                    playerTwo = true;
+                }
+            } else if (playerTwo) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------");
+                    System.out.println(randomNummer);
+                    playerTwo = false;
+                    playerThree = true;
+                }
+            } else if (playerThree) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------");
+                    System.out.println(randomNummer);
+                    playerThree = false;
+                    playerFour = true;
+                }
+            } else if (playerFour) {
+                if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+                    dobbelsteen();
+                    System.out.println("--------");
+                    System.out.println(randomNummer);
+                    playerFour = false;
+                    playerOne = true;
+                }
+            }
+        }
     }
 
     public void playerMenu() {
@@ -404,27 +482,6 @@ public class BasicGame implements GameLoop {
         SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
     }
 
-    public void nietGamePagina() {
-        readPlayersIn();
-        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-        drawPlayer();
-    }
-
-    public void drankGamePagina() {
-        readPlayersIn();
-        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-        drawPlayer();
-    }
-
-    public void welGamePagina() {
-        readPlayersIn();
-        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
-        drawPlayer();
-
-
-
-    }
-
     public void regelPagina() {
         SaxionApp.drawImage("Sandbox/regels keuze menu.png", 0, 0, 750, 750);
     }
@@ -433,16 +490,29 @@ public class BasicGame implements GameLoop {
         SaxionApp.drawImage("Sandbox/Regels mens erger je niet.png", 0, 0, 750, 750);
     }
 
-
     public void verzuipNietRegels() {
         SaxionApp.drawImage("Sandbox/mens verzuip je niet regels.png", 0, 0, 750, 750);
-        //SaxionApp.drawText("mens verzuip je niet", 200, 200, 30);
     }
 
     public void mensWelRegels() {
         SaxionApp.drawImage("Sandbox/regels Mens erger je Wel.png", 0, 0, 750, 750);
-        //SaxionApp.drawText("mens erger je wel", 200, 200, 30);
     }
+
+    public void nietGamePagina() {
+        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+        drawPion();
+    }
+
+    public void drankGamePagina() {
+        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+        drawPion();
+    }
+
+    public void welGamePagina() {
+        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
+        drawPion();
+    }
+
 
     public void dobbelsteen() {
         randomNummer = SaxionApp.getRandomValueBetween(1, 7);
@@ -460,245 +530,347 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void readPlayersIn() {
-
+    public void createPion() {
         CsvReader reader = new CsvReader("Sandbox/pionPositie.csv");
         reader.skipRow();
         reader.setSeparator(';');
 
+        int positie = 0;
+
         while (reader.loadRow()) {
-            //color, x, y, h, w, id
-            Player p = new Player();
+            Pion p = new Pion();
+
             p.kleur = reader.getString(0);
-            p.x = reader.getInt(1);
-            p.y = reader.getInt(2);
             p.h = reader.getInt(3);
             p.w = reader.getInt(4);
-            p.id = reader.getInt(5);
+            p.pionID = reader.getInt(5);
+            p.playerID = reader.getInt(6);
+            p.pionPositie = positie;
 
-            players.add(p);
+            pionen[positie] = p;
+            positie++;
         }
 
-        for (Player p : players) {
-            switch (aantalSpelers) {
-                case 2:
-                    switch (p.kleur) {
-                        case "red" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.red);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "yellow" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.yellow);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "green", "blue" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.gray);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
+        //check
+        for (Pion p : pionen) {
+            System.out.println("ID: " + p.pionID + " Kleur: " + p.kleur + " Positie pion: " + p.pionPositie + " PlayersID: " + p.playerID);
+        }
+    }
+
+    public void drawPion() {
+        for (Position pos : posities) {
+            for (Pion p : pionen) {
+                if (p.pionPositie == pos.position) {
+                    switch (aantalSpelers) {
+                        case 2:
+                            switch (p.kleur) {
+                                case "red" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.red);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                case "yellow" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.yellow);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                default -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.gray);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                            }
+                            break;
+                        case 3:
+                            switch (p.kleur) {
+                                case "red" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.red);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                case "yellow" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.yellow);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                case "green" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.green);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                default -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.gray);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                            }
+                            break;
+                        case 4:
+                            switch (p.kleur) {
+                                case "red" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.red);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                case "yellow" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.yellow);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                case "green" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.green);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                                case "blue" -> {
+                                    SaxionApp.turnBorderOff();
+                                    SaxionApp.setFill(Color.blue);
+                                    SaxionApp.drawRectangle(pos.x, pos.y, p.h, p.w);
+                                }
+                            }
+                            break;
                     }
-                    break;
-                case 3:
-                    switch (p.kleur) {
-                        case "red" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.red);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "yellow" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.yellow);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "green" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.green);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "blue" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.gray);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                    }
-                    break;
-                case 4:
-                    switch (p.kleur) {
-                        case "red" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.red);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "yellow" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.yellow);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "green" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.green);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                        case "blue" -> {
-                            SaxionApp.turnBorderOff();
-                            SaxionApp.setFill(Color.blue);
-                            SaxionApp.drawRectangle(p.x, p.y, p.w, p.h);
-                        }
-                    }
-                    break;
+                }
+            }
+        }
+
+    }
+
+    public void Positions() {
+        //start posities
+        CsvReader reader = new CsvReader("Sandbox/pionPositie.csv");
+        reader.skipRow();
+        reader.setSeparator(';');
+
+        int count = 0;
+
+        while (reader.loadRow()) {
+            Position p = new Position();
+            p.x = reader.getInt(1);
+            p.y = reader.getInt(2);
+            p.position = count;
+            posities[count] = p;
+            count++;
+        }
+
+        //boardPosities
+        //up
+        for (int i = 650; i > 472; i = i - 59) {
+            Position pos = new Position();
+            pos.x = 298;
+            pos.y = i;
+            //count++;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+
+        //left
+        for (int p = 298; p > 120; p = p - 59) {
+            Position pos = new Position();
+            pos.x = p;
+            pos.y = 414;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //up
+        for (int p = 414; p > 295; p = p - 59) {
+            Position pos = new Position();
+            pos.x = 62;
+            pos.y = p;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //right
+        for (int p = 121; p < 299; p = p + 59) {
+            Position pos = new Position();
+            pos.x = p;
+            pos.y = 296;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //up
+        for (int p = 237; p > 118; p = p - 59) {
+            Position pos = new Position();
+            pos.x = 298;
+            pos.y = p;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //right
+        for (int p = 298; p < 417; p = p + 59) {
+            Position pos = new Position();
+            pos.x = p;
+            pos.y = 60;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //down
+        for (int p = 119; p < 238; p = p + 59) {
+            Position pos = new Position();
+            pos.x = 416;
+            pos.y = p;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //right
+        for (int p = 416; p < 653; p = p + 59) {
+            Position pos = new Position();
+            pos.x = p;
+            pos.y = 296;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //down
+        for (int p = 355; p < 415; p = p + 59) {
+            Position pos = new Position();
+            pos.x = 652;
+            pos.y = p;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //left
+        for (int p = 593; p > 415; p = p - 59) {
+            Position pos = new Position();
+            pos.x = p;
+            pos.y = 414;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //down
+        for (int p = 473; p < 592; p = p + 59) {
+            Position pos = new Position();
+            pos.x = 416;
+            pos.y = p;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+        //left
+        for (int p = 416; p > 356; p = p - 59) {
+            Position pos = new Position();
+            pos.x = p;
+            pos.y = 650;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+
+        //innerPositions
+        //yellow
+        for (int i = 121; i < 299; i = i + 59) {
+            Position pos = new Position();
+            pos.x = i;
+            pos.y = 355;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+
+        //green
+        for (int i = 119; i < 297; i = i + 59) {
+            Position pos = new Position();
+            pos.x = 357;
+            pos.y = i;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+
+        //rood
+        for (int i = 593; i > 415; i = i - 59) {
+            Position pos = new Position();
+            pos.x = i;
+            pos.y = 355;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+
+
+        //blue
+        for (int i = 591; i > 413; i = i - 59) {
+            Position pos = new Position();
+            pos.x = 357;
+            pos.y = i;
+            pos.position = count;
+            posities[count] = pos;
+            //SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
+            count++;
+        }
+
+        //check
+        for (Position p : posities) {
+            System.out.println("X: " + p.x + " Y: " + p.y + " pos: " + p.position);
+            SaxionApp.drawRectangle(p.x, p.y, 41, 41);
+        }
+    }
+
+    private void movePlayer(int pionID, int pionPositie) {
+        if(playerOne){
+            for(Pion p : pionen){
+                if(p.pionID == pionID){
+                    p.pionPositie = pionPositie + randomNummer;
+                    drawPion();
+                }
+            }
+        } else if(playerTwo){
+            for(Pion p : pionen){
+                if(p.pionID == pionID){
+
+                    p.pionPositie = pionPositie + randomNummer;
+                    drawPion();
+                }
+            }
+        } else if (playerThree){
+            for(Pion p : pionen){
+                if(p.pionID == pionID){
+
+                    p.pionPositie = pionPositie + randomNummer;
+                    drawPion();
+                }
+            }
+        } else if (playerFour){
+            for(Pion p : pionen){
+                if(p.pionID == pionID){
+
+                    p.pionPositie = pionPositie + randomNummer;
+                    drawPion();
+                }
             }
         }
     }
 
-    public void playerPositions() {
-        //up
-        for (int p = 670; p > 410; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = 315;
-            pos.y = p;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //left
-        for (int p = 260; p > 70; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = p;
-            pos.y = 410;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //up
-        for (int p = 376; p > 300; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = 70;
-            pos.y = p;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //right
-        for (int p = 143; p < 340; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = p;
-            pos.y = 300;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //up
-        for (int p = 250; p > 50; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = 300;
-            pos.y = p;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //right
-        for (int p = 380; p < 500; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = p;
-            pos.y = 65;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //down
-        for (int p = 140; p < 300; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = 435;
-            pos.y = p;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //right
-        for (int p = 425; p < 700; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = p;
-            pos.y = 310;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //down
-        for (int p = 360; p < 470; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = 670;
-            pos.y = p;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //left
-        for (int p = 600; p > 400; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = p;
-            pos.y = 430;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //down
-        for (int p = 480; p < 660; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = 425;
-            pos.y = p;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //left
-        for (int p = 440; p > 340; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            counter++;
-            pos.x = p;
-            pos.y = 670;
-            pos.position = counter;
-            positie[counter] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-        }
-        //innerposities fr this time geel 0 1 2 3
-        //dit is nu een beetje hardcoded, maar ik heb geen idee hoe ik dit anders kan doen
-        //als een speler naar binnen komt dan gaat die naar de eerste spot.
-        for (int p = 140; p < 380; p = p + 60) {
-            BoardPositions pos = new BoardPositions();
-            pos.x = p;
-            pos.y = 370;
-            pos.position = counter;
-            innerPositie[innerCounterPos] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-            innerCounterPos++;
-        }
-        //innerpositie rood 4 5 6 7
-        for (int p = 610; p > 430; p = p - 60) {
-            BoardPositions pos = new BoardPositions();
-            pos.x = p;
-            pos.y = 370;
-            pos.position = counter;
-            innerPositie[innerCounterPos] = pos;
-            SaxionApp.drawRectangle(pos.x, pos.y, 20, 20);
-            innerCounterPos++;
-        }
-
-    }
-
+    /*
     public void actualPlayermovement() {
+        //check of speler binnen kan komen
+        if (player1.positionplayer >= 4 && player1.positionplayer <= 9) {
+            player1.binnenKomen = true;
+        }
         //movement
         //na 39 moet speler naar binnen
         //44 45 46 47 is te hoog en dan doet die niks, kan evt code in niet nodig i think -jorn
@@ -749,6 +921,7 @@ public class BasicGame implements GameLoop {
 
         } else if (playerFour) {
             player4.positionplayer = randomNummer + player4.positionplayer;
+
         }
         //onderkant bord reset positie
         if (player1.positionplayer >= 40) {
@@ -763,9 +936,7 @@ public class BasicGame implements GameLoop {
         if (player4.positionplayer >= 40) {
             player4.positionplayer = player4.positionplayer - 40;
         }
-
     }
-
 
     public void drawPlayer() {
         //shit werkt erg cracked maar het werkt nu soort van, kijken of het zo kan met meerder spelers
@@ -836,11 +1007,9 @@ public class BasicGame implements GameLoop {
         SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
         SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
     }
+
+     */
 }
-
-
-
-
 
 
 
