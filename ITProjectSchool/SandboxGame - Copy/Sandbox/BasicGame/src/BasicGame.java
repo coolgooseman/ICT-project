@@ -313,6 +313,7 @@ public class BasicGame implements GameLoop {
                             if(p.pionID == 11){
                                 if(p.pionPositie < 26) {
                                     p.pionPositie = 26;
+                                    p.onBoard = true;
                                     System.out.println("positie: " + p.pionPositie);
                                     drawPion();
                                     if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()){
@@ -324,7 +325,7 @@ public class BasicGame implements GameLoop {
                                 }
                             }
                         } else {
-                            if (p.pionID == 11 && p.pionPositie >= 26) {
+                            if (p.pionID == 11 && p.onBoard) {
                                 dobbelsteen();
                                 System.out.println("gedobbled: " + randomNummer);
                                 movePlayer(p.pionID, p.pionPositie);
@@ -347,6 +348,7 @@ public class BasicGame implements GameLoop {
                             if(p.pionID == 22){
                                 if(p.pionPositie < 46) {
                                     p.pionPositie = 46;
+                                    p.onBoard = true;
                                     System.out.println("positie: " + p.pionPositie);
                                     drawPion();
                                     if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()){
@@ -358,7 +360,7 @@ public class BasicGame implements GameLoop {
                                 }
                             }
                         } else {
-                            if (p.pionID == 22 && p.pionPositie >= 46) {
+                            if (p.pionID == 22 && p.onBoard) {
                                 dobbelsteen();
                                 System.out.println("gedobbled: " + randomNummer);
                                 movePlayer(p.pionID, p.pionPositie);
@@ -862,6 +864,15 @@ public class BasicGame implements GameLoop {
                     drawPion();
                 }
             }
+        }
+        for (Pion p : pionen){
+            if (!p.rondje){
+                if (p.pionPositie >= 55){
+                    p.pionPositie = p.pionPositie - 40;
+                    p.rondje = true;
+                }
+            }
+
         }
     }
 
