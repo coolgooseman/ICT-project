@@ -308,15 +308,16 @@ public class BasicGame implements GameLoop {
                     dobbelsteen();
                     System.out.println("--------1");
                     System.out.println("gedobbled: " + randomNummer);
-                    for(Pion p : pionen){
-                        if(randomNummer == 6){
-                            if(p.pionID == 11){
-                                if(p.pionPositie < 26) {
+                    for (Pion p : pionen) {
+                        if (!p.onBoard){
+                        if (randomNummer == 6) {
+                            if (p.pionID == 11) {
+                                if (p.pionPositie < 26) {
                                     p.pionPositie = 26;
                                     p.onBoard = true;
                                     System.out.println("positie: " + p.pionPositie);
                                     drawPion();
-                                    if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()){
+                                    if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
                                         dobbelsteen();
                                         System.out.println("gedobbled: " + randomNummer);
                                         movePlayer(p.pionID, p.pionPositie);
@@ -324,6 +325,7 @@ public class BasicGame implements GameLoop {
                                     }
                                 }
                             }
+                        }
                         } else {
                             if (p.pionID == 11 && p.onBoard) {
                                 dobbelsteen();
@@ -343,15 +345,16 @@ public class BasicGame implements GameLoop {
                     dobbelsteen();
                     System.out.println("--------2");
                     System.out.println("gedobbled: " + randomNummer);
-                    for(Pion p : pionen){
-                        if(randomNummer == 6){
-                            if(p.pionID == 22){
-                                if(p.pionPositie < 46) {
+                    for (Pion p : pionen) {
+                        if (!p.onBoard){
+                        if (randomNummer == 6) {
+                            if (p.pionID == 22) {
+                                if (p.pionPositie < 46) {
                                     p.pionPositie = 46;
                                     p.onBoard = true;
                                     System.out.println("positie: " + p.pionPositie);
                                     drawPion();
-                                    if(mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()){
+                                    if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
                                         dobbelsteen();
                                         System.out.println("gedobbled: " + randomNummer);
                                         movePlayer(p.pionID, p.pionPositie);
@@ -359,6 +362,7 @@ public class BasicGame implements GameLoop {
                                     }
                                 }
                             }
+                        }
                         } else {
                             if (p.pionID == 22 && p.onBoard) {
                                 dobbelsteen();
@@ -452,7 +456,7 @@ public class BasicGame implements GameLoop {
             currentScreen = "mensWel";
         }
 
-        }
+    }
 
     public void threePlayer() {
         aantalSpelers = 3;
@@ -833,43 +837,57 @@ public class BasicGame implements GameLoop {
     }
 
     private void movePlayer(int pionID, int pionPositie) {
-        if(playerOne){
-            for(Pion p : pionen){
-                if(p.pionID == pionID){
+        if (playerOne) {
+            for (Pion p : pionen) {
+                if (p.pionID == pionID) {
                     p.pionPositie = pionPositie + randomNummer;
                     drawPion();
                 }
             }
-        } else if(playerTwo){
-            for(Pion p : pionen){
-                if(p.pionID == pionID){
+        } else if (playerTwo) {
+            for (Pion p : pionen) {
+                if (p.pionID == pionID) {
 
                     p.pionPositie = pionPositie + randomNummer;
                     drawPion();
                 }
             }
-        } else if (playerThree){
-            for(Pion p : pionen){
-                if(p.pionID == pionID){
+        } else if (playerThree) {
+            for (Pion p : pionen) {
+                if (p.pionID == pionID) {
 
                     p.pionPositie = pionPositie + randomNummer;
                     drawPion();
                 }
             }
-        } else if (playerFour){
-            for(Pion p : pionen){
-                if(p.pionID == pionID){
+        } else if (playerFour) {
+            for (Pion p : pionen) {
+                if (p.pionID == pionID) {
 
                     p.pionPositie = pionPositie + randomNummer;
                     drawPion();
                 }
             }
         }
-        for (Pion p : pionen){
-            if (!p.rondje){
-                if (p.pionPositie >= 55){
+        for (Pion p : pionen) {
+            if (!p.rondje) {
+                if (p.pionPositie >= 55) {
                     p.pionPositie = p.pionPositie - 40;
                     p.rondje = true;
+                }
+            }
+            if (p.rondje) {
+                if (p.pionID == 11) {
+                    if (p.pionPositie > 25) {
+                        p.pionPositie = 56;
+                    }
+                }
+            }
+            if (p.rondje){
+                if (p.pionID == 22) {
+                    if (p.pionPositie > 45) {
+                        p.pionPositie = 64;
+                    }
                 }
             }
 
