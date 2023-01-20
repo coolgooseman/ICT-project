@@ -1251,6 +1251,7 @@ public class BasicGame implements GameLoop {
         }
     }
     public void winCon() {
+        boolean gewonnen = false;
         int tempwin =0;
         for (Pion p : pionen) {
             if (p.pionID == 11 && p.inHonk) {
@@ -1266,11 +1267,14 @@ public class BasicGame implements GameLoop {
                 tempwin = tempwin +  1;
             }
             if (tempwin == 4){
-                System.out.println("Player geel wins");
-                break;
+                if (!gewonnen) {
+                    System.out.println("Player geel wins");
+                    gewonnen = true;
+                    break;
+                }
             }
         }
-        if (tempwin != 4){
+        if (!gewonnen){
             tempwin = 0;
         }
         for (Pion p : pionen) {
@@ -1286,12 +1290,14 @@ public class BasicGame implements GameLoop {
             if (p.pionID == 24 && p.inHonk) {
                 tempwin = tempwin +  1;
             }
-            if (tempwin == 4){
-                System.out.println("Player rood wins");
-                break;
+            if (tempwin == 4) {
+                if (!gewonnen) {
+                    System.out.println("Player rood wins");
+                    break;
+                }
             }
         }
-        if (tempwin != 4){
+        if (!gewonnen){
             tempwin = 0;
         }
         for (Pion p : pionen) {
@@ -1307,12 +1313,14 @@ public class BasicGame implements GameLoop {
             if (p.pionID == 34 && p.inHonk) {
                 tempwin = tempwin +  1;
             }
-            if (tempwin == 4){
-                System.out.println("Player groen wins");
-                break;
+            if (tempwin == 4) {
+                if (!gewonnen) {
+                    System.out.println("Player groen wins");
+                    break;
+                }
             }
         }
-        if (tempwin != 4){
+        if (!gewonnen){
             tempwin = 0;
         }
         for (Pion p : pionen) {
@@ -1328,9 +1336,11 @@ public class BasicGame implements GameLoop {
             if (p.pionID == 44 && p.inHonk) {
                 tempwin = tempwin +  1;
             }
-            if (tempwin == 4){
-                System.out.println("Player blauw wins");
-                break;
+            if (tempwin == 4) {
+                if (!gewonnen) {
+                    System.out.println("Player blauw wins");
+                    break;
+                }
             }
         }
 
