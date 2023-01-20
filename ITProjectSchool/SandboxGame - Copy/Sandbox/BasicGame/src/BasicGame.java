@@ -308,22 +308,22 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 11){
+                            if (p.pionID == 11) {
                                 if (randomNummer == 6) {
                                     setToStart(11, 26);
                                 }
                             }
-                        } else if(p.pionID == 11 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(12,26);
+                        } else if (p.pionID == 11 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(12, 26);
                             }
-                        } else if(p.pionID == 12 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(13,26);
+                        } else if (p.pionID == 12 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(13, 26);
                             }
-                        } else if(p.pionID == 13 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(14,26);
+                        } else if (p.pionID == 13 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(14, 26);
                             }
                         } else {
                             if (p.pionID == 11 && p.pionPositie < 56) {
@@ -344,6 +344,7 @@ public class BasicGame implements GameLoop {
                     playerOne = false;
                     playerTwo = true;
                     winCon();
+                    spelerKnockout();
 
                 }
             } else if (playerTwo) {
@@ -353,34 +354,34 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 21){
+                            if (p.pionID == 21) {
                                 if (randomNummer == 6) {
-                                    setToStart(21,46);
+                                    setToStart(21, 46);
                                 }
                             }
-                        } else if(p.pionID == 21 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 21 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(22, 46);
                             }
-                        } else if(p.pionID == 22 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 22 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(23, 46);
                             }
-                        } else if(p.pionID == 23 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 23 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(24, 46);
                             }
                         } else {
-                            if (p.pionID == 21 && p.pionPositie < 64 ) {
+                            if (p.pionID == 21 && p.pionPositie < 64) {
                                 movePlayer(21, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 22 && p.pionPositie != 64){
+                            } else if (p.pionID == 22 && p.pionPositie != 64) {
                                 movePlayer(22, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 23 && p.pionPositie != 64){
+                            } else if (p.pionID == 23 && p.pionPositie != 64) {
                                 movePlayer(23, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 24 && p.pionPositie != 64){
+                            } else if (p.pionID == 24 && p.pionPositie != 64) {
                                 movePlayer(24, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -389,7 +390,7 @@ public class BasicGame implements GameLoop {
                     playerTwo = false;
                     playerOne = true;
                     winCon();
-
+                    spelerKnockout();
                 }
             }
         }
@@ -401,34 +402,34 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 11){
+                            if (p.pionID == 11) {
                                 if (randomNummer == 6) {
                                     setToStart(11, 26);
                                 }
                             }
-                        } else if(p.pionID == 11 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(12,26);
+                        } else if (p.pionID == 11 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(12, 26);
                             }
-                        } else if(p.pionID == 12 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(13,26);
+                        } else if (p.pionID == 12 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(13, 26);
                             }
-                        } else if(p.pionID == 13 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(14,26);
+                        } else if (p.pionID == 13 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(14, 26);
                             }
                         } else {
-                            if (p.pionID == 11 && p.pionPositie < 56 ) {
+                            if (p.pionID == 11 && p.pionPositie < 56) {
                                 movePlayer(11, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 12 && p.pionPositie != 56){
+                            } else if (p.pionID == 12 && p.pionPositie != 56) {
                                 movePlayer(12, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 13 && p.pionPositie != 56){
+                            } else if (p.pionID == 13 && p.pionPositie != 56) {
                                 movePlayer(13, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 14 && p.pionPositie != 56){
+                            } else if (p.pionID == 14 && p.pionPositie != 56) {
                                 movePlayer(14, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -437,6 +438,7 @@ public class BasicGame implements GameLoop {
                     playerOne = false;
                     playerTwo = true;
                     winCon();
+                    spelerKnockout();
                 }
             } else if (playerTwo) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -445,34 +447,34 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 21){
+                            if (p.pionID == 21) {
                                 if (randomNummer == 6) {
-                                    setToStart(21,46);
+                                    setToStart(21, 46);
                                 }
                             }
-                        } else if(p.pionID == 21 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 21 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(22, 46);
                             }
-                        } else if(p.pionID == 22 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 22 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(23, 46);
                             }
-                        } else if(p.pionID == 23 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 23 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(24, 46);
                             }
                         } else {
-                            if (p.pionID == 21 && p.pionPositie < 64 ) {
+                            if (p.pionID == 21 && p.pionPositie < 64) {
                                 movePlayer(21, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 22 && p.pionPositie != 64){
+                            } else if (p.pionID == 22 && p.pionPositie != 64) {
                                 movePlayer(22, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 23 && p.pionPositie != 64){
+                            } else if (p.pionID == 23 && p.pionPositie != 64) {
                                 movePlayer(23, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 24 && p.pionPositie != 64){
+                            } else if (p.pionID == 24 && p.pionPositie != 64) {
                                 movePlayer(24, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -481,6 +483,7 @@ public class BasicGame implements GameLoop {
                     playerTwo = false;
                     playerThree = true;
                     winCon();
+                    spelerKnockout();
                 }
             } else if (playerThree) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -489,42 +492,43 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 31){
+                            if (p.pionID == 31) {
                                 if (randomNummer == 6) {
                                     setToStart(31, 36);
                                 }
                             }
-                        } else if(p.pionID == 31 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(32,36);
+                        } else if (p.pionID == 31 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(32, 36);
                             }
-                        } else if(p.pionID == 32 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(33,36);
+                        } else if (p.pionID == 32 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(33, 36);
                             }
-                        } else if(p.pionID == 33 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(34,36);
+                        } else if (p.pionID == 33 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(34, 36);
                             }
                         } else {
-                            if (p.pionID == 31 && p.pionPositie != 60 ) {
+                            if (p.pionID == 31 && p.pionPositie != 60) {
                                 movePlayer(31, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 32 && p.pionPositie != 60){
+                            } else if (p.pionID == 32 && p.pionPositie != 60) {
                                 movePlayer(32, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 33 && p.pionPositie != 60){
+                            } else if (p.pionID == 33 && p.pionPositie != 60) {
                                 movePlayer(33, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 34 && p.pionPositie != 60){
+                            } else if (p.pionID == 34 && p.pionPositie != 60) {
                                 movePlayer(34, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
                         }
                     }
-                    playerThree= false;
+                    playerThree = false;
                     playerOne = true;
                     winCon();
+                    spelerKnockout();
                 }
             }
         }
@@ -536,34 +540,34 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 11){
+                            if (p.pionID == 11) {
                                 if (randomNummer == 6) {
                                     setToStart(11, 26);
                                 }
                             }
-                        } else if(p.pionID == 11 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(12,26);
+                        } else if (p.pionID == 11 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(12, 26);
                             }
-                        } else if(p.pionID == 12 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(13,26);
+                        } else if (p.pionID == 12 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(13, 26);
                             }
-                        } else if(p.pionID == 13 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(14,26);
+                        } else if (p.pionID == 13 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(14, 26);
                             }
                         } else {
-                            if (p.pionID == 11 && p.pionPositie < 56 ) {
+                            if (p.pionID == 11 && p.pionPositie < 56) {
                                 movePlayer(11, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 12 && p.pionPositie != 56){
+                            } else if (p.pionID == 12 && p.pionPositie != 56) {
                                 movePlayer(12, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 13 && p.pionPositie != 56){
+                            } else if (p.pionID == 13 && p.pionPositie != 56) {
                                 movePlayer(13, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 14 && p.pionPositie != 56){
+                            } else if (p.pionID == 14 && p.pionPositie != 56) {
                                 movePlayer(14, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -572,6 +576,7 @@ public class BasicGame implements GameLoop {
                     playerOne = false;
                     playerTwo = true;
                     winCon();
+                    spelerKnockout();
                 }
             } else if (playerTwo) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -580,34 +585,34 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 21){
+                            if (p.pionID == 21) {
                                 if (randomNummer == 6) {
-                                    setToStart(21,46);
+                                    setToStart(21, 46);
                                 }
                             }
-                        } else if(p.pionID == 21 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 21 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(22, 46);
                             }
-                        } else if(p.pionID == 22 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 22 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(23, 46);
                             }
-                        } else if(p.pionID == 23 && p.inHonk){
-                            if(randomNummer == 6){
+                        } else if (p.pionID == 23 && p.inHonk) {
+                            if (randomNummer == 6) {
                                 setToStart(24, 46);
                             }
                         } else {
-                            if (p.pionID == 21 && p.pionPositie < 64 ) {
+                            if (p.pionID == 21 && p.pionPositie < 64) {
                                 movePlayer(21, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 22 && p.pionPositie != 64){
+                            } else if (p.pionID == 22 && p.pionPositie != 64) {
                                 movePlayer(22, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 23 && p.pionPositie != 64){
+                            } else if (p.pionID == 23 && p.pionPositie != 64) {
                                 movePlayer(23, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 24 && p.pionPositie != 64){
+                            } else if (p.pionID == 24 && p.pionPositie != 64) {
                                 movePlayer(24, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -616,6 +621,7 @@ public class BasicGame implements GameLoop {
                     playerTwo = false;
                     playerThree = true;
                     winCon();
+                    spelerKnockout();
                 }
             } else if (playerThree) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -624,34 +630,34 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 31){
+                            if (p.pionID == 31) {
                                 if (randomNummer == 6) {
                                     setToStart(31, 36);
                                 }
                             }
-                        } else if(p.pionID == 31 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(32,36);
+                        } else if (p.pionID == 31 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(32, 36);
                             }
-                        } else if(p.pionID == 32 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(33,36);
+                        } else if (p.pionID == 32 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(33, 36);
                             }
-                        } else if(p.pionID == 33 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(34,36);
+                        } else if (p.pionID == 33 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(34, 36);
                             }
                         } else {
-                            if (p.pionID == 31 && p.pionPositie != 60 ) {
+                            if (p.pionID == 31 && p.pionPositie != 60) {
                                 movePlayer(31, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 32 && p.pionPositie != 60){
+                            } else if (p.pionID == 32 && p.pionPositie != 60) {
                                 movePlayer(32, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 33 && p.pionPositie != 60){
+                            } else if (p.pionID == 33 && p.pionPositie != 60) {
                                 movePlayer(33, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 34 && p.pionPositie != 60){
+                            } else if (p.pionID == 34 && p.pionPositie != 60) {
                                 movePlayer(34, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -660,6 +666,7 @@ public class BasicGame implements GameLoop {
                     playerThree = false;
                     playerFour = true;
                     winCon();
+                    spelerKnockout();
                 }
             } else if (playerFour) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -668,34 +675,34 @@ public class BasicGame implements GameLoop {
                     System.out.println("gedobbled: " + randomNummer);
                     for (Pion p : pionen) {
                         if (!p.onBoard) {
-                            if(p.pionID == 41){
+                            if (p.pionID == 41) {
                                 if (randomNummer == 6) {
                                     setToStart(41, 16);
                                 }
                             }
-                        } else if(p.pionID == 41 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(42,16);
+                        } else if (p.pionID == 41 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(42, 16);
                             }
-                        } else if(p.pionID == 42 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(43,16);
+                        } else if (p.pionID == 42 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(43, 16);
                             }
-                        } else if(p.pionID == 43 && p.inHonk){
-                            if(randomNummer == 6){
-                                setToStart(44,16);
+                        } else if (p.pionID == 43 && p.inHonk) {
+                            if (randomNummer == 6) {
+                                setToStart(44, 16);
                             }
                         } else {
-                            if (p.pionID == 41 && p.pionPositie != 55 ) {
+                            if (p.pionID == 41 && p.pionPositie != 55) {
                                 movePlayer(41, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 42 && p.pionPositie != 55){
+                            } else if (p.pionID == 42 && p.pionPositie != 55) {
                                 movePlayer(42, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 43 && p.pionPositie != 55){
+                            } else if (p.pionID == 43 && p.pionPositie != 55) {
                                 movePlayer(43, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 44 && p.pionPositie != 55){
+                            } else if (p.pionID == 44 && p.pionPositie != 55) {
                                 movePlayer(44, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -704,16 +711,17 @@ public class BasicGame implements GameLoop {
                     playerFour = false;
                     playerOne = true;
                     winCon();
+                    spelerKnockout();
                 }
             }
         }
     }
 
 
-    public void setToStart(int pionID, int start){
-        for(Pion p : pionen) {
+    public void setToStart(int pionID, int start) {
+        for (Pion p : pionen) {
             if (p.pionID == pionID) {
-                if(!p.onBoard) {
+                if (!p.onBoard) {
                     p.pionPositie = start;
                     p.onBoard = true;
                     System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
@@ -724,6 +732,7 @@ public class BasicGame implements GameLoop {
         }
 
     }
+
     public void startPagina() {
         SaxionApp.drawImage("Sandbox/start pagina.png", 0, 0, 750, 750);
     }
@@ -828,23 +837,23 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void showInfo(){
-        if(playerOne){
+    public void showInfo() {
+        if (playerOne) {
             SaxionApp.setTextDrawingColor(Color.yellow);
             SaxionApp.turnBorderOff();
-            SaxionApp.drawText("Geel is aan de beurt.", 10,765,30);
-        } else if(playerTwo){
+            SaxionApp.drawText("Geel is aan de beurt.", 10, 765, 30);
+        } else if (playerTwo) {
             SaxionApp.setTextDrawingColor(Color.red);
             SaxionApp.turnBorderOff();
-            SaxionApp.drawText("Rood is aan de beurt.", 10,765,30);
-        }else if(playerThree){
+            SaxionApp.drawText("Rood is aan de beurt.", 10, 765, 30);
+        } else if (playerThree) {
             SaxionApp.setTextDrawingColor(Color.green);
             SaxionApp.turnBorderOff();
-            SaxionApp.drawText("Groen is aan de beurt.", 10,765,30);
-        }else if (playerFour){
+            SaxionApp.drawText("Groen is aan de beurt.", 10, 765, 30);
+        } else if (playerFour) {
             SaxionApp.setTextDrawingColor(Color.blue);
             SaxionApp.turnBorderOff();
-            SaxionApp.drawText("Blauw is aan de beurt.", 10,765,30);
+            SaxionApp.drawText("Blauw is aan de beurt.", 10, 765, 30);
         }
     }
 
@@ -1186,7 +1195,7 @@ public class BasicGame implements GameLoop {
                     p.pionPositie = p.pionPositie - 39;
                     p.rondje = true;
                 }
-                if(p.pionID == 41 && p.pionPositie >= 50 || p.pionID == 42 && p.pionPositie >= 50 || p.pionID == 43 && p.pionPositie >= 50 || p.pionID == 44 && p.pionPositie >= 50){
+                if (p.pionID == 41 && p.pionPositie >= 50 || p.pionID == 42 && p.pionPositie >= 50 || p.pionID == 43 && p.pionPositie >= 50 || p.pionID == 44 && p.pionPositie >= 50) {
                     p.rondje = true;
                 }
             }
@@ -1197,77 +1206,77 @@ public class BasicGame implements GameLoop {
                         p.pionPositie = 56;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 12){
+                } else if (p.pionID == 12) {
                     if (p.pionPositie > 25) {
                         p.pionPositie = 57;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 13){
+                } else if (p.pionID == 13) {
                     if (p.pionPositie > 25) {
                         p.pionPositie = 58;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 14){
+                } else if (p.pionID == 14) {
                     if (p.pionPositie > 25) {
                         p.pionPositie = 59;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 21){
+                } else if (p.pionID == 21) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 64;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 22){
+                } else if (p.pionID == 22) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 65;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 23){
+                } else if (p.pionID == 23) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 66;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 24){
+                } else if (p.pionID == 24) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 67;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 31){
+                } else if (p.pionID == 31) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 60;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 32){
+                } else if (p.pionID == 32) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 61;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 33){
+                } else if (p.pionID == 33) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 62;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 34){
+                } else if (p.pionID == 34) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 63;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 41){
+                } else if (p.pionID == 41) {
                     if (p.pionPositie > 55) {
                         p.pionPositie = 68;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 42){
+                } else if (p.pionID == 42) {
                     if (p.pionPositie > 55) {
                         p.pionPositie = 69;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 43){
+                } else if (p.pionID == 43) {
                     if (p.pionPositie > 55) {
                         p.pionPositie = 70;
                         p.inHonk = true;
                     }
-                }else if(p.pionID == 44){
+                } else if (p.pionID == 44) {
                     if (p.pionPositie > 55) {
                         p.pionPositie = 71;
                         p.inHonk = true;
@@ -1283,38 +1292,38 @@ public class BasicGame implements GameLoop {
         int tempwin = 0;
         for (Pion p : pionen) {
             if (p.pionID == 11 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 12 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 13 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 14 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
-            if (tempwin == 4){
+            if (tempwin == 4) {
                 System.out.println("Player geel wins");
                 gewonnen = true;
                 break;
             }
         }
-        if (!gewonnen){
+        if (!gewonnen) {
             tempwin = 0;
         }
         for (Pion p : pionen) {
             if (p.pionID == 21 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 22 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 23 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 24 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (tempwin == 4) {
                 if (!gewonnen) {
@@ -1324,21 +1333,21 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
-        if (!gewonnen){
+        if (!gewonnen) {
             tempwin = 0;
         }
         for (Pion p : pionen) {
             if (p.pionID == 31 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 32 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 33 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 34 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (tempwin == 4) {
                 if (!gewonnen) {
@@ -1348,21 +1357,21 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
-        if (!gewonnen){
+        if (!gewonnen) {
             tempwin = 0;
         }
         for (Pion p : pionen) {
             if (p.pionID == 41 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 42 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 43 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (p.pionID == 44 && p.inHonk) {
-                tempwin = tempwin +  1;
+                tempwin = tempwin + 1;
             }
             if (tempwin == 4) {
                 if (!gewonnen) {
@@ -1375,6 +1384,112 @@ public class BasicGame implements GameLoop {
 
     }
 
+    public void spelerKnockout() {
+        int positie = 0;
+        if (playerOne) {
+            for (Pion p : pionen) {
+                if (p.onBoard) {
+                    if (p.pionID == 11 || p.pionID == 12 || p.pionID == 13 || p.pionID == 14) {
+                        positie = p.pionPositie;
+                    }
+                    if (p.pionPositie == positie) {
+                        if (p.pionID == 21 || p.pionID == 22 || p.pionID == 23 || p.pionID == 24) {
+                            p.pionPositie = 6;
+                            p.onBoard = false;
+                            System.out.println("Geel is op rood gekomen, rood staat nu op: 6");
+                        }
+                        if (p.pionID == 31 || p.pionID == 32 || p.pionID == 33 || p.pionID == 34) {
+                            p.pionPositie = 8;
+                            p.onBoard = false;
+                            System.out.println("Geel is op groen gekomen, groen staat nu op: 8");
+                        }
+                        if (p.pionID == 41 || p.pionID == 42 || p.pionID == 43 || p.pionID == 44) {
+                            p.pionPositie = 12;
+                            p.onBoard = false;
+                            System.out.println("Geel is op blauw gekomen, blauw staat nu op: 12");
+                        }
+
+                    }
+                }
+            }
+        } else if (playerTwo) {
+            for (Pion p : pionen) {
+                if (p.onBoard) {
+
+                    if (p.pionID == 21 || p.pionID == 22 || p.pionID == 23 || p.pionID == 24) {
+                        positie = p.pionPositie;
+                    }
+                    if (p.pionPositie == positie) {
+                        if (p.pionID == 11 || p.pionID == 12 || p.pionID == 13 || p.pionID == 14) {
+                            p.pionPositie = 0;
+                            p.onBoard = false;
+                            System.out.println("Rood is op geel gekomen, geel staat nu op: 0");
+                        }
+                        if (p.pionID == 31 || p.pionID == 32 || p.pionID == 33 || p.pionID == 34) {
+                            p.pionPositie = 8;
+                            p.onBoard = false;
+                            System.out.println("Rood is op groen gekomen, groen staat nu op: 8");
+                        }
+                        if (p.pionID == 41 || p.pionID == 42 || p.pionID == 43 || p.pionID == 44) {
+                            p.pionPositie = 12;
+                            p.onBoard = false;
+                            System.out.println("Rood is op blauw gekomen, blauw staat nu op: 12");
+                        }
+                    }
+                }
+            }
+        } else if (playerThree) {
+            for (Pion p : pionen) {
+                if (p.onBoard) {
+                    if (p.pionID == 31 || p.pionID == 32 || p.pionID == 33 || p.pionID == 34) {
+                        positie = p.pionPositie;
+                    }
+                    if (p.pionPositie == positie) {
+                        if (p.pionID == 11 || p.pionID == 12 || p.pionID == 13 || p.pionID == 14) {
+                            p.pionPositie = 0;
+                            p.onBoard = false;
+                            System.out.println("Groen is op geel gekomen, geel staat nu op: 0");
+                        }
+                        if (p.pionID == 21 || p.pionID == 22 || p.pionID == 23 || p.pionID == 24) {
+                            p.pionPositie = 6;
+                            p.onBoard = false;
+                            System.out.println("Groen is op rood gekomen, rood staat nu op: 6");
+                        }
+                        if (p.pionID == 41 || p.pionID == 42 || p.pionID == 43 || p.pionID == 44) {
+                            p.pionPositie = 12;
+                            p.onBoard = false;
+                            System.out.println("Groen is op blauw gekomen, blauw staat nu op: 12");
+                        }
+                    }
+                }
+            }
+        } else if (playerFour) {
+            for (Pion p : pionen) {
+                if (p.onBoard) {
+                    if (p.pionID == 41 || p.pionID == 42 || p.pionID == 43 || p.pionID == 44) {
+                        positie = p.pionPositie;
+                    }
+                    if (p.pionPositie == positie) {
+                        if (p.pionID == 11 || p.pionID == 12 || p.pionID == 13 || p.pionID == 14) {
+                            p.pionPositie = 0;
+                            p.onBoard = false;
+                            System.out.println("Blauw is op geel gekomen, geel staat nu op: 0");
+                        }
+                        if (p.pionID == 21 || p.pionID == 22 || p.pionID == 23 || p.pionID == 24) {
+                            p.pionPositie = 6;
+                            p.onBoard = false;
+                            System.out.println("Blauw is op rood gekomen, rood staat nu op: 6");
+                        }
+                        if (p.pionID == 31 || p.pionID == 32 || p.pionID == 33 || p.pionID == 34) {
+                            p.pionPositie = 8;
+                            p.onBoard = false;
+                            System.out.println("Blauw is op groen gekomen, groen staat nu op: 8");
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }
 
