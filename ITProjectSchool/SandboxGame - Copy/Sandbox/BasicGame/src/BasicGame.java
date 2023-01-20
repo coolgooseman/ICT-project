@@ -31,9 +31,6 @@ public class BasicGame implements GameLoop {
 
     @Override
     public void init() {
-        //Color achtergrond = SaxionApp.createColor(255,251,208);
-        //SaxionApp.setBackgroundColor(achtergrond);
-        //reSize();
         Positions();
         createPion();
     }
@@ -56,13 +53,57 @@ public class BasicGame implements GameLoop {
             case "2player" -> twoPlayer();
             case "3player" -> threePlayer();
             case "4player" -> fourPlayer();
+            case "yellowWins" -> yellowWins();
+            case "redWins" -> redWins();
+            case "greenWins" -> greenWins();
+            case "blueWins" -> blueWins();
         }
 
     }
 
     @Override
     public void keyboardEvent(KeyboardEvent keyboardEvent) {
+        switch (currentScreen) {
+            case "yellowWins" -> yellowWinsKeyEvent(keyboardEvent);
+            case "redWins" -> redWinsKeyEvent(keyboardEvent);
+            case "greenWins" -> greenWinsKeyEvent(keyboardEvent);
+            case "blueWins" -> blueWinsKeyEvent(keyboardEvent);
+        }
     }
+
+    public void yellowWinsKeyEvent(KeyboardEvent keyboardEvent){
+        if(keyboardEvent.isKeyPressed()){
+            if(keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE){
+                resetGame();
+            }
+        }
+
+    }
+
+    public void redWinsKeyEvent(KeyboardEvent keyboardEvent){
+        if(keyboardEvent.isKeyPressed()){
+            if(keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE){
+                resetGame();
+            }
+        }
+    }
+
+    public void greenWinsKeyEvent(KeyboardEvent keyboardEvent){
+        if(keyboardEvent.isKeyPressed()){
+            if(keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE){
+                resetGame();
+            }
+        }
+    }
+
+    public void blueWinsKeyEvent(KeyboardEvent keyboardEvent){
+        if(keyboardEvent.isKeyPressed()){
+            if(keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE){
+                resetGame();
+            }
+        }
+    }
+
 
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
@@ -297,7 +338,6 @@ public class BasicGame implements GameLoop {
 
         playersTurnMouseEvent(mouseEvent);
     }
-
 
     public void playersTurnMouseEvent(MouseEvent mouseEvent) {
         if (aantalSpelers == 2) {
@@ -709,21 +749,7 @@ public class BasicGame implements GameLoop {
         }
     }
 
-
-    public void setToStart(int pionID, int start){
-        for(Pion p : pionen) {
-            if (p.pionID == pionID) {
-                if(!p.onBoard) {
-                    p.pionPositie = start;
-                    p.onBoard = true;
-                    System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                    drawPion();
-                }
-
-            }
-        }
-
-    }
+    //pagina code
     public void startPagina() {
         SaxionApp.drawImage("Sandbox/start pagina.png", 0, 0, 750, 750);
     }
@@ -808,6 +834,8 @@ public class BasicGame implements GameLoop {
         }
     }
 
+
+    //game code
     public void dobbelsteen() {
         randomNummer = SaxionApp.getRandomValueBetween(1, 7);
     }
@@ -1150,6 +1178,21 @@ public class BasicGame implements GameLoop {
         }
     }
 
+    public void setToStart(int pionID, int start){
+        for(Pion p : pionen) {
+            if (p.pionID == pionID) {
+                if(!p.onBoard) {
+                    p.pionPositie = start;
+                    p.onBoard = true;
+                    System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
+                    drawPion();
+                }
+
+            }
+        }
+
+    }
+
     public void movePlayer(int pionID, int pionPositie) {
         if (playerOne) {
             for (Pion p : pionen) {
@@ -1277,7 +1320,6 @@ public class BasicGame implements GameLoop {
         }
     }
 
-
     public void winCon() {
         boolean gewonnen = false;
         int tempwin = 0;
@@ -1297,6 +1339,7 @@ public class BasicGame implements GameLoop {
             if (tempwin == 4){
                 System.out.println("Player geel wins");
                 gewonnen = true;
+                currentScreen = "yellowWins";
                 break;
             }
         }
@@ -1320,6 +1363,7 @@ public class BasicGame implements GameLoop {
                 if (!gewonnen) {
                     System.out.println("Player rood wins");
                     gewonnen = true;
+                    currentScreen = "redWins";
                     break;
                 }
             }
@@ -1344,6 +1388,7 @@ public class BasicGame implements GameLoop {
                 if (!gewonnen) {
                     System.out.println("Player groen wins");
                     gewonnen = true;
+                    currentScreen = "greenWins";
                     break;
                 }
             }
@@ -1367,7 +1412,7 @@ public class BasicGame implements GameLoop {
             if (tempwin == 4) {
                 if (!gewonnen) {
                     System.out.println("Player blauw wins");
-                    gewonnen = true;
+                    currentScreen = "blueWins";
                     break;
                 }
             }
@@ -1375,6 +1420,74 @@ public class BasicGame implements GameLoop {
 
     }
 
+    public void yellowWins(){
+        SaxionApp.drawImage("Sandbox/win pagina yellow.png", 0, 0, 750, 750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.turnBorderOff();
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,30);
+    }
+
+    public void redWins(){
+        SaxionApp.drawImage("Sandbox/win pagina red.png", 0, 0, 750, 750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.turnBorderOff();
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,30);
+    }
+
+    public void greenWins(){
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.turnBorderOff();
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,30);
+
+    }
+
+    public void blueWins(){
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.turnBorderOff();
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,30);
+    }
+
+    //reset code
+    public void resetGame(){
+        aantalSpelers =0;
+        randomNummer = 0;
+        mensNiet = false;
+        mensWel = false;
+        verzuipNiet = false;
+        playerOne = true;
+        playerTwo = false;
+        playerThree = false;
+        playerFour = false;
+        resetPion(11,0);
+        resetPion(12,1);
+        resetPion(13,2);
+        resetPion(14,3);
+        resetPion(21,4);
+        resetPion(22,5);
+        resetPion(23,6);
+        resetPion(24,7);
+        resetPion(31,8);
+        resetPion(32,9);
+        resetPion(33,10);
+        resetPion(34,11);
+        resetPion(41,12);
+        resetPion(42,13);
+        resetPion(43,14);
+        resetPion(44,15);
+        currentScreen = "startPagina";
+    }
+
+    public void resetPion(int pionID, int positie){
+        for(Pion p : pionen){
+            if(p.pionID == pionID){
+                p.pionPositie = positie;
+                p.onBoard = false;
+                p.inHonk = false;
+                p.rondje = false;
+            }
+
+        }
+    }
 
 }
 
