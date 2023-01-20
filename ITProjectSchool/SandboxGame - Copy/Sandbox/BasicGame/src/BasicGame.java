@@ -104,7 +104,6 @@ public class BasicGame implements GameLoop {
         }
     }
 
-
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
         switch (currentScreen) {
