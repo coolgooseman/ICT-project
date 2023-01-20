@@ -25,16 +25,14 @@ public class BasicGame implements GameLoop {
     Position[] posities = new Position[72];
     Pion[] pionen = new Pion[16];
 
-    //ArrayList<String> kanskaarten = new ArrayList<>();
-    //int kansKeuze = SaxionApp.getRandomValueBetween(0, 3);
-
-
     public static void main(String[] args) {
         SaxionApp.startGameLoop(new BasicGame(), 750, 750, 40);
     }
 
     @Override
     public void init() {
+        //Color achtergrond = SaxionApp.createColor(255,251,208);
+        //SaxionApp.setBackgroundColor(achtergrond);
         Positions();
         createPion();
     }
@@ -326,16 +324,16 @@ public class BasicGame implements GameLoop {
                                 setToStart(14,26);
                             }
                         } else {
-                            if (p.pionID == 11 && p.pionPositie < 56 ) {
+                            if (p.pionID == 11 && p.pionPositie < 56) {
                                 movePlayer(11, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 12 && p.pionPositie != 56){
+                            } else if (p.pionID == 12 && p.pionPositie != 56) {
                                 movePlayer(12, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 13 && p.pionPositie != 56){
+                            } else if (p.pionID == 13 && p.pionPositie != 56) {
                                 movePlayer(13, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
-                            } else if(p.pionID == 14 && p.pionPositie != 56){
+                            } else if (p.pionID == 14 && p.pionPositie != 56) {
                                 movePlayer(14, p.pionPositie);
                                 System.out.println("positie: " + p.pionPositie + " pionID: " + p.pionID);
                             }
@@ -709,6 +707,7 @@ public class BasicGame implements GameLoop {
         }
     }
 
+
     public void setToStart(int pionID, int start){
         for(Pion p : pionen) {
             if (p.pionID == pionID) {
@@ -723,9 +722,50 @@ public class BasicGame implements GameLoop {
         }
 
     }
+    public void startPagina() {
+        SaxionApp.drawImage("Sandbox/start pagina.png", 0, 0, 750, 750);
+    }
 
     public void playerMenu() {
         SaxionApp.drawImage("Sandbox/player menu.png", 0, 0, 750, 750);
+    }
+
+    public void gameMenu() {
+        SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
+    }
+
+    public void regelPagina() {
+        SaxionApp.drawImage("Sandbox/regels keuze menu.png", 0, 0, 750, 750);
+    }
+
+    public void mensNietRegels() {
+        SaxionApp.drawImage("Sandbox/Regels mens erger je niet.png", 0, 0, 750, 750);
+    }
+
+    public void verzuipNietRegels() {
+        SaxionApp.drawImage("Sandbox/mens verzuip je niet regels.png", 0, 0, 750, 750);
+    }
+
+    public void mensWelRegels() {
+        SaxionApp.drawImage("Sandbox/regels Mens erger je Wel.png", 0, 0, 750, 750);
+    }
+
+    public void nietGamePagina() {
+        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+        drawPion();
+        drawDobbelsteen();
+    }
+
+    public void drankGamePagina() {
+        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
+        drawPion();
+        drawDobbelsteen();
+    }
+
+    public void welGamePagina() {
+        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
+        drawPion();
+        drawDobbelsteen();
     }
 
     public void twoPlayer() {
@@ -762,48 +802,11 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void startPagina() {
-        SaxionApp.drawImage("Sandbox/start pagina.png", 0, 0, 750, 750);
-    }
-
-    public void gameMenu() {
-        SaxionApp.drawImage("Sandbox/keuze menu.png", 0, 0, 750, 750);
-    }
-
-    public void regelPagina() {
-        SaxionApp.drawImage("Sandbox/regels keuze menu.png", 0, 0, 750, 750);
-    }
-
-    public void mensNietRegels() {
-        SaxionApp.drawImage("Sandbox/Regels mens erger je niet.png", 0, 0, 750, 750);
-    }
-
-    public void verzuipNietRegels() {
-        SaxionApp.drawImage("Sandbox/mens verzuip je niet regels.png", 0, 0, 750, 750);
-    }
-
-    public void mensWelRegels() {
-        SaxionApp.drawImage("Sandbox/regels Mens erger je Wel.png", 0, 0, 750, 750);
-    }
-
-    public void nietGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-        drawPion();
-    }
-
-    public void drankGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
-        drawPion();
-    }
-
-    public void welGamePagina() {
-        SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
-        drawPion();
-    }
-
-
     public void dobbelsteen() {
         randomNummer = SaxionApp.getRandomValueBetween(1, 7);
+    }
+
+    public void drawDobbelsteen() {
         switch (randomNummer) {
             case 0 -> {
                 SaxionApp.setFill(Color.white);
@@ -815,6 +818,7 @@ public class BasicGame implements GameLoop {
             case 4 -> SaxionApp.drawImage("Sandbox/stip4.png", 350, 348, 55, 55);
             case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 348, 55, 55);
             case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 348, 55, 55);
+
         }
     }
 
@@ -1333,150 +1337,6 @@ public class BasicGame implements GameLoop {
 
     }
 
-    /*
-    public void actualPlayermovement() {
-        //check of speler binnen kan komen
-        if (player1.positionplayer >= 4 && player1.positionplayer <= 9) {
-            player1.binnenKomen = true;
-        }
-        //movement
-        //na 39 moet speler naar binnen
-        //44 45 46 47 is te hoog en dan doet die niks, kan evt code in niet nodig i think -jorn
-        //code nog niet aangepast voor meerdan 2 spelers
-        if (playerOne) {
-            if (!player1.isEchtBinnen) {
-                player1.positionplayer = randomNummer + player1.positionplayer;
-                player1.counterPos = player1.counterPos + randomNummer;
-                if (player1.counterPos > 39) {
-                    if (player1.counterPos == 45) {
-                        //do nothing
-                    } else if (player1.counterPos == 46) {
-                        //do nothing
-                    } else if (player1.counterPos == 47) {
-                        //do nothing
-                    } else if (player1.counterPos == 48) {
-                        //do nothing
-                    } else {
-                        player1.binnenKomen = true;
-                        player1.positionplayerBinnen = 0;
-                    }
-                }
-            }
-        } else if (playerTwo) {
-            player2.positionplayer = randomNummer + player2.positionplayer;
-            player2.counterPos = player2.counterPos + randomNummer;
-            if (!player2.isEchtBinnen) {
-                if (player2.counterPos > 39) {
-                    if (player2.counterPos == 45) {
-                        //do nothing
-                    } else if (player2.counterPos == 46) {
-                        //do nothing
-                    } else if (player2.counterPos == 47) {
-                        //do nothing
-                    } else if (player2.counterPos == 48) {
-                        //do nothing
-                    } else {
-                        player2.binnenKomen = true;
-                        player2.positionplayerBinnen = 4;
-
-                    }
-                }
-            }
-
-        } else if (playerThree) {
-            player3.positionplayer = randomNummer + player3.positionplayer;
-
-
-        } else if (playerFour) {
-            player4.positionplayer = randomNummer + player4.positionplayer;
-
-        }
-        //onderkant bord reset positie
-        if (player1.positionplayer >= 40) {
-            player1.positionplayer = player1.positionplayer - 40;
-        }
-        if (player2.positionplayer >= 40) {
-            player2.positionplayer = player2.positionplayer - 40;
-        }
-        if (player3.positionplayer >= 40) {
-            player3.positionplayer = player3.positionplayer - 40;
-        }
-        if (player4.positionplayer >= 40) {
-            player4.positionplayer = player4.positionplayer - 40;
-        }
-    }
-
-    public void drawPlayer() {
-        //shit werkt erg cracked maar het werkt nu soort van, kijken of het zo kan met meerder spelers
-        if (aantalSpelers == 2) {
-            if (player1.binnenKomen) {
-                SaxionApp.drawBorderedText(String.valueOf(player1.id), innerPositie[player1.positionplayerBinnen].x, innerPositie[player1.positionplayerBinnen].y, 20);
-                player1.isEchtBinnen = true;
-            }
-            if (player2.binnenKomen) {
-                SaxionApp.drawBorderedText(String.valueOf(player2.id), innerPositie[player2.positionplayerBinnen].x, innerPositie[player2.positionplayerBinnen].y, 20);
-                player2.isEchtBinnen = true;
-            }
-            if (!player1.binnenKomen) {
-                SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
-            }
-            if (!player2.binnenKomen) {
-                SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
-            }
-        } else if (aantalSpelers == 3) {
-            SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
-            SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
-            SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
-        } else if (aantalSpelers == 4) {
-            SaxionApp.drawBorderedText(String.valueOf(player4.id), positie[player4.positionplayer].x, positie[player4.positionplayer].y, 20);
-            SaxionApp.drawBorderedText(String.valueOf(player3.id), positie[player3.positionplayer].x, positie[player3.positionplayer].y, 20);
-            SaxionApp.drawBorderedText(String.valueOf(player2.id), positie[player2.positionplayer].x, positie[player2.positionplayer].y, 20);
-            SaxionApp.drawBorderedText(String.valueOf(player1.id), positie[player1.positionplayer].x, positie[player1.positionplayer].y, 20);
-        }
-    }
-
-    public void drawKanskaart() {
-        if (player1.positionplayer == 4 || player1.positionplayer == 18 || player1.positionplayer == 24 || player1.positionplayer == 38) {
-            SaxionApp.setTextDrawingColor(Color.black);
-            currentScreen = "kanskaart";
-
-
-
-        } else if (player2.positionplayer == 4 || player2.positionplayer == 18 || player2.positionplayer == 24 || player2.positionplayer == 38) {
-            SaxionApp.setTextDrawingColor(Color.black);
-            currentScreen = "kanskaart";
-
-
-
-        } else if (player3.positionplayer == 4 || player3.positionplayer == 18 || player3.positionplayer == 24 || player3.positionplayer == 38) {
-            SaxionApp.clear();
-            SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
-            SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
-            SaxionApp.setTextDrawingColor(Color.black);
-            SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
-
-        } else if (player4.positionplayer == 4 || player4.positionplayer == 18 || player4.positionplayer == 24 || player4.positionplayer == 38) {
-            SaxionApp.clear();
-            SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
-            SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
-            SaxionApp.setTextDrawingColor(Color.black);
-            SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
-        }
-
-
-        //Achtergrond kleur (Zelfde kleur als bord)
-        Color achtergrond = new Color(254, 246, 159);
-        SaxionApp.setBackgroundColor(achtergrond);
-    }
-
-    public void kansKaartDraw() {
-        SaxionApp.clear();
-        SaxionApp.drawImage("Sandbox/kanskaart.png", 175, 250, 400, 200);
-        SaxionApp.drawText("Druk op de 'linkermuisknop' om verder te spelen", 175, 200, 20);
-        SaxionApp.drawText(kanskaarten.get(kansKeuze), 200, 330, 20);
-    }
-
-     */
 }
 
 
