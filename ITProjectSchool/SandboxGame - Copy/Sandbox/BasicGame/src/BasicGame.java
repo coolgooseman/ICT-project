@@ -26,13 +26,14 @@ public class BasicGame implements GameLoop {
     Pion[] pionen = new Pion[16];
 
     public static void main(String[] args) {
-        SaxionApp.startGameLoop(new BasicGame(), 750, 750, 40);
+        SaxionApp.startGameLoop(new BasicGame(), 750, 800, 40);
     }
 
     @Override
     public void init() {
         //Color achtergrond = SaxionApp.createColor(255,251,208);
         //SaxionApp.setBackgroundColor(achtergrond);
+        //reSize();
         Positions();
         createPion();
     }
@@ -296,6 +297,7 @@ public class BasicGame implements GameLoop {
 
         playersTurnMouseEvent(mouseEvent);
     }
+
 
     public void playersTurnMouseEvent(MouseEvent mouseEvent) {
         if (aantalSpelers == 2) {
@@ -753,18 +755,22 @@ public class BasicGame implements GameLoop {
     public void nietGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
         drawPion();
+        showInfo();
         drawDobbelsteen();
+
     }
 
     public void drankGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
         drawPion();
+        showInfo();
         drawDobbelsteen();
     }
 
     public void welGamePagina() {
         SaxionApp.drawImage("Sandbox/bord mens erger je wel.png", 0, 0, 750, 750);
         drawPion();
+        showInfo();
         drawDobbelsteen();
     }
 
@@ -819,6 +825,26 @@ public class BasicGame implements GameLoop {
             case 5 -> SaxionApp.drawImage("Sandbox/stip5.png", 350, 348, 55, 55);
             case 6 -> SaxionApp.drawImage("Sandbox/stip6.png", 350, 348, 55, 55);
 
+        }
+    }
+
+    public void showInfo(){
+        if(playerOne){
+            SaxionApp.setTextDrawingColor(Color.yellow);
+            SaxionApp.turnBorderOff();
+            SaxionApp.drawText("Geel is aan de beurt.", 10,765,30);
+        } else if(playerTwo){
+            SaxionApp.setTextDrawingColor(Color.red);
+            SaxionApp.turnBorderOff();
+            SaxionApp.drawText("Rood is aan de beurt.", 10,765,30);
+        }else if(playerThree){
+            SaxionApp.setTextDrawingColor(Color.green);
+            SaxionApp.turnBorderOff();
+            SaxionApp.drawText("Groen is aan de beurt.", 10,765,30);
+        }else if (playerFour){
+            SaxionApp.setTextDrawingColor(Color.blue);
+            SaxionApp.turnBorderOff();
+            SaxionApp.drawText("Blauw is aan de beurt.", 10,765,30);
         }
     }
 
@@ -1124,7 +1150,7 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    private void movePlayer(int pionID, int pionPositie) {
+    public void movePlayer(int pionID, int pionPositie) {
         if (playerOne) {
             for (Pion p : pionen) {
                 if (p.pionID == pionID) {
@@ -1250,9 +1276,11 @@ public class BasicGame implements GameLoop {
             }
         }
     }
+
+
     public void winCon() {
         boolean gewonnen = false;
-        int tempwin =0;
+        int tempwin = 0;
         for (Pion p : pionen) {
             if (p.pionID == 11 && p.inHonk) {
                 tempwin = tempwin +  1;
@@ -1267,11 +1295,9 @@ public class BasicGame implements GameLoop {
                 tempwin = tempwin +  1;
             }
             if (tempwin == 4){
-                if (!gewonnen) {
-                    System.out.println("Player geel wins");
-                    gewonnen = true;
-                    break;
-                }
+                System.out.println("Player geel wins");
+                gewonnen = true;
+                break;
             }
         }
         if (!gewonnen){
@@ -1293,6 +1319,7 @@ public class BasicGame implements GameLoop {
             if (tempwin == 4) {
                 if (!gewonnen) {
                     System.out.println("Player rood wins");
+                    gewonnen = true;
                     break;
                 }
             }
@@ -1316,6 +1343,7 @@ public class BasicGame implements GameLoop {
             if (tempwin == 4) {
                 if (!gewonnen) {
                     System.out.println("Player groen wins");
+                    gewonnen = true;
                     break;
                 }
             }
@@ -1339,13 +1367,14 @@ public class BasicGame implements GameLoop {
             if (tempwin == 4) {
                 if (!gewonnen) {
                     System.out.println("Player blauw wins");
+                    gewonnen = true;
                     break;
                 }
             }
         }
 
-
     }
+
 
 }
 
