@@ -5,8 +5,9 @@ public class Pion {
     int pionID;
     int playerID;
     int pionPositie;
-    int  totalPositie;
     boolean onBoard = false;
+
+    boolean inHonk = false;
     boolean rondje = false;
 
 }
