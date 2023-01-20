@@ -343,6 +343,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerOne = false;
                     playerTwo = true;
+                    winCon();
 
                 }
             } else if (playerTwo) {
@@ -387,6 +388,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerTwo = false;
                     playerOne = true;
+                    winCon();
 
                 }
             }
@@ -434,6 +436,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerOne = false;
                     playerTwo = true;
+                    winCon();
                 }
             } else if (playerTwo) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -477,6 +480,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerTwo = false;
                     playerThree = true;
+                    winCon();
                 }
             } else if (playerThree) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -520,6 +524,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerThree= false;
                     playerOne = true;
+                    winCon();
                 }
             }
         }
@@ -566,6 +571,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerOne = false;
                     playerTwo = true;
+                    winCon();
                 }
             } else if (playerTwo) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -609,6 +615,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerTwo = false;
                     playerThree = true;
+                    winCon();
                 }
             } else if (playerThree) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -652,6 +659,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerThree = false;
                     playerFour = true;
+                    winCon();
                 }
             } else if (playerFour) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -695,6 +703,7 @@ public class BasicGame implements GameLoop {
                     }
                     playerFour = false;
                     playerOne = true;
+                    winCon();
                 }
             }
         }
@@ -1236,6 +1245,92 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
+    }
+    public void winCon() {
+        int tempwin =0;
+        for (Pion p : pionen) {
+            if (p.pionID == 11 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 12 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 13 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 14 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (tempwin == 4){
+                System.out.println("Player geel wins");
+                break;
+            }
+        }
+        if (tempwin != 4){
+            tempwin = 0;
+        }
+        for (Pion p : pionen) {
+            if (p.pionID == 21 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 22 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 23 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 24 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (tempwin == 4){
+                System.out.println("Player rood wins");
+                break;
+            }
+        }
+        if (tempwin != 4){
+            tempwin = 0;
+        }
+        for (Pion p : pionen) {
+            if (p.pionID == 31 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 32 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 33 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 34 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (tempwin == 4){
+                System.out.println("Player groen wins");
+                break;
+            }
+        }
+        if (tempwin != 4){
+            tempwin = 0;
+        }
+        for (Pion p : pionen) {
+            if (p.pionID == 41 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 42 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 43 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (p.pionID == 44 && p.inHonk) {
+                tempwin = tempwin +  1;
+            }
+            if (tempwin == 4){
+                System.out.println("Player blauw wins");
+                break;
+            }
+        }
+
+
     }
 
     /*
