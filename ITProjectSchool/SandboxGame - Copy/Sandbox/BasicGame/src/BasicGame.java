@@ -73,6 +73,10 @@ public class BasicGame implements GameLoop {
             case "redWins" -> redWinsKeyEvent(keyboardEvent);
             case "greenWins" -> greenWinsKeyEvent(keyboardEvent);
             case "blueWins" -> blueWinsKeyEvent(keyboardEvent);
+            case "YellowVerzuipNietWins" -> geelVerzuipjenietWinKeyEvent(keyboardEvent);
+            case "RedVerzuipNietWins" -> roodVerzuipjenietWinKeyEvent(keyboardEvent);
+            case "GroenVerzuipNietWins" -> groenVerzuipjenietWinKeyEvent(keyboardEvent);
+            case "BlueVerzuipNietWins" -> blauwVerzuipjenietWinKeyEvent(keyboardEvent);
         }
     }
 
@@ -102,6 +106,39 @@ public class BasicGame implements GameLoop {
     }
 
     public void blueWinsKeyEvent(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
+                resetGame();
+            }
+        }
+    }
+
+    public void geelVerzuipjenietWinKeyEvent(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
+                resetGame();
+            }
+        }
+
+    }
+
+    public void roodVerzuipjenietWinKeyEvent(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
+                resetGame();
+            }
+        }
+    }
+
+    public void groenVerzuipjenietWinKeyEvent(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
+                resetGame();
+            }
+        }
+    }
+
+    public void blauwVerzuipjenietWinKeyEvent(KeyboardEvent keyboardEvent) {
         if (keyboardEvent.isKeyPressed()) {
             if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
                 resetGame();
@@ -1818,16 +1855,24 @@ public class BasicGame implements GameLoop {
         }
     }
     public void geelVerzuipjenietWin(){
-        SaxionApp.drawImage("win pagina yellow verzuip.png", 0,0,750,750);
+        SaxionApp.drawImage("Sandbox/win pagina yellow verzuip.png", 0,0,750,750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
     }
     public void blauwVerzuipjenietWin(){
-        SaxionApp.drawImage("win pagina blue verzuip.png", 0,0,750,750);
+        SaxionApp.drawImage("Sandbox/win pagina blue verzuip.png", 0,0,750,750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
     }
     public void groenVerzuipjenietWin(){
-        SaxionApp.drawImage("win pagina green verzuip.png", 0,0,750,750);
+        SaxionApp.drawImage("Sandbox/win pagina green verzuip.png", 0,0,750,750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
     }
     public void roodVerzuipjenietWin(){
-        SaxionApp.drawImage("win pagina red verzuip.png", 0,0,750,750);
+        SaxionApp.drawImage("Sandbox/win pagina red verzuip.png", 0,0,750,750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
     }
 }
 
