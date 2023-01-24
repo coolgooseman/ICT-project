@@ -1813,6 +1813,18 @@ public class BasicGame implements GameLoop {
 
         }
     }
+    public void geelVerzuipjenietWin(){
+        SaxionApp.drawImage("temp.png", 0,0,0,0);
+    }
+    public void blauwVerzuipjenietWin(){
+        SaxionApp.drawImage("temp.png", 0,0,0,0);
+    }
+    public void groenVerzuipjenietWin(){
+        SaxionApp.drawImage("temp.png", 0,0,0,0);
+    }
+    public void roodVerzuipjenietWin(){
+        SaxionApp.drawImage("temp.png", 0,0,0,0);
+    }
 }
 
 
