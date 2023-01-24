@@ -514,8 +514,9 @@ public class BasicGame implements GameLoop {
                     }
                     playerOne = false;
                     playerTwo = true;
-                    winCon();
                     spelerKnockout();
+                    winCon();
+
                 }
             } else if (playerTwo) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -559,8 +560,9 @@ public class BasicGame implements GameLoop {
                     }
                     playerTwo = false;
                     playerThree = true;
-                    winCon();
                     spelerKnockout();
+                    winCon();
+
                 }
             } else if (playerThree) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -604,8 +606,9 @@ public class BasicGame implements GameLoop {
                     }
                     playerThree = false;
                     playerOne = true;
-                    winCon();
                     spelerKnockout();
+                    winCon();
+
                 }
             }
         }
@@ -652,8 +655,9 @@ public class BasicGame implements GameLoop {
                     }
                     playerOne = false;
                     playerTwo = true;
-                    winCon();
                     spelerKnockout();
+                    winCon();
+
                 }
             } else if (playerTwo) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -697,8 +701,9 @@ public class BasicGame implements GameLoop {
                     }
                     playerTwo = false;
                     playerThree = true;
-                    winCon();
                     spelerKnockout();
+                    winCon();
+
                 }
             } else if (playerThree) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -742,8 +747,9 @@ public class BasicGame implements GameLoop {
                     }
                     playerThree = false;
                     playerFour = true;
-                    winCon();
                     spelerKnockout();
+                    winCon();
+
                 }
             } else if (playerFour) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -787,8 +793,9 @@ public class BasicGame implements GameLoop {
                     }
                     playerFour = false;
                     playerOne = true;
-                    winCon();
                     spelerKnockout();
+                    winCon();
+
                 }
             }
         }
@@ -1481,10 +1488,15 @@ public class BasicGame implements GameLoop {
                 tempwin = tempwin + 1;
             }
             if (tempwin == 4) {
-                System.out.println("Player geel wins");
-                gewonnen = true;
-                currentScreen = "yellowWins";
-                break;
+                if (verzuipNiet){
+                    gewonnen = true;
+                    currentScreen = "YellowVerzuipNietWins";
+                } else {
+                    System.out.println("Player geel wins");
+                    gewonnen = true;
+                    currentScreen = "yellowWins";
+                    break;
+                }
             }
         }
         if (!gewonnen){
@@ -1505,10 +1517,15 @@ public class BasicGame implements GameLoop {
             }
             if (tempwin == 4) {
                 if (!gewonnen) {
-                    System.out.println("Player rood wins");
-                    gewonnen = true;
-                    currentScreen = "redWins";
-                    break;
+                    if (verzuipNiet) {
+                        gewonnen = true;
+                        currentScreen = "RedVerzuipNietWins";
+                    } else {
+                        System.out.println("Player rood wins");
+                        gewonnen = true;
+                        currentScreen = "redWins";
+                        break;
+                    }
                 }
             }
         }
@@ -1530,10 +1547,15 @@ public class BasicGame implements GameLoop {
             }
             if (tempwin == 4) {
                 if (!gewonnen) {
-                    System.out.println("Player groen wins");
-                    gewonnen = true;
-                    currentScreen = "greenWins";
-                    break;
+                    if (verzuipNiet) {
+                        gewonnen = true;
+                        currentScreen = "GroenVerzuipNietWins";
+                    } else {
+                        System.out.println("Player groen wins");
+                        gewonnen = true;
+                        currentScreen = "greenWins";
+                        break;
+                    }
                 }
             }
         }
@@ -1555,9 +1577,14 @@ public class BasicGame implements GameLoop {
             }
             if (tempwin == 4) {
                 if (!gewonnen) {
-                    System.out.println("Player blauw wins");
-                    currentScreen = "blueWins";
-                    break;
+                    if (verzuipNiet) {
+                        gewonnen = true;
+                        currentScreen = "GroenVerzuipNietWins";
+                    } else {
+                        System.out.println("Player blauw wins");
+                        currentScreen = "blueWins";
+                        break;
+                    }
                 }
             }
         }
