@@ -823,7 +823,7 @@ public class BasicGame implements GameLoop {
     }
 
     public void verzuipNietRegels() {
-        SaxionApp.drawImage("Sandbox/mens verzuip je niet regels.png", 0, 0, 750, 750);
+        SaxionApp.drawImage("Sandbox/regels Mens verzuip je niet.png", 0, 0, 750, 750);
     }
 
     public void mensWelRegels() {
