@@ -60,7 +60,7 @@ public class BasicGame implements GameLoop {
             case "blueWins" -> blueWins();
             case "YellowVerzuipNietWins" -> geelVerzuipjenietWin();
             case "RedVerzuipNietWins" -> roodVerzuipjenietWin();
-            case "GreenVerzuipNietWins" -> groenVerzuipjenietWin();
+            case "GroenVerzuipNietWins" -> groenVerzuipjenietWin();
             case "BlueVerzuipNietWins" -> blauwVerzuipjenietWin();
         }
 
@@ -1583,7 +1583,7 @@ public class BasicGame implements GameLoop {
                 if (!gewonnen) {
                     if (verzuipNiet) {
                         gewonnen = true;
-                        currentScreen = "GroenVerzuipNietWins";
+                        currentScreen = "BlueVerzuipNietWins";
                     } else {
                         System.out.println("Player blauw wins");
                         currentScreen = "blueWins";
