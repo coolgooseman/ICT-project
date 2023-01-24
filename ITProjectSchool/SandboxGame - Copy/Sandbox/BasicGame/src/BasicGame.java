@@ -58,6 +58,10 @@ public class BasicGame implements GameLoop {
             case "redWins" -> redWins();
             case "greenWins" -> greenWins();
             case "blueWins" -> blueWins();
+            case "YellowVerzuipNietWins" -> geelVerzuipjenietWin();
+            case "RedVerzuipNietWins" -> roodVerzuipjenietWin();
+            case "GreenVerzuipNietWins" -> groenVerzuipjenietWin();
+            case "BlueVerzuipNietWins" -> blauwVerzuipjenietWin();
         }
 
     }
