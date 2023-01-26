@@ -40,7 +40,6 @@ public class BasicGame implements GameLoop {
     public void loop() {
         SaxionApp.clear();
         switch (currentScreen) {
-            //case "kanskaart" -> kansKaartDraw();
             case "startPagina" -> startPagina();
             case "gameMenu" -> gameMenu();
             case "mensNiet" -> nietGamePagina();
@@ -62,8 +61,8 @@ public class BasicGame implements GameLoop {
             case "RedVerzuipNietWins" -> roodVerzuipjenietWin();
             case "GroenVerzuipNietWins" -> groenVerzuipjenietWin();
             case "BlueVerzuipNietWins" -> blauwVerzuipjenietWin();
+            case "KansKaart" -> showkansKaartScreen(pionID);
         }
-
     }
 
     @Override
@@ -77,6 +76,7 @@ public class BasicGame implements GameLoop {
             case "RedVerzuipNietWins" -> roodVerzuipjenietWinKeyEvent(keyboardEvent);
             case "GroenVerzuipNietWins" -> groenVerzuipjenietWinKeyEvent(keyboardEvent);
             case "BlueVerzuipNietWins" -> blauwVerzuipjenietWinKeyEvent(keyboardEvent);
+            case "KansKaart" -> kansKaartScreenKeyEvent(keyboardEvent);
         }
     }
 
@@ -142,6 +142,19 @@ public class BasicGame implements GameLoop {
         if (keyboardEvent.isKeyPressed()) {
             if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
                 resetGame();
+            }
+        }
+    }
+
+    public void kansKaartScreenKeyEvent(KeyboardEvent keyboardEvent) {
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
+                currentScreen = "mensWel";
+                SaxionApp.setBackgroundColor(Color.black);
+                kiesKansText = false;
+                System.out.println("PION_ID: " + pionID);
+                System.out.println("kans kaart index: " + kansKeuze);
+                voerKansKaartUit(pionID);
             }
         }
     }
@@ -460,6 +473,9 @@ public class BasicGame implements GameLoop {
                     }
                     spelerKnockout();
                     winCon();
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
                     playerOne = false;
                     playerTwo = true;
 
@@ -507,6 +523,9 @@ public class BasicGame implements GameLoop {
                     }
                     spelerKnockout();
                     winCon();
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
                     playerTwo = false;
                     playerOne = true;
                 }
@@ -553,10 +572,14 @@ public class BasicGame implements GameLoop {
                             }
                         }
                     }
-                    playerOne = false;
-                    playerTwo = true;
                     spelerKnockout();
                     winCon();
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
+                    playerOne = false;
+                    playerTwo = true;
+
 
                 }
             } else if (playerTwo) {
@@ -599,11 +622,13 @@ public class BasicGame implements GameLoop {
                             }
                         }
                     }
-                    playerTwo = false;
-                    playerThree = true;
                     spelerKnockout();
                     winCon();
-
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
+                    playerTwo = false;
+                    playerThree = true;
                 }
             } else if (playerThree) {
                 if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
@@ -645,11 +670,13 @@ public class BasicGame implements GameLoop {
                             }
                         }
                     }
-                    playerThree = false;
-                    playerOne = true;
                     spelerKnockout();
                     winCon();
-
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
+                    playerThree = false;
+                    playerOne = true;
                 }
             }
         }
@@ -694,10 +721,13 @@ public class BasicGame implements GameLoop {
                             }
                         }
                     }
-                    playerOne = false;
-                    playerTwo = true;
                     spelerKnockout();
                     winCon();
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
+                    playerOne = false;
+                    playerTwo = true;
 
                 }
             } else if (playerTwo) {
@@ -740,10 +770,13 @@ public class BasicGame implements GameLoop {
                             }
                         }
                     }
-                    playerTwo = false;
-                    playerThree = true;
                     spelerKnockout();
                     winCon();
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
+                    playerTwo = false;
+                    playerThree = true;
 
                 }
             } else if (playerThree) {
@@ -786,10 +819,13 @@ public class BasicGame implements GameLoop {
                             }
                         }
                     }
-                    playerThree = false;
-                    playerFour = true;
                     spelerKnockout();
                     winCon();
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
+                    playerThree = false;
+                    playerFour = true;
 
                 }
             } else if (playerFour) {
@@ -832,10 +868,13 @@ public class BasicGame implements GameLoop {
                             }
                         }
                     }
-                    playerFour = false;
-                    playerOne = true;
                     spelerKnockout();
                     winCon();
+                    if (mensWel) {
+                        chekKanskaart();
+                    }
+                    playerFour = false;
+                    playerOne = true;
 
                 }
             }
@@ -872,7 +911,7 @@ public class BasicGame implements GameLoop {
     }
 
     public void nietGamePagina() {
-        if(show == 0){
+        if (show == 0) {
             System.out.println("mens erg je niet");
             show++;
         }
@@ -885,9 +924,9 @@ public class BasicGame implements GameLoop {
     }
 
     public void drankGamePagina() {
-        if(show == 0) {
+        if (show == 0) {
             System.out.println("mens verzuip je niet");
-            show ++;
+            show++;
         }
         SaxionApp.drawImage("Sandbox/bord mens erger je niet.png", 0, 0, 750, 750);
         SaxionApp.drawImage("Sandbox/vraagteken.png", 700, 753, 45, 45);
@@ -898,7 +937,7 @@ public class BasicGame implements GameLoop {
     }
 
     public void welGamePagina() {
-        if(show == 0) {
+        if (show == 0) {
             System.out.println("mens erger je wel");
             show++;
         }
@@ -970,7 +1009,7 @@ public class BasicGame implements GameLoop {
                     SaxionApp.setTextDrawingColor(Color.white);
                     SaxionApp.drawText("GEEL drink 2 slokken.", 375, 765, 20);
                     //System.out.println("GEEL drink 2 slokken.");
-                }  else if (p.pionID == 11 && p.inHonk || p.pionID == 12 && p.inHonk || p.pionID == 13 && p.inHonk || p.pionID == 14 && p.inHonk) {
+                } else if (p.pionID == 11 && p.inHonk || p.pionID == 12 && p.inHonk || p.pionID == 13 && p.inHonk || p.pionID == 14 && p.inHonk) {
                     SaxionApp.setTextDrawingColor(Color.white);
                     SaxionApp.drawText("GEEL drink 5 slok.", 375, 765, 20);
                     //System.out.println("GEEL drink 5 slokken.");
@@ -980,7 +1019,7 @@ public class BasicGame implements GameLoop {
                         SaxionApp.drawText("GEEL drink 1 slok.", 375, 765, 20);
                         //System.out.println("GEEL drink 1 slok.");
                     }
-                }else if (gegooit == 6) {
+                } else if (gegooit == 6) {
                     SaxionApp.setTextDrawingColor(Color.white);
                     SaxionApp.drawText("GEEL drink 5 slokken.", 375, 765, 20);
                     //System.out.println("GEEL drink 5 slokken.");
@@ -1050,22 +1089,22 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void showInfo(){
-        if (playerOne){
+    public void showInfo() {
+        if (playerOne) {
             SaxionApp.setTextDrawingColor(Color.yellow);
-            SaxionApp.drawText("Geel is aan de beurt.", 10,765,30);
-        } else if(playerTwo){
+            SaxionApp.drawText("Geel is aan de beurt.", 10, 765, 30);
+        } else if (playerTwo) {
             SaxionApp.setTextDrawingColor(Color.red);
             SaxionApp.turnBorderOff();
-            SaxionApp.drawText("Rood is aan de beurt.", 10,765,30);
-        } else if(playerThree){
+            SaxionApp.drawText("Rood is aan de beurt.", 10, 765, 30);
+        } else if (playerThree) {
             SaxionApp.setTextDrawingColor(Color.green);
             SaxionApp.turnBorderOff();
-            SaxionApp.drawText("Groen is aan de beurt.", 10,765,30);
-        } else if (playerFour){
+            SaxionApp.drawText("Groen is aan de beurt.", 10, 765, 30);
+        } else if (playerFour) {
             SaxionApp.setTextDrawingColor(Color.blue);
             SaxionApp.turnBorderOff();
-            SaxionApp.drawText("Blauw is aan de beurt.", 10,765,30);
+            SaxionApp.drawText("Blauw is aan de beurt.", 10, 765, 30);
         }
     }
 
@@ -1370,7 +1409,7 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    public void setToStart(int pionID, int start){
+    public void setToStart(int pionID, int start) {
         for (Pion p : pionen) {
             if (p.pionID == pionID) {
                 if (!p.onBoard) {
@@ -1415,13 +1454,18 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
+        checkRondje();
+
+    }
+
+    public void checkRondje(){
         for (Pion p : pionen) {
             if (!p.rondje) {
                 if (p.pionPositie >= 55) {
                     p.pionPositie = p.pionPositie - 39;
                     p.rondje = true;
                 }
-                if (p.pionID == 41 && p.pionPositie >= 50 || p.pionID == 42 && p.pionPositie >= 50 || p.pionID == 43 && p.pionPositie >= 50 || p.pionID == 44 && p.pionPositie >= 50){
+                if (p.pionID == 41 && p.pionPositie >= 50 || p.pionID == 42 && p.pionPositie >= 50 || p.pionID == 43 && p.pionPositie >= 50 || p.pionID == 44 && p.pionPositie >= 50) {
                     p.rondje = true;
                 }
             }
@@ -1432,77 +1476,77 @@ public class BasicGame implements GameLoop {
                         p.pionPositie = 56;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 12){
+                } else if (p.pionID == 12) {
                     if (p.pionPositie > 25) {
                         p.pionPositie = 57;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 13){
+                } else if (p.pionID == 13) {
                     if (p.pionPositie > 25) {
                         p.pionPositie = 58;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 14){
+                } else if (p.pionID == 14) {
                     if (p.pionPositie > 25) {
                         p.pionPositie = 59;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 21){
+                } else if (p.pionID == 21) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 64;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 22){
+                } else if (p.pionID == 22) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 65;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 23){
+                } else if (p.pionID == 23) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 66;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 24){
+                } else if (p.pionID == 24) {
                     if (p.pionPositie > 45) {
                         p.pionPositie = 67;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 31){
+                } else if (p.pionID == 31) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 60;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 32){
+                } else if (p.pionID == 32) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 61;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 33){
+                } else if (p.pionID == 33) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 62;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 34){
+                } else if (p.pionID == 34) {
                     if (p.pionPositie > 35) {
                         p.pionPositie = 63;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 41){
+                } else if (p.pionID == 41) {
                     if (p.pionPositie >= 55) {
                         p.pionPositie = 68;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 42){
+                } else if (p.pionID == 42) {
                     if (p.pionPositie >= 55) {
                         p.pionPositie = 69;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 43){
+                } else if (p.pionID == 43) {
                     if (p.pionPositie >= 55) {
                         p.pionPositie = 70;
                         p.inHonk = true;
                     }
-                } else if(p.pionID == 44){
+                } else if (p.pionID == 44) {
                     if (p.pionPositie >= 55) {
                         p.pionPositie = 71;
                         p.inHonk = true;
@@ -1510,6 +1554,7 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
+
     }
 
     public void winCon() {
@@ -1529,7 +1574,7 @@ public class BasicGame implements GameLoop {
                 tempwin = tempwin + 1;
             }
             if (tempwin == 4) {
-                if (verzuipNiet){
+                if (verzuipNiet) {
                     gewonnen = true;
                     currentScreen = "YellowVerzuipNietWins";
                 } else {
@@ -1540,7 +1585,7 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
-        if (!gewonnen){
+        if (!gewonnen) {
             tempwin = 0;
         }
         for (Pion p : pionen) {
@@ -1570,7 +1615,7 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
-        if (!gewonnen){
+        if (!gewonnen) {
             tempwin = 0;
         }
         for (Pion p : pionen) {
@@ -1600,7 +1645,7 @@ public class BasicGame implements GameLoop {
                 }
             }
         }
-        if (!gewonnen){
+        if (!gewonnen) {
             tempwin = 0;
         }
         for (Pion p : pionen) {
@@ -1632,30 +1677,54 @@ public class BasicGame implements GameLoop {
 
     }
 
-    public void yellowWins(){
+    public void yellowWins() {
         SaxionApp.drawImage("Sandbox/win pagina yellow.png", 0, 0, 750, 750);
         SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
 
     }
 
-    public void redWins(){
+    public void redWins() {
         SaxionApp.drawImage("Sandbox/win pagina red.png", 0, 0, 750, 750);
         SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
 
     }
 
-    public void greenWins(){
+    public void greenWins() {
         SaxionApp.drawImage("Sandbox/win pagina green.png", 0, 0, 750, 750);
         SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
     }
 
-    public void blueWins(){
+    public void blueWins() {
         SaxionApp.drawImage("Sandbox/win pagina blue.png", 0, 0, 750, 750);
         SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
+    }
+
+    public void geelVerzuipjenietWin() {
+        SaxionApp.drawImage("Sandbox/win pagina yellow verzuip.png", 0, 0, 750, 750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
+    }
+
+    public void blauwVerzuipjenietWin() {
+        SaxionApp.drawImage("Sandbox/win pagina blue verzuip.png", 0, 0, 750, 750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
+    }
+
+    public void groenVerzuipjenietWin() {
+        SaxionApp.drawImage("Sandbox/win pagina green verzuip.png", 0, 0, 750, 750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
+    }
+
+    public void roodVerzuipjenietWin() {
+        SaxionApp.drawImage("Sandbox/win pagina red verzuip.png", 0, 0, 750, 750);
+        SaxionApp.setTextDrawingColor(Color.WHITE);
+        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10, 765, 20);
     }
 
     public void spelerKnockout() {
@@ -1671,7 +1740,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 6;
                             p.onBoard = false;
                             System.out.println("Geel is op rood gekomen, rood staat nu op: 6");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("ROOD drink 5 slokken.", 375, 765, 30);
                             }
@@ -1680,7 +1749,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 8;
                             p.onBoard = false;
                             System.out.println("Geel is op groen gekomen, groen staat nu op: 8");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("GROEN drink 5 slokken.", 375, 765, 30);
                             }
@@ -1689,7 +1758,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 12;
                             p.onBoard = false;
                             System.out.println("Geel is op blauw gekomen, blauw staat nu op: 12");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("BLAUW drink 5 slokken.", 375, 765, 30);
                             }
@@ -1709,7 +1778,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 0;
                             p.onBoard = false;
                             System.out.println("Rood is op geel gekomen, geel staat nu op: 0");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("GEEL drink 5 slokken.", 375, 765, 30);
                             }
@@ -1718,7 +1787,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 8;
                             p.onBoard = false;
                             System.out.println("Rood is op groen gekomen, groen staat nu op: 8");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("GROEN drink 5 slokken.", 375, 765, 30);
                             }
@@ -1727,7 +1796,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 12;
                             p.onBoard = false;
                             System.out.println("Rood is op blauw gekomen, blauw staat nu op: 12");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("BLAUW drink 5 slokken.", 375, 765, 30);
                             }
@@ -1746,7 +1815,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 0;
                             p.onBoard = false;
                             System.out.println("Groen is op geel gekomen, geel staat nu op: 0");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("GEEL drink 5 slokken.", 375, 765, 30);
                             }
@@ -1755,7 +1824,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 6;
                             p.onBoard = false;
                             System.out.println("Groen is op rood gekomen, rood staat nu op: 6");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("ROOD drink 5 slokken.", 375, 765, 30);
                             }
@@ -1764,7 +1833,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 12;
                             p.onBoard = false;
                             System.out.println("Groen is op blauw gekomen, blauw staat nu op: 12");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("BLAUW drink 5 slokken.", 375, 765, 30);
                             }
@@ -1783,7 +1852,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 0;
                             p.onBoard = false;
                             System.out.println("Blauw is op geel gekomen, geel staat nu op: 0");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("GEEL drink 5 slokken.", 375, 765, 30);
                             }
@@ -1792,7 +1861,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 6;
                             p.onBoard = false;
                             System.out.println("Blauw is op rood gekomen, rood staat nu op: 6");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("ROOD drink 5 slokken.", 375, 765, 30);
                             }
@@ -1801,7 +1870,7 @@ public class BasicGame implements GameLoop {
                             p.pionPositie = 8;
                             p.onBoard = false;
                             System.out.println("Blauw is op groen gekomen, groen staat nu op: 8");
-                            if(verzuipNiet){
+                            if (verzuipNiet) {
                                 SaxionApp.setTextDrawingColor(Color.white);
                                 SaxionApp.drawText("GROEN drink 5 slokken.", 375, 765, 30);
                             }
@@ -1813,8 +1882,8 @@ public class BasicGame implements GameLoop {
     }
 
     //reset code
-    public void resetGame(){
-        aantalSpelers =0;
+    public void resetGame() {
+        aantalSpelers = 0;
         randomNummer = 0;
         show = 0;
         mensNiet = false;
@@ -1824,22 +1893,22 @@ public class BasicGame implements GameLoop {
         playerTwo = false;
         playerThree = false;
         playerFour = false;
-        resetPion(11,0);
-        resetPion(12,1);
-        resetPion(13,2);
-        resetPion(14,3);
-        resetPion(21,4);
-        resetPion(22,5);
-        resetPion(23,6);
-        resetPion(24,7);
-        resetPion(31,8);
-        resetPion(32,9);
-        resetPion(33,10);
-        resetPion(34,11);
-        resetPion(41,12);
-        resetPion(42,13);
-        resetPion(43,14);
-        resetPion(44,15);
+        resetPion(11, 0);
+        resetPion(12, 1);
+        resetPion(13, 2);
+        resetPion(14, 3);
+        resetPion(21, 4);
+        resetPion(22, 5);
+        resetPion(23, 6);
+        resetPion(24, 7);
+        resetPion(31, 8);
+        resetPion(32, 9);
+        resetPion(33, 10);
+        resetPion(34, 11);
+        resetPion(41, 12);
+        resetPion(42, 13);
+        resetPion(43, 14);
+        resetPion(44, 15);
         currentScreen = "startPagina";
     }
 
@@ -1854,26 +1923,131 @@ public class BasicGame implements GameLoop {
 
         }
     }
-    public void geelVerzuipjenietWin(){
-        SaxionApp.drawImage("Sandbox/win pagina yellow verzuip.png", 0,0,750,750);
-        SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
+
+    int pionID = 0;
+
+    public void chekKanskaart() {
+        for (Pion p : pionen) {
+            if (playerOne) {
+                if (p.pionID == 11 && p.pionPositie == 20 || p.pionID == 11 && p.pionPositie == 34 || p.pionID == 11 && p.pionPositie == 40 || p.pionID == 11 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 12 && p.pionPositie == 20 || p.pionID == 12 && p.pionPositie == 34 || p.pionID == 12 && p.pionPositie == 40 || p.pionID == 12 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 13 && p.pionPositie == 20 || p.pionID == 13 && p.pionPositie == 34 || p.pionID == 13 && p.pionPositie == 40 || p.pionID == 13 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 14 && p.pionPositie == 20 || p.pionID == 14 && p.pionPositie == 34 || p.pionID == 14 && p.pionPositie == 40 || p.pionID == 14 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                }
+            } else if (playerTwo) {
+                if (p.pionID == 21 && p.pionPositie == 20 || p.pionID == 21 && p.pionPositie == 34 || p.pionID == 21 && p.pionPositie == 40 || p.pionID == 21 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 22 && p.pionPositie == 20 || p.pionID == 22 && p.pionPositie == 34 || p.pionID == 22 && p.pionPositie == 40 || p.pionID == 22 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 23 && p.pionPositie == 20 || p.pionID == 23 && p.pionPositie == 34 || p.pionID == 23 && p.pionPositie == 40 || p.pionID == 23 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 24 && p.pionPositie == 20 || p.pionID == 24 && p.pionPositie == 34 || p.pionID == 24 && p.pionPositie == 40 || p.pionID == 24 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                }
+            } else if (playerThree) {
+                if (p.pionID == 31 && p.pionPositie == 20 || p.pionID == 31 && p.pionPositie == 34 || p.pionID == 31 && p.pionPositie == 40 || p.pionID == 31 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 32 && p.pionPositie == 20 || p.pionID == 32 && p.pionPositie == 34 || p.pionID == 32 && p.pionPositie == 40 || p.pionID == 32 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 33 && p.pionPositie == 20 || p.pionID == 33 && p.pionPositie == 34 || p.pionID == 33 && p.pionPositie == 40 || p.pionID == 33 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 34 && p.pionPositie == 20 || p.pionID == 34 && p.pionPositie == 34 || p.pionID == 34 && p.pionPositie == 40 || p.pionID == 34 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                }
+            } else if (playerFour) {
+                if (p.pionID == 41 && p.pionPositie == 20 || p.pionID == 41 && p.pionPositie == 34 || p.pionID == 41 && p.pionPositie == 40 || p.pionID == 41 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 42 && p.pionPositie == 20 || p.pionID == 42 && p.pionPositie == 34 || p.pionID == 42 && p.pionPositie == 40 || p.pionID == 42 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 43 && p.pionPositie == 20 || p.pionID == 43 && p.pionPositie == 34 || p.pionID == 43 && p.pionPositie == 40 || p.pionID == 43 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 44 && p.pionPositie == 20 || p.pionID == 44 && p.pionPositie == 34 || p.pionID == 44 && p.pionPositie == 40 || p.pionID == 44 && p.pionPositie == 54) {
+                    currentScreen = "KansKaart";
+                    pionID = p.pionID;
+                }
+            }
+        }
     }
-    public void blauwVerzuipjenietWin(){
-        SaxionApp.drawImage("Sandbox/win pagina blue verzuip.png", 0,0,750,750);
-        SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
+
+    boolean kiesKansText = false;
+    String kansText = "";
+    int kansKeuze = 0;
+    String[] kansKaarten ={"Je hebt geluk! Je mag 5 stappen vooruit!",
+            "Wie o Wie? Zet een van de tegenspelers 3 stappen achteruit.",
+            "Je mag het aantal gegooide ogen vooruit!"};
+
+    public void showkansKaartScreen(int pionID) {
+        Color achtergrond = SaxionApp.createColor(255, 251, 208);
+        SaxionApp.setBackgroundColor(achtergrond);
+        SaxionApp.drawImage("Sandbox/kanskaart.png", 25, 200, 700, 350);
+
+        if (pionID == 11 || pionID == 12 || pionID == 13 || pionID == 14) {
+            SaxionApp.drawText("GEEL: ", 320, 275, 40);
+        } else if (pionID == 21 || pionID == 22 || pionID == 23 || pionID == 24) {
+            SaxionApp.drawText("ROOD: ", 320, 275, 40);
+        } else if (pionID == 31 || pionID == 32 || pionID == 33 || pionID == 34) {
+            SaxionApp.drawText("GROEN: ", 320, 275, 40);
+        } else if (pionID == 41 || pionID == 42 || pionID == 43 || pionID == 44) {
+            SaxionApp.drawText("BLAUW: ", 320, 275, 40);
+        }
+
+
+        if (!kiesKansText) {
+            kansKeuze = SaxionApp.getRandomValueBetween(0, kansKaarten.length);
+            kansText = kansKaarten[kansKeuze];
+            kiesKansText = true;
+        }
+        SaxionApp.setTextDrawingColor(Color.white);
+        SaxionApp.drawText(kansText, 100, 375, 25);
+
+        SaxionApp.setTextDrawingColor(Color.white);
+        SaxionApp.drawText("druk op spatie om verder te gaan.", 270, 500, 15);
+
     }
-    public void groenVerzuipjenietWin(){
-        SaxionApp.drawImage("Sandbox/win pagina green verzuip.png", 0,0,750,750);
-        SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
+
+    public void voerKansKaartUit(int pionID) {
+        System.out.println("pionID: " + pionID);
+        for (Pion p : pionen) {
+            if (p.pionID == pionID && !p.inHonk) {
+                if (kansKeuze == 0) {
+                    p.pionPositie += 5;
+                    checkRondje();
+                    System.out.println(p.pionID + " 5+ stappen vooruit");
+                    System.out.println("pID " + p.pionPositie + " positie: " + p.pionPositie);
+                } else if (kansKeuze == 1) {
+                    System.out.println("er moet een speler achteruit......");
+                } else if (kansKeuze == 2) {
+                    p.pionPositie += randomNummer;
+                    checkRondje();
+                    System.out.println(p.pionID + " " + randomNummer + " stappen vooruit");
+                    System.out.println("pID " + p.pionPositie + " positie: " + p.pionPositie);
+                }
+
+            }
+        }
+
     }
-    public void roodVerzuipjenietWin(){
-        SaxionApp.drawImage("Sandbox/win pagina red verzuip.png", 0,0,750,750);
-        SaxionApp.setTextDrawingColor(Color.WHITE);
-        SaxionApp.drawText("Druk op de spatsiebalk om naar start te gaan.", 10,765,20);
-    }
+
+
 }
 
 
