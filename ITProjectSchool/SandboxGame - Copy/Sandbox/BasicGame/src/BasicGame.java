@@ -64,6 +64,7 @@ public class BasicGame implements GameLoop {
             case "KansKaart" -> showkansKaartScreen(pionID);
             case "truthKaartKeuze" -> showTruthKeuzeScreen(pionID);
             case "truthKaart" -> showTruthKaart();
+            case "dareKaart" -> showDareKaart(pionID);
         }
     }
 
@@ -80,6 +81,7 @@ public class BasicGame implements GameLoop {
             case "BlueVerzuipNietWins" -> blauwVerzuipjenietWinKeyEvent(keyboardEvent);
             case "KansKaart" -> kansKaartScreenKeyEvent(keyboardEvent);
             case "truthKaart" -> truthKaartKeyEvent(keyboardEvent);
+            case "dareKaart" -> dareKaartKeyEvent(keyboardEvent);
         }
     }
 
@@ -192,6 +194,43 @@ public class BasicGame implements GameLoop {
                 amusement = false;
                 ict = false;
                 System.out.println("PION_ID: " + pionID);
+                voerTruthKaartUit(pionID);
+            }
+        }
+    }
+
+    public void dareKaartKeyEvent(KeyboardEvent keyboardEvent){
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
+                currentScreen = "mensWel";
+                SaxionApp.setBackgroundColor(Color.black);
+                kiesDare = false;
+                System.out.println("PION_ID: " + pionID);
+                System.out.println("dare kaart index: " + kansKeuze);
+                skip = true;
+                voerDareUit(pionID);
+            }
+        }
+
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_ENTER) {
+                currentScreen = "mensWel";
+                SaxionApp.setBackgroundColor(Color.black);
+                kiesDare = false;
+                System.out.println("PION_ID: " + pionID);
+                System.out.println("dare kaart index: " + kansKeuze);
+                dareVooruit = true;
+                voerTruthKaartUit(pionID);
+            }
+        }
+
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_BACK_SPACE) {
+                currentScreen = "mensWel";
+                SaxionApp.setBackgroundColor(Color.black);
+                kiesDare = false;
+                System.out.println("PION_ID: " + pionID);
+                System.out.println("dare kaart index: " + kansKeuze);
                 voerTruthKaartUit(pionID);
             }
         }
@@ -2049,9 +2088,9 @@ public class BasicGame implements GameLoop {
         }
     }
 
+    int pionID = 0;
 
     //kans kaarten
-    int pionID = 0;
     boolean kiesKansText = false;
     String kansText = "";
     int kansKeuze = 0;
@@ -2470,9 +2509,141 @@ public class BasicGame implements GameLoop {
 
     //-------------------------------------------------------
 
-    public void checkDareKaart(){
 
+    //dare kaarten
+    boolean kiesDare = false;
+    boolean skip = false;
+    boolean dareVooruit = false;
+    String dareText = "";
+    int dareKaart = 0;
+    public void checkDareKaart(){
+        for (Pion p : pionen) {
+            if (playerOne) {
+                if (p.pionID == 11 && p.pionPositie == 24 || p.pionID == 11 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 12 && p.pionPositie == 24 || p.pionID == 12 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 13 && p.pionPositie == 24 || p.pionID == 13 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 14 && p.pionPositie == 24 || p.pionID == 14 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                }
+            } else if (playerTwo) {
+                if (p.pionID == 21 && p.pionPositie == 24 || p.pionID == 21 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 22 && p.pionPositie == 24 || p.pionID == 22 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 23 && p.pionPositie == 24 || p.pionID == 23 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 24 && p.pionPositie == 24 || p.pionID == 24 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                }
+            } else if (playerThree) {
+                if (p.pionID == 31 && p.pionPositie == 24 || p.pionID == 31 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 32 && p.pionPositie == 24 || p.pionID == 32 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 33 && p.pionPositie == 24 || p.pionID == 33 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 34 && p.pionPositie == 24 || p.pionID == 34 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                }
+            } else if (playerFour) {
+                if (p.pionID == 41 && p.pionPositie == 24 || p.pionID == 41 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 42 && p.pionPositie == 24 || p.pionID == 42 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 43 && p.pionPositie == 24 || p.pionID == 43 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                } else if (p.pionID == 44 && p.pionPositie == 24 || p.pionID == 44 && p.pionPositie == 50) {
+                    currentScreen = "dareKaart";
+                    pionID = p.pionID;
+                }
+            }
+        }
     }
+
+    public void showDareKaart(int pionID){
+        String[] dareKaarten = {"FUN RUN, Ren een rondje om je huis!",
+                "Trek een kledingstuk naar keuze uit!",
+                "Drink je glas leeg!",
+                "Ga naar buiten en dans als een cowboy!",
+                "Praat met een Duits accent de komende 2 rondes. ",
+                "Ga breakdancen!"};
+
+        Color achtergrond = SaxionApp.createColor(255, 251, 208);
+        SaxionApp.setBackgroundColor(achtergrond);
+        SaxionApp.drawImage("Sandbox/darekaart.png", 25, 200, 700, 350);
+
+        if (pionID == 11 || pionID == 12 || pionID == 13 || pionID == 14) {
+            SaxionApp.drawText("GEEL: ", 320, 275, 40);
+        } else if (pionID == 21 || pionID == 22 || pionID == 23 || pionID == 24) {
+            SaxionApp.drawText("ROOD: ", 320, 275, 40);
+        } else if (pionID == 31 || pionID == 32 || pionID == 33 || pionID == 34) {
+            SaxionApp.drawText("GROEN: ", 320, 275, 40);
+        } else if (pionID == 41 || pionID == 42 || pionID == 43 || pionID == 44) {
+            SaxionApp.drawText("BLAUW: ", 320, 275, 40);
+        }
+
+        if (!kiesDare) {
+            dareKaart = SaxionApp.getRandomValueBetween(0, dareKaarten.length);
+            dareText = dareKaarten[kansKeuze];
+            kiesDare = true;
+        }
+        SaxionApp.setTextDrawingColor(Color.white);
+        SaxionApp.drawText(dareText, 100, 375, 25);
+
+        SaxionApp.setTextDrawingColor(Color.white);
+        SaxionApp.drawText("skip: SPATIE        goed: ENTER         fout: BACK", 100, 500, 15);
+    }
+
+    public void voerDareUit(int pionID){
+        for(Pion p : pionen) {
+            if (skip) {
+                if (p.pionID == pionID){
+                    if(pionID == 11 || pionID == 12 || pionID == 13 || pionID == 14) {
+                        p.pionPositie = 26;
+                        System.out.println(pionID + " pion terug naar start");
+                    } else if (pionID == 21 || pionID == 22 || pionID == 23 || pionID == 24) {
+                        p.pionPositie = 46;
+                        System.out.println(pionID + " pion terug naar start");
+                    } else if (pionID == 31 || pionID == 32 || pionID == 33 || pionID == 34) {
+                        p.pionPositie = 36;
+                        System.out.println(pionID + " pion terug naar start");
+                    } else if (pionID == 41 || pionID == 42 || pionID == 43 || pionID == 44) {
+                        p.pionPositie = 16;
+                        System.out.println(pionID + " pion terug naar start");
+                    }
+                }
+            } else if (dareVooruit) {
+                if(p.pionID == pionID){
+                    p.pionPositie += randomNummer;
+                    checkRondje();
+                    System.out.println(pionID + " gaat " + randomNummer + " vooruit.");
+                }
+            } else {
+                if(p.pionID == pionID){
+                    System.out.println(pionID + " blijft op de plek staan.");
+                }
+            }
+        }
+    }
+    //------------------------------------------------------
 }
 
 
