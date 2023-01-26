@@ -65,6 +65,7 @@ public class BasicGame implements GameLoop {
             case "truthKaartKeuze" -> showTruthKeuzeScreen(pionID);
             case "truthKaart" -> showTruthKaart();
             case "dareKaart" -> showDareKaart(pionID);
+            case "truthAntwoord" -> truthKaartAntwoord();
         }
     }
 
@@ -80,7 +81,7 @@ public class BasicGame implements GameLoop {
             case "GroenVerzuipNietWins" -> groenVerzuipjenietWinKeyEvent(keyboardEvent);
             case "BlueVerzuipNietWins" -> blauwVerzuipjenietWinKeyEvent(keyboardEvent);
             case "KansKaart" -> kansKaartScreenKeyEvent(keyboardEvent);
-            case "truthKaart" -> truthKaartKeyEvent(keyboardEvent);
+            case "truthKaart", "truthAntwoord" -> truthKaartKeyEvent(keyboardEvent);
             case "dareKaart" -> dareKaartKeyEvent(keyboardEvent);
         }
     }
@@ -195,6 +196,12 @@ public class BasicGame implements GameLoop {
                 ict = false;
                 System.out.println("PION_ID: " + pionID);
                 voerTruthKaartUit(pionID);
+            }
+        }
+
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_SPACE) {
+                currentScreen = "truthAntwoord";
             }
         }
     }
@@ -2394,7 +2401,6 @@ public class BasicGame implements GameLoop {
             }
             SaxionApp.setTextDrawingColor(Color.white);
             SaxionApp.drawText(kaartText, 75, 375, 20);
-            truthKaartAntwoord();
 
         } else if (sport){
             if (!kiesKaart) {
@@ -2404,7 +2410,6 @@ public class BasicGame implements GameLoop {
             }
             SaxionApp.setTextDrawingColor(Color.white);
             SaxionApp.drawText(kaartText, 75, 375, 20);
-            truthKaartAntwoord();
 
         } else if (wetenshap) {
             if (!kiesKaart) {
@@ -2414,7 +2419,6 @@ public class BasicGame implements GameLoop {
             }
             SaxionApp.setTextDrawingColor(Color.white);
             SaxionApp.drawText(kaartText, 75, 375, 20);
-            truthKaartAntwoord();
 
         } else if (geschiedenis) {
             if (!kiesKaart) {
@@ -2424,7 +2428,6 @@ public class BasicGame implements GameLoop {
             }
             SaxionApp.setTextDrawingColor(Color.white);
             SaxionApp.drawText(kaartText, 75, 375, 20);
-            truthKaartAntwoord();
 
         } else if (amusement) {
             if (!kiesKaart) {
@@ -2434,7 +2437,6 @@ public class BasicGame implements GameLoop {
             }
             SaxionApp.setTextDrawingColor(Color.white);
             SaxionApp.drawText(kaartText, 75, 375, 20);
-            truthKaartAntwoord();
 
         } else if (ict) {
             if (!kiesKaart) {
@@ -2444,18 +2446,20 @@ public class BasicGame implements GameLoop {
             }
             SaxionApp.setTextDrawingColor(Color.white);
             SaxionApp.drawText(kaartText, 75, 375, 20);
-            truthKaartAntwoord();
         }
-
-        SaxionApp.setTextDrawingColor(Color.green);
-        SaxionApp.drawText("GOED? druk op ENTER", 95,570,25);
-        SaxionApp.setTextDrawingColor(Color.red);
-        SaxionApp.drawText("FOUT? druk op BACK", 385,570,25);
-
-
+        if(currentScreen.equals("truthAntwoord")){
+            SaxionApp.setTextDrawingColor(Color.green);
+            SaxionApp.drawText("GOED? druk op ENTER", 95,570,25);
+            SaxionApp.setTextDrawingColor(Color.red);
+            SaxionApp.drawText("FOUT? druk op BACK", 385,570,25);
+        } else {
+            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.drawText("druk op spatie om het antwoord te laten zien.", 270, 500, 15);
+        }
     }
 
     public void truthKaartAntwoord(){
+        showTruthKaart();
         String[] aarderijkskundeAntwooord = {"Reykjavik","Tunesië","De Amazone","Estland","De Japanse Yen","Dubai","Groenland","Gemeente Tubbergen","3: Mexico, Canada, USA","Quito, Ecuador"};
         String[] sportAntwooord = {"Zuid-Afrika","Wesley Sneijder, 134 Interlands","Zes","Silverstone","Raymond van Barneveld","Volleybal","6","Gras","Ace","Ringen"};
         String[] wetenschapAntwooord = {"118","James Watt","Het element Goud","Inch","Hertz","Pi","Het zet uit","Temperatuur","Qwertz","Wisselspanning"};
@@ -2463,6 +2467,7 @@ public class BasicGame implements GameLoop {
         String[] amusementAntwooord = {"Oscar","De gouden Loekie","Aart Staartjes","Pixar","lightning McQueen","Jetix","Meerdijk","Frank Visser","The Voice of Holland","Oant Moan"};
         String[] ictAntwooord = {"Error Correcting RAM","Docker","Bill Gates","Python","1992","Processor"};
 
+        SaxionApp.setTextDrawingColor(Color.white);
         if(aardrijkskunde){
             switch (kaartIndex) {
                 case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(aarderijkskundeAntwooord[kaartIndex], 95, 505, 20);
@@ -2488,6 +2493,8 @@ public class BasicGame implements GameLoop {
                 case 0, 1, 2, 3, 4, 5-> SaxionApp.drawText(ictAntwooord[kaartIndex], 95, 510, 20);
             }
         }
+
+
 
 
     }
@@ -2645,6 +2652,3 @@ public class BasicGame implements GameLoop {
     }
     //------------------------------------------------------
 }
-
-
-
