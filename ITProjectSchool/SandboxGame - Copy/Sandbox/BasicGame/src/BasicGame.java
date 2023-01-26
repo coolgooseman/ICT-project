@@ -62,6 +62,8 @@ public class BasicGame implements GameLoop {
             case "GroenVerzuipNietWins" -> groenVerzuipjenietWin();
             case "BlueVerzuipNietWins" -> blauwVerzuipjenietWin();
             case "KansKaart" -> showkansKaartScreen(pionID);
+            case "truthKaartKeuze" -> showTruthKeuzeScreen(pionID);
+            case "truthKaart" -> showTruthKaart();
         }
     }
 
@@ -77,6 +79,7 @@ public class BasicGame implements GameLoop {
             case "GroenVerzuipNietWins" -> groenVerzuipjenietWinKeyEvent(keyboardEvent);
             case "BlueVerzuipNietWins" -> blauwVerzuipjenietWinKeyEvent(keyboardEvent);
             case "KansKaart" -> kansKaartScreenKeyEvent(keyboardEvent);
+            case "truthKaart" -> truthKaartKeyEvent(keyboardEvent);
         }
     }
 
@@ -159,6 +162,41 @@ public class BasicGame implements GameLoop {
         }
     }
 
+    public void truthKaartKeyEvent(KeyboardEvent keyboardEvent){
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_ENTER) {
+                currentScreen = "mensWel";
+                SaxionApp.setBackgroundColor(Color.black);
+                kiesKaart = false;
+                aardrijkskunde = false;
+                sport = false;
+                wetenshap = false;
+                geschiedenis = false;
+                amusement = false;
+                ict = false;
+                System.out.println("PION_ID: " + pionID);
+                vooruit = true;
+                voerTruthKaartUit(pionID);
+            }
+        }
+
+        if (keyboardEvent.isKeyPressed()) {
+            if (keyboardEvent.getKeyCode() == KeyboardEvent.VK_BACK_SPACE) {
+                currentScreen = "mensWel";
+                SaxionApp.setBackgroundColor(Color.black);
+                kiesKaart = false;
+                aardrijkskunde = false;
+                sport = false;
+                wetenshap = false;
+                geschiedenis = false;
+                amusement = false;
+                ict = false;
+                System.out.println("PION_ID: " + pionID);
+                voerTruthKaartUit(pionID);
+            }
+        }
+    }
+
     @Override
     public void mouseEvent(MouseEvent mouseEvent) {
         switch (currentScreen) {
@@ -172,6 +210,7 @@ public class BasicGame implements GameLoop {
             case "mensNiet" -> mensNietGameMouseEvent(mouseEvent);
             case "verzuipNiet" -> verzuipNietGameMouseEvent(mouseEvent);
             case "mensWel" -> mensWelGameMouseEvent(mouseEvent);
+            case "truthKaartKeuze" -> showTruthKeuzeScreenMouseEvent(mouseEvent);
         }
     }
 
@@ -475,6 +514,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
+                        checkTruthKaart();
+                        checkDareKaart();
                     }
                     playerOne = false;
                     playerTwo = true;
@@ -525,6 +566,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
+                        checkTruthKaart();
+                        checkDareKaart();
                     }
                     playerTwo = false;
                     playerOne = true;
@@ -576,7 +619,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
-                    }
+                        checkTruthKaart();
+                        checkDareKaart();                    }
                     playerOne = false;
                     playerTwo = true;
 
@@ -626,7 +670,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
-                    }
+                        checkTruthKaart();
+                        checkDareKaart();                    }
                     playerTwo = false;
                     playerThree = true;
                 }
@@ -674,6 +719,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
+                        checkTruthKaart();
+                        checkDareKaart();
                     }
                     playerThree = false;
                     playerOne = true;
@@ -725,6 +772,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
+                        checkTruthKaart();
+                        checkDareKaart();
                     }
                     playerOne = false;
                     playerTwo = true;
@@ -774,6 +823,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
+                        checkTruthKaart();
+                        checkDareKaart();
                     }
                     playerTwo = false;
                     playerThree = true;
@@ -823,6 +874,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
+                        checkTruthKaart();
+                        checkDareKaart();
                     }
                     playerThree = false;
                     playerFour = true;
@@ -872,6 +925,8 @@ public class BasicGame implements GameLoop {
                     winCon();
                     if (mensWel) {
                         chekKanskaart();
+                        checkTruthKaart();
+                        checkDareKaart();
                     }
                     playerFour = false;
                     playerOne = true;
@@ -880,6 +935,76 @@ public class BasicGame implements GameLoop {
             }
         }
     }
+
+    public void showTruthKeuzeScreenMouseEvent(MouseEvent mouseEvent) {
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 264 && y > 142 ) {
+                if (x > 127 && x < 356) {
+                    aardrijkskunde = true;
+                    currentScreen = "truthKaart";
+                }
+            }
+        }
+
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 262 && y > 140 ) {
+                if (x > 410 && x < 639) {
+                    sport = true;
+                    currentScreen = "truthKaart";
+                }
+            }
+        }
+
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 456 && y > 333 ) {
+                if (x > 127 && x < 356) {
+                    wetenshap = true;
+                    currentScreen = "truthKaart";
+                }
+            }
+        }
+
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 455 && y > 332 ) {
+                if (x > 411 && x < 640) {
+                    geschiedenis = true;
+                    currentScreen = "truthKaart";
+                }
+            }
+        }
+
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 643 && y > 512 ) {
+                if (x > 125 && x < 355) {
+                    amusement = true;
+                    currentScreen = "truthKaart";
+                }
+            }
+        }
+
+        if (mouseEvent.isMouseDown() && mouseEvent.isLeftMouseButton()) {
+            int x = mouseEvent.getX();
+            int y = mouseEvent.getY();
+            if (y < 641 && y > 520 ) {
+                if (x > 411 && x < 640) {
+                    ict = true;
+                    currentScreen = "truthKaart";
+                }
+            }
+        }
+
+    }
+
 
     //pagina code
     public void startPagina() {
@@ -1924,7 +2049,12 @@ public class BasicGame implements GameLoop {
         }
     }
 
+
+    //kans kaarten
     int pionID = 0;
+    boolean kiesKansText = false;
+    String kansText = "";
+    int kansKeuze = 0;
 
     public void chekKanskaart() {
         for (Pion p : pionen) {
@@ -1988,14 +2118,11 @@ public class BasicGame implements GameLoop {
         }
     }
 
-    boolean kiesKansText = false;
-    String kansText = "";
-    int kansKeuze = 0;
-    String[] kansKaarten ={"Je hebt geluk! Je mag 5 stappen vooruit!",
-            "Wie o Wie? Zet een van de tegenspelers 3 stappen achteruit.",
-            "Je mag het aantal gegooide ogen vooruit!"};
-
     public void showkansKaartScreen(int pionID) {
+        String[] kansKaarten = {"Je hebt geluk! Je mag 5 stappen vooruit!",
+                "Wie o Wie? Zet een van de tegenspelers 3 stappen achteruit.",
+                "Je mag het aantal gegooide ogen vooruit!"};
+
         Color achtergrond = SaxionApp.createColor(255, 251, 208);
         SaxionApp.setBackgroundColor(achtergrond);
         SaxionApp.drawImage("Sandbox/kanskaart.png", 25, 200, 700, 350);
@@ -2047,7 +2174,305 @@ public class BasicGame implements GameLoop {
 
     }
 
+    //----------------------------------------------------------
 
+    //truth kaarten//
+    boolean aardrijkskunde = false;
+    boolean sport = false;
+    boolean wetenshap = false;
+    boolean geschiedenis  = false;
+    boolean amusement = false;
+    boolean ict = false;
+    boolean kiesKaart = false;
+    boolean vooruit = false;
+    String kaartText = "";
+    int kaartIndex = 0;
+
+    public void checkTruthKaart(){
+        for (Pion p : pionen) {
+            if (playerOne) {
+                if (p.pionID == 11 && p.pionPositie == 30 || p.pionID == 11 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 12 && p.pionPositie == 30 || p.pionID == 12 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 13 && p.pionPositie == 30 || p.pionID == 13 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 14 && p.pionPositie == 30 || p.pionID == 14 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                }
+            } else if (playerTwo) {
+                if (p.pionID == 21 && p.pionPositie == 30 || p.pionID == 21 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 22 && p.pionPositie == 30 || p.pionID == 22 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 23 && p.pionPositie == 30 || p.pionID == 23 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 24 && p.pionPositie == 30 || p.pionID == 24 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                }
+            } else if (playerThree) {
+                if (p.pionID == 31 && p.pionPositie == 30 || p.pionID == 31 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 32 && p.pionPositie == 30 || p.pionID == 32 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 33 && p.pionPositie == 30 || p.pionID == 33 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 34 && p.pionPositie == 30 || p.pionID == 34 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                }
+            } else if (playerFour) {
+                if (p.pionID == 41 && p.pionPositie == 30 || p.pionID == 41 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 42 && p.pionPositie == 30 || p.pionID == 42 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 43 && p.pionPositie == 30 || p.pionID == 43 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                } else if (p.pionID == 44 && p.pionPositie == 30 || p.pionID == 44 && p.pionPositie == 44) {
+                    currentScreen = "truthKaartKeuze";
+                    pionID = p.pionID;
+                }
+            }
+        }
+    }
+
+    public void showTruthKeuzeScreen(int pionID){
+        Color achtergrond = SaxionApp.createColor(255, 251, 208);
+        SaxionApp.setBackgroundColor(achtergrond);
+        SaxionApp.drawImage("Sandbox/truth keuzes.png", 0, 0, 750, 750);
+
+        SaxionApp.setTextDrawingColor(Color.black);
+        if (pionID == 11 || pionID == 12 || pionID == 13 || pionID == 14) {
+            SaxionApp.drawText("GEEL: ", 415, 35, 40);
+        } else if (pionID == 21 || pionID == 22 || pionID == 23 || pionID == 24) {
+            SaxionApp.drawText("ROOD: ", 415, 35, 40);
+        } else if (pionID == 31 || pionID == 32 || pionID == 33 || pionID == 34) {
+            SaxionApp.drawText("GROEN: ", 415, 35, 40);
+        } else if (pionID == 41 || pionID == 42 || pionID == 43 || pionID == 44) {
+            SaxionApp.drawText("BLAUW: ", 415, 35, 40);
+        }
+
+        SaxionApp.setTextDrawingColor(Color.white);
+        SaxionApp.drawText("Aarderijkskunde", 140, 195, 25);
+        SaxionApp.drawText("sport", 425, 195, 25);
+        SaxionApp.drawText("wetenschap", 140, 385, 25);
+        SaxionApp.drawText("geschiedenis", 425, 385, 25);
+        SaxionApp.drawText("amasument", 140, 580, 25);
+        SaxionApp.drawText("ict", 425, 580, 25);
+
+        SaxionApp.setTextDrawingColor(Color.black);
+        SaxionApp.drawText("kies een categorie", 95,85,30);
+
+    }
+
+    public void showTruthKaart(){
+        String[] aardrijkskundevraag = {"Wat is de hoofdstad van IJsland?",
+                "In welk land ligt het meest noordelijke punt van Afrika? ",
+                "Wat is de langste rivier van Zuid-Amerika?",
+                "Van welk Europees land is Tallinn de hoofdstad?",
+                "Wat is de munteenheid van Japan?",
+                "Waar staat de hoogste toren ter wereld, de Burj Khalifa? ",
+                "Wat is het de grootste eiland ter wereld?",
+                "In welke gemeente ligt Langeveen Overijsel?",
+                "Hoeveel landen heeft Noord-Amerika? ",
+                "Wat is de hoogste hoofdstad te wereld?"};
+
+        String[] sportvragen = {"Waar vond het WK voetbal van 2010 plaats? ",
+                "Welke speler van het Nederlands elftal heeft de meeste interlands op zijn naam staan? ",
+                "Hoeveel punten is een touchdown waard in American Football? ",
+                "Op welk formule-1 circuit wordt jaarlijks de Grand Prix van Groot-Brittannië gehouden? ",
+                "Wie werd Wereldkampioen Darts bij de PDC in 2007?",
+                "Bij welke sport horen de termen pancake, side-out en floater? ",
+                "Uit hoeveel veldspelers bestaat een waterpolo team? ",
+                "Op welke ondergrond wordt er getennist op Wimbledon? ",
+                "Hoe wordt bij tafeltennis een winnende opslag genoemd waarbij de tegenstander de bal niet raakt? ",
+                "Welk turnonderdeel is geen olympische sport voor vrouwen? "};
+
+        String[] wetenschapvragen = {"Hoeveel scheikundige elementen zijn er in het periodiek systeem?",
+                "Wie was de uitvinder van de stoommachine?",
+                "Waar staat de scheikundige afkorting ‘Au’ voor? ",
+                "In welke maateenheid wordt een beeldscherm aangeduid? ",
+                "Waar staat de afkorting Hz voor?",
+                "Wat is de afkorting voor het getal 3,14? ",
+                "Wat is de eigenschap van metaal als het warm wordt?",
+                "Wat duiden Kelvin en Fahrenheit aan?",
+                "Welke toetsenbord indeling gebruiken ze in Duitsland? ",
+                "Wat is de tegenhanger van gelijkspanning? "};
+
+        String[] geschiedenisvragen = {"In welk jaar viel de Berlijnse muur? ",
+                "Wat was de voornaam van Napoleon?",
+                "Hoe heet de Japanse techniek van papier vouwen in figuurtjes? ",
+                "Welk soort dier is ‘Pegasus’ in de Griekse mythologie? ",
+                "Wat was de voornaam van Hitler?",
+                "Waar staat de afkorting van de V.O.C. voor?",
+                "Hoe heette de vader van Anne Frank? ",
+                "Welke titel gaven de Egyptenaren vroeger aan hun Koning of Koningin?",
+                "Wie schilderde de nachtwacht? ",
+                "Welk politiek leider hield de bekende toespraak “I have a dream”?"};
+
+        String[] amasumentvragen = {"Onder welke naam is de filmprijs Academy Award beter bekend?",
+                "Hoe heet de televisie prijs voor de beste reclamespot?",
+                "Wie speelde meneer Aart in de kinderserie Sesamstraat? ",
+                "Welk bedrijf maakte als eerste een volledige 3D-Animatiefilm? ",
+                "Wat is de naam van de rode race-auto in de animatie film Cars? ",
+                "Wat was de naam van het kanaal DisneyXD voor 2010?",
+                "In welke fictieve plaats speelt goede tijden slechte tijden zich af?",
+                "Hoe heet de rechter in het tv-programma De Rijdende Rechter? ",
+                "Door welk programma is Ben Saunders bekend geworden in 2011? ",
+                "Met welke woorden sloot Piet Paulusma zijn weerbericht altijd af? "};
+
+        String[] ictvragen = {"Welke software heeft het logo van een walvis? ",
+                "Waar staat ECCRAM voor?",
+                "Wie is de uitvinder van Microsoft? ",
+                "Wat is de populairste programmeertaal? ",
+                "In welk jaar is het besturingssysteem Linux uitgekomen? ",
+                "Waar staat de term Central Processing Unit voor?"};
+
+
+        Color achtergrond = SaxionApp.createColor(255, 251, 208);
+        SaxionApp.setBackgroundColor(achtergrond);
+        SaxionApp.drawImage("Sandbox/Truth kaart.png", 25, 200, 700, 350);
+
+        if (aardrijkskunde){
+            if (!kiesKaart) {
+                kaartIndex = SaxionApp.getRandomValueBetween(0, aardrijkskundevraag.length);
+                kaartText = aardrijkskundevraag[kaartIndex];
+                kiesKaart = true;
+            }
+            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.drawText(kaartText, 75, 375, 20);
+            truthKaartAntwoord();
+
+        } else if (sport){
+            if (!kiesKaart) {
+                kaartIndex = SaxionApp.getRandomValueBetween(0, sportvragen.length);
+                kaartText = sportvragen[kaartIndex];
+                kiesKaart = true;
+            }
+            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.drawText(kaartText, 75, 375, 20);
+            truthKaartAntwoord();
+
+        } else if (wetenshap) {
+            if (!kiesKaart) {
+                kaartIndex = SaxionApp.getRandomValueBetween(0, wetenschapvragen.length);
+                kaartText = wetenschapvragen[kaartIndex];
+                kiesKaart = true;
+            }
+            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.drawText(kaartText, 75, 375, 20);
+            truthKaartAntwoord();
+
+        } else if (geschiedenis) {
+            if (!kiesKaart) {
+                kaartIndex = SaxionApp.getRandomValueBetween(0, geschiedenisvragen.length);
+                kaartText = geschiedenisvragen[kaartIndex];
+                kiesKaart = true;
+            }
+            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.drawText(kaartText, 75, 375, 20);
+            truthKaartAntwoord();
+
+        } else if (amusement) {
+            if (!kiesKaart) {
+                kaartIndex = SaxionApp.getRandomValueBetween(0, amasumentvragen.length);
+                kaartText = amasumentvragen[kaartIndex];
+                kiesKaart = true;
+            }
+            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.drawText(kaartText, 75, 375, 20);
+            truthKaartAntwoord();
+
+        } else if (ict) {
+            if (!kiesKaart) {
+                kaartIndex = SaxionApp.getRandomValueBetween(0, ictvragen.length);
+                kaartText = ictvragen[kaartIndex];
+                kiesKaart = true;
+            }
+            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.drawText(kaartText, 75, 375, 20);
+            truthKaartAntwoord();
+        }
+
+        SaxionApp.setTextDrawingColor(Color.green);
+        SaxionApp.drawText("GOED? druk op ENTER", 95,570,25);
+        SaxionApp.setTextDrawingColor(Color.red);
+        SaxionApp.drawText("FOUT? druk op BACK", 385,570,25);
+
+
+    }
+
+    public void truthKaartAntwoord(){
+        String[] aarderijkskundeAntwooord = {"Reykjavik","Tunesië","De Amazone","Estland","De Japanse Yen","Dubai","Groenland","Gemeente Tubbergen","3: Mexico, Canada, USA","Quito, Ecuador"};
+        String[] sportAntwooord = {"Zuid-Afrika","Wesley Sneijder, 134 Interlands","Zes","Silverstone","Raymond van Barneveld","Volleybal","6","Gras","Ace","Ringen"};
+        String[] wetenschapAntwooord = {"118","James Watt","Het element Goud","Inch","Hertz","Pi","Het zet uit","Temperatuur","Qwertz","Wisselspanning"};
+        String[] geschiedenisAntwooord = {"1989","Napoleon","Origami","Gevleugeld Paard","Adolf","Vereenigde Oostindische Compagnie","Otto Frank","Farao","Rembrandt van Rijn","Martin Luther King"};
+        String[] amusementAntwooord = {"Oscar","De gouden Loekie","Aart Staartjes","Pixar","lightning McQueen","Jetix","Meerdijk","Frank Visser","The Voice of Holland","Oant Moan"};
+        String[] ictAntwooord = {"Error Correcting RAM","Docker","Bill Gates","Python","1992","Processor"};
+
+        if(aardrijkskunde){
+            switch (kaartIndex) {
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(aarderijkskundeAntwooord[kaartIndex], 95, 505, 20);
+            }
+        } else if(sport) {
+            switch (kaartIndex) {
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(sportAntwooord[kaartIndex], 95, 505, 20);
+            }
+        } else if (wetenshap) {
+            switch (kaartIndex) {
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(wetenschapAntwooord[kaartIndex], 95, 505, 20);
+            }
+        } else if (geschiedenis) {
+            switch (kaartIndex) {
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(geschiedenisAntwooord[kaartIndex], 95, 505, 20);
+            }
+        } else if (amusement) {
+            switch (kaartIndex) {
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(amusementAntwooord[kaartIndex], 95, 505, 20);
+            }
+        } else if (ict){
+            switch (kaartIndex) {
+                case 0, 1, 2, 3, 4, 5-> SaxionApp.drawText(ictAntwooord[kaartIndex], 95, 510, 20);
+            }
+        }
+
+
+    }
+
+    public void voerTruthKaartUit(int pionID){
+        for(Pion p : pionen) {
+            if (vooruit) {
+                if(p.pionID == pionID && !p.inHonk){
+                    System.out.println("je mag " + randomNummer + " stappen vooruit.");
+                    p.pionPositie += randomNummer;
+                    checkRondje();
+                }
+            } else{
+                System.out.println("je blijft op de plek staan.");
+            }
+        }
+        vooruit = false;
+    }
+
+    //-------------------------------------------------------
+
+    public void checkDareKaart(){
+
+    }
 }
 
 
