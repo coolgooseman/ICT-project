@@ -2166,8 +2166,9 @@ public class BasicGame implements GameLoop {
 
     public void showkansKaartScreen(int pionID) {
         String[] kansKaarten = {"Je hebt geluk! Je mag 5 stappen vooruit!",
-                "Wie o Wie? Zet een van de tegenspelers 3 stappen achteruit.",
-                "Je mag het aantal gegooide ogen vooruit!"};
+                "Dat is balen, ga teug naar start.",
+                "Je mag het aantal gegooide ogen vooruit!",
+                "Joepie! Zet je pion naar binnen."};
 
         Color achtergrond = SaxionApp.createColor(255, 251, 208);
         SaxionApp.setBackgroundColor(achtergrond);
@@ -2207,14 +2208,81 @@ public class BasicGame implements GameLoop {
                     System.out.println(p.pionID + " 5+ stappen vooruit");
                     System.out.println("pID " + p.pionPositie + " positie: " + p.pionPositie);
                 } else if (kansKeuze == 1) {
-                    System.out.println("er moet een speler achteruit......");
+                    System.out.println("ga terug naar start......");
+                    terugNaarStart(pionID);
                 } else if (kansKeuze == 2) {
                     p.pionPositie += randomNummer;
                     checkRondje();
                     System.out.println(p.pionID + " " + randomNummer + " stappen vooruit");
                     System.out.println("pID " + p.pionPositie + " positie: " + p.pionPositie);
-                }
+                } else if (kansKeuze == 3) {
+                    if (pionID == 11){
+                        p.pionPositie = 56;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 12){
+                        p.pionPositie = 57;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 13){
+                        p.pionPositie = 58;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 14){
+                        p.pionPositie = 59;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 21){
+                        p.pionPositie = 64;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 22){
+                        p.pionPositie = 65;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 23){
+                        p.pionPositie = 66;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 24){
+                        p.pionPositie = 67;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 31){
+                        p.pionPositie = 60;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 32){
+                        p.pionPositie = 61;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 33){
+                        p.pionPositie = 62;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 34){
+                        p.pionPositie = 63;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 41){
+                        p.pionPositie = 68;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 42){
+                        p.pionPositie = 69;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 43){
+                        p.pionPositie = 70;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    } else if (pionID == 44){
+                        p.pionPositie = 71;
+                        p.inHonk = true;
+                        p.rondje = true;
+                    }
 
+                }
             }
         }
 
@@ -2312,12 +2380,12 @@ public class BasicGame implements GameLoop {
             SaxionApp.drawText("BLAUW: ", 415, 35, 40);
         }
 
-        SaxionApp.setTextDrawingColor(Color.white);
+        SaxionApp.setTextDrawingColor(Color.black);
         SaxionApp.drawText("Aarderijkskunde", 140, 195, 25);
         SaxionApp.drawText("sport", 425, 195, 25);
         SaxionApp.drawText("wetenschap", 140, 385, 25);
         SaxionApp.drawText("geschiedenis", 425, 385, 25);
-        SaxionApp.drawText("amasument", 140, 580, 25);
+        SaxionApp.drawText("amusement", 140, 580, 25);
         SaxionApp.drawText("ict", 425, 580, 25);
 
         SaxionApp.setTextDrawingColor(Color.black);
@@ -2399,7 +2467,9 @@ public class BasicGame implements GameLoop {
                 kaartText = aardrijkskundevraag[kaartIndex];
                 kiesKaart = true;
             }
-            SaxionApp.setTextDrawingColor(Color.white);
+
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText("aarderijkskunde",75,225,25);
             SaxionApp.drawText(kaartText, 75, 375, 20);
 
         } else if (sport){
@@ -2408,7 +2478,8 @@ public class BasicGame implements GameLoop {
                 kaartText = sportvragen[kaartIndex];
                 kiesKaart = true;
             }
-            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText("sport",75,225,25);
             SaxionApp.drawText(kaartText, 75, 375, 20);
 
         } else if (wetenshap) {
@@ -2417,7 +2488,8 @@ public class BasicGame implements GameLoop {
                 kaartText = wetenschapvragen[kaartIndex];
                 kiesKaart = true;
             }
-            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText("wetenschap",75,225,25);
             SaxionApp.drawText(kaartText, 75, 375, 20);
 
         } else if (geschiedenis) {
@@ -2426,7 +2498,8 @@ public class BasicGame implements GameLoop {
                 kaartText = geschiedenisvragen[kaartIndex];
                 kiesKaart = true;
             }
-            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText("geschiedenis",75,225,25);
             SaxionApp.drawText(kaartText, 75, 375, 20);
 
         } else if (amusement) {
@@ -2435,7 +2508,8 @@ public class BasicGame implements GameLoop {
                 kaartText = amasumentvragen[kaartIndex];
                 kiesKaart = true;
             }
-            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText("amusement",75,225,25);
             SaxionApp.drawText(kaartText, 75, 375, 20);
 
         } else if (ict) {
@@ -2444,7 +2518,8 @@ public class BasicGame implements GameLoop {
                 kaartText = ictvragen[kaartIndex];
                 kiesKaart = true;
             }
-            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.setTextDrawingColor(Color.black);
+            SaxionApp.drawText("ICT",75,225,25);
             SaxionApp.drawText(kaartText, 75, 375, 20);
         }
         if(currentScreen.equals("truthAntwoord")){
@@ -2453,7 +2528,7 @@ public class BasicGame implements GameLoop {
             SaxionApp.setTextDrawingColor(Color.red);
             SaxionApp.drawText("FOUT? druk op BACK", 385,570,25);
         } else {
-            SaxionApp.setTextDrawingColor(Color.white);
+            SaxionApp.setTextDrawingColor(Color.black);
             SaxionApp.drawText("druk op spatie om het antwoord te laten zien.", 270, 500, 15);
         }
     }
@@ -2467,36 +2542,32 @@ public class BasicGame implements GameLoop {
         String[] amusementAntwooord = {"Oscar","De gouden Loekie","Aart Staartjes","Pixar","lightning McQueen","Jetix","Meerdijk","Frank Visser","The Voice of Holland","Oant Moan"};
         String[] ictAntwooord = {"Error Correcting RAM","Docker","Bill Gates","Python","1992","Processor"};
 
-        SaxionApp.setTextDrawingColor(Color.white);
+        SaxionApp.setTextDrawingColor(Color.black);
         if(aardrijkskunde){
             switch (kaartIndex) {
-                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(aarderijkskundeAntwooord[kaartIndex], 95, 505, 20);
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText("Antwoord: " + aarderijkskundeAntwooord[kaartIndex], 95, 505, 20);
             }
         } else if(sport) {
             switch (kaartIndex) {
-                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(sportAntwooord[kaartIndex], 95, 505, 20);
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText("Antwoord: " + sportAntwooord[kaartIndex], 95, 505, 20);
             }
         } else if (wetenshap) {
             switch (kaartIndex) {
-                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(wetenschapAntwooord[kaartIndex], 95, 505, 20);
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText("Antwoord: " + wetenschapAntwooord[kaartIndex], 95, 505, 20);
             }
         } else if (geschiedenis) {
             switch (kaartIndex) {
-                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(geschiedenisAntwooord[kaartIndex], 95, 505, 20);
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText("Antwoord: " + geschiedenisAntwooord[kaartIndex], 95, 505, 20);
             }
         } else if (amusement) {
             switch (kaartIndex) {
-                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText(amusementAntwooord[kaartIndex], 95, 505, 20);
+                case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> SaxionApp.drawText("Antwoord: " + amusementAntwooord[kaartIndex], 95, 505, 20);
             }
         } else if (ict){
             switch (kaartIndex) {
-                case 0, 1, 2, 3, 4, 5-> SaxionApp.drawText(ictAntwooord[kaartIndex], 95, 510, 20);
+                case 0, 1, 2, 3, 4, 5-> SaxionApp.drawText("Antwoord: " + ictAntwooord[kaartIndex], 95, 510, 20);
             }
         }
-
-
-
-
     }
 
     public void voerTruthKaartUit(int pionID){
@@ -2622,21 +2693,7 @@ public class BasicGame implements GameLoop {
     public void voerDareUit(int pionID){
         for(Pion p : pionen) {
             if (skip) {
-                if (p.pionID == pionID){
-                    if(pionID == 11 || pionID == 12 || pionID == 13 || pionID == 14) {
-                        p.pionPositie = 26;
-                        System.out.println(pionID + " pion terug naar start");
-                    } else if (pionID == 21 || pionID == 22 || pionID == 23 || pionID == 24) {
-                        p.pionPositie = 46;
-                        System.out.println(pionID + " pion terug naar start");
-                    } else if (pionID == 31 || pionID == 32 || pionID == 33 || pionID == 34) {
-                        p.pionPositie = 36;
-                        System.out.println(pionID + " pion terug naar start");
-                    } else if (pionID == 41 || pionID == 42 || pionID == 43 || pionID == 44) {
-                        p.pionPositie = 16;
-                        System.out.println(pionID + " pion terug naar start");
-                    }
-                }
+                terugNaarStart(pionID);
             } else if (dareVooruit) {
                 if(p.pionID == pionID){
                     p.pionPositie += randomNummer;
@@ -2651,4 +2708,24 @@ public class BasicGame implements GameLoop {
         }
     }
     //------------------------------------------------------
+
+    public void terugNaarStart(int pionID){
+        for(Pion p : pionen){
+            if (p.pionID == pionID){
+                if(pionID == 11 || pionID == 12 || pionID == 13 || pionID == 14) {
+                    p.pionPositie = 26;
+                    System.out.println(pionID + " pion terug naar start");
+                } else if (pionID == 21 || pionID == 22 || pionID == 23 || pionID == 24) {
+                    p.pionPositie = 46;
+                    System.out.println(pionID + " pion terug naar start");
+                } else if (pionID == 31 || pionID == 32 || pionID == 33 || pionID == 34) {
+                    p.pionPositie = 36;
+                    System.out.println(pionID + " pion terug naar start");
+                } else if (pionID == 41 || pionID == 42 || pionID == 43 || pionID == 44) {
+                    p.pionPositie = 16;
+                    System.out.println(pionID + " pion terug naar start");
+                }
+            }
+        }
+    }
 }
